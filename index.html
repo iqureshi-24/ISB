@@ -1,0 +1,954 @@
+<title>International School of Bo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: school-portal shell — crest + menu rail on the left, one working view on the right; stacks to a top bar on phones */
+:root{
+  --bg:#EEF1F3; --surface:#FFFFFF; --sunk:#E4E9ED; --ink:#14213D; --muted:#56637A; --faint:#8A95A6; --line:#D5DCE3;
+  --accent:#1D6B58; --accent-ink:#FFFFFF; --accent-soft:#DCEFE8; --brass:#B4862B; --navy:#14213D;
+  --good:#1B6B40; --good-soft:#DDF2E5; --warn:#8A5A00; --warn-soft:#FBEFD5; --bad:#B8352A; --bad-soft:#FBE3E0;
+  --c-maths:#2C5DA8; --c-physics:#6A47B8; --c-chemistry:#B5502A; --c-biology:#3E7F2B; --c-cs:#0F7A7A; --c-english:#A3366A; --c-business:#8A6411; --c-test:#4A5568;
+  --f-display:"Zilla Slab", "Rockwell", Georgia, serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E141E; --surface:#161F2C; --sunk:#1D2836; --ink:#E6EBF2; --muted:#A3AEBF; --faint:#6F7B8E; --line:#2A3647;
+  --accent:#54C0A0; --accent-ink:#0B1A15; --accent-soft:#163A31; --brass:#D9AE5A; --navy:#14213D;
+  --good:#5CCB8B; --good-soft:#163527; --warn:#E8B64C; --warn-soft:#3A2E12; --bad:#F07F72; --bad-soft:#3E1D1A;
+  --c-maths:#7FA8EE; --c-physics:#A98BEB; --c-chemistry:#EE9472; --c-biology:#8FCB72; --c-cs:#5CC9C6; --c-english:#E58BB4; --c-business:#D9B25C; --c-test:#A3AEBF;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E141E; --surface:#161F2C; --sunk:#1D2836; --ink:#E6EBF2; --muted:#A3AEBF; --faint:#6F7B8E; --line:#2A3647;
+  --accent:#54C0A0; --accent-ink:#0B1A15; --accent-soft:#163A31; --brass:#D9AE5A; --navy:#14213D;
+  --good:#5CCB8B; --good-soft:#163527; --warn:#E8B64C; --warn-soft:#3A2E12; --bad:#F07F72; --bad-soft:#3E1D1A;
+  --c-maths:#7FA8EE; --c-physics:#A98BEB; --c-chemistry:#EE9472; --c-biology:#8FCB72; --c-cs:#5CC9C6; --c-english:#E58BB4; --c-business:#D9B25C; --c-test:#A3AEBF;
+  color-scheme:dark}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--f-body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+::selection{background:var(--accent-soft);color:var(--ink)}
+html{scrollbar-color:var(--faint) var(--bg);accent-color:var(--accent);caret-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+h1{font-size:1.85rem} h2{font-size:1.2rem} h3{font-size:1.05rem}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.label{font-size:.78rem;letter-spacing:.04em;color:var(--muted);font-weight:700}
+.muted{color:var(--muted)}
+.meta{color:var(--muted);font-size:.95rem;margin-top:4px}
+.shell{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100%}
+.rail{background:var(--surface);border-right:1px solid var(--line);padding-block:20px;padding-inline:14px;display:flex;flex-direction:column;gap:18px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:0 6px}
+.brand svg{width:44px;height:auto;flex:none}
+.brand b{font-family:var(--f-display);font-size:1.4rem;letter-spacing:.06em;display:block;line-height:1}
+.brand small{display:block;font-size:.72rem;color:var(--muted);line-height:1.25;margin-top:3px}
+nav{display:flex;flex-direction:column;gap:2px}
+.nav{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px;color:var(--muted);font-size:.97rem;transition:background-color 160ms ease-out,color 160ms ease-out}
+.nav.on{background:var(--accent-soft);color:var(--ink);font-weight:700}
+.nav svg{width:18px;height:18px;flex:none}
+.sublist{display:flex;flex-direction:column;gap:1px;padding-left:22px}
+.sublist .nav{min-height:44px;font-size:.92rem}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.chev{margin-left:auto;transition:transform 200ms ease-out;display:flex}
+.open .chev{transform:rotate(180deg)}
+.sync{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);padding:0 8px}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+.sync.ok i{background:var(--good)} .sync.off i{background:var(--warn)}
+.theme{margin-top:auto;display:flex;gap:4px;background:var(--sunk);padding:4px;border-radius:9px}
+.theme button{flex:1;border:0;background:none;min-height:44px;border-radius:6px;font-size:.82rem;color:var(--muted)}
+.theme button.on{background:var(--surface);color:var(--ink);font-weight:700}
+.topbar{display:none}
+main{min-width:0;padding-block:30px 64px;padding-left:max(32px, env(safe-area-inset-left, 0px));padding-right:max(32px, env(safe-area-inset-right, 0px));max-width:1200px;width:100%}
+.view{display:flex;flex-direction:column;gap:20px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;min-width:0}
+.panel>h2{margin-bottom:8px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.list{display:flex;flex-direction:column}
+.row{display:flex;align-items:center;gap:12px;min-height:44px;padding:6px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.bar{flex:1;height:8px;background:var(--sunk);border-radius:4px;overflow:hidden;min-width:40px}
+.bar i{display:block;height:100%;border-radius:4px;transition:width 300ms ease-out}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.p-good{background:var(--good-soft);color:var(--good)} .p-warn{background:var(--warn-soft);color:var(--warn)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-none{background:var(--sunk);color:var(--muted)} .p-acc{background:var(--accent-soft);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border:1px solid var(--line);background:var(--surface);padding:8px 16px;border-radius:9px;font-weight:700;font-size:.92rem;transition:transform 160ms ease-out,border-color 160ms ease-out,background-color 160ms ease-out}
+.btn:active,.seg button:active,.cell:active,.nav:active,.links a:active,.daypills button:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:none;border-color:transparent}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn svg{width:16px;height:16px}
+.linkbtn{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit}
+.empty{border:1px dashed var(--line);border-radius:var(--r);padding:16px;color:var(--muted);font-size:.93rem}
+.alert{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:.94rem}
+.alert:first-child{border-top:0}
+.alert svg{width:18px;height:18px;flex:none;margin-top:3px}
+/* now card */
+.now{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center}
+.now .subj{font-weight:700;color:var(--sc)}
+.now h2{font-size:1.55rem;margin:2px 0 4px}
+.now .left{font-family:var(--f-mono);font-size:2.4rem;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;text-align:right}
+.now .left small{display:block;font-family:var(--f-body);font-size:.8rem;color:var(--muted);font-weight:400;margin-top:6px}
+.pips{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.pips span{height:8px;width:38px;border-radius:4px;background:var(--sunk)}
+.pips span.d{background:var(--good)} .pips span.n{background:var(--sc)}
+/* timetable */
+.tt-wrap{overflow-x:auto}
+.tt{display:grid;grid-template-columns:50px repeat(4,minmax(100px,1fr)) 18px repeat(2,minmax(100px,1fr));gap:6px;min-width:740px}
+.tt .h{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);text-align:center;padding-bottom:2px}
+.tt .d{font-family:var(--f-display);font-weight:600;display:flex;flex-direction:column;justify-content:center;font-size:1rem;line-height:1.1}
+.tt .d small{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);font-weight:400}
+.tt .d.today{color:var(--accent)}
+.gap{background:var(--sunk);border-radius:6px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;color:var(--muted);display:flex;align-items:center;justify-content:center;letter-spacing:.06em}
+.cell{position:relative;text-align:left;border:1px solid color-mix(in srgb,var(--sc) 28%,var(--line));background:color-mix(in srgb,var(--sc) 8%,var(--surface));border-radius:9px;padding:9px 10px;min-height:82px;display:flex;flex-direction:column;gap:2px;transition:transform 160ms ease-out,border-color 160ms ease-out,box-shadow 160ms ease-out}
+.cell.sel{box-shadow:0 0 0 2px var(--sc)}
+.cell.isnow{box-shadow:0 0 0 2px var(--accent)}
+.cell .s{font-size:.74rem;font-weight:700;color:var(--sc);letter-spacing:.02em}
+.cell .t{font-size:.88rem;line-height:1.3;padding-right:16px}
+.cell .ok{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--good);color:var(--surface);display:none;align-items:center;justify-content:center}
+.cell.done{background:var(--sunk);border-color:var(--line)}
+.cell.done .t{color:var(--muted)}
+.cell.done .ok{display:flex}
+.cell .tag{font-size:.7rem;color:var(--muted);margin-top:auto}
+.daypills{display:none;gap:6px;overflow-x:auto;padding-bottom:4px;min-width:0}
+.daypills button{min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 16px;font-weight:700;font-size:.88rem;white-space:nowrap}
+.daypills button.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.daylist{display:none;flex-direction:column;gap:10px}
+.daylist .cell{min-height:0;width:100%}
+.daylist .when{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);margin-bottom:4px}
+/* detail */
+.detail{display:flex;flex-direction:column;gap:16px}
+.detail .top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.timer{display:flex;align-items:center;gap:12px}
+.timer .clock{font-size:1.7rem}
+.steps{display:flex;flex-direction:column;gap:8px}
+.step{display:flex;flex-direction:column;gap:8px;padding:10px 12px;border-radius:10px;background:var(--sunk);border:1px solid transparent;transition:border-color 160ms ease-out,background-color 160ms ease-out}
+.step.cur{border-color:var(--accent);background:var(--accent-soft)}
+.step label{display:flex;gap:12px;align-items:center;min-height:44px;cursor:pointer}
+.step input{width:24px;height:24px;flex:none}
+.stepnote{margin:0 0 0 36px;color:var(--muted);font-size:.9rem;line-height:1.45}
+.step .links{margin-left:36px}
+.viewonly{background:var(--warn-soft);color:var(--ink);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:.94rem;line-height:1.5}
+.seg{display:inline-flex;gap:6px;flex-wrap:wrap}
+.seg button{min-height:44px;min-width:44px;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:6px 14px;font-weight:700;font-size:.9rem;transition:transform 160ms ease-out}
+.seg button.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{display:inline-flex;align-items:center;gap:6px;min-height:44px;border:1px solid var(--line);border-radius:9px;padding:6px 12px;text-decoration:none;color:var(--ink);font-size:.9rem;background:var(--surface);transition:transform 160ms ease-out,border-color 160ms ease-out}
+.links a svg{width:14px;height:14px;color:var(--muted)}
+.prove{background:var(--accent-soft);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--surface);resize:vertical;line-height:1.5}
+input[type=number],input[type=text]{min-height:44px;border:1px solid var(--line);border-radius:9px;padding:8px 10px;background:var(--surface);width:96px}
+.chat{display:flex;flex-direction:column;gap:8px}
+.msg{padding:10px 12px;border-radius:10px;font-size:.94rem;white-space:pre-wrap;max-width:62ch;background:var(--surface);border:1px solid var(--line)}
+.msg.me{align-self:flex-end}
+.msg .who{display:block;font-size:.75rem;font-weight:700;color:var(--accent);margin-bottom:2px}
+.err{color:var(--bad);font-size:.86rem}
+/* tests */
+.test{display:flex;flex-direction:column;gap:14px}
+.test .subj{font-weight:700;color:var(--sc)}
+.clock{font-family:var(--f-mono);font-size:2.2rem;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
+.clock.over,.left.over{color:var(--bad)}
+.clock.brk{color:var(--accent)}
+.review{display:flex;flex-direction:column;gap:16px;padding:16px;border-radius:12px;border:1px solid var(--line);transition:border-color 160ms ease-out,background-color 160ms ease-out}
+.review.cur{border-color:var(--accent);background:var(--accent-soft)}
+.review h3{margin:0}
+.midnote{padding:12px 14px;border-radius:10px;background:var(--accent-soft);border:1px solid var(--accent);font-weight:700}
+.howto{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:5px;font-size:.94rem}
+.blockhead{font-family:var(--f-display);font-size:1.05rem;font-weight:600;margin-top:8px}
+.qlist{display:flex;flex-direction:column;gap:6px}
+.q{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;padding:10px 12px;background:var(--sunk);border-radius:9px;font-size:.92rem}
+.fallback{font-size:.88rem;color:var(--ink);background:var(--warn-soft);padding:10px 12px;border-radius:9px}
+.chk{display:flex;flex-direction:column}
+.chk .row{font-size:.94rem}
+.quad{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.quad div{border-radius:9px;padding:12px;font-size:.88rem;background:var(--sunk)}
+.quad b{display:block;font-size:1.4rem;font-family:var(--f-display)}
+.daybars{display:flex;gap:10px;align-items:flex-end;height:120px}
+.daybars .c{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
+.daybars .c i{width:100%;max-width:46px;background:var(--accent);border-radius:5px 5px 0 0;min-height:2px}
+.daybars .c span{font-size:.74rem;color:var(--muted);font-family:var(--f-mono)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom, 0px));transform:translate(-50%,8px);background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:10px;font-size:.92rem;opacity:0;transition:opacity 180ms ease-out,transform 180ms ease-out;pointer-events:none;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.scrim{display:none}
+@media (hover:hover) and (pointer:fine){
+  .nav:hover{background:var(--sunk);color:var(--ink)}
+  .nav.on:hover{background:var(--accent-soft)}
+  .btn:hover{border-color:var(--faint)}
+  .btn.primary:hover{background:color-mix(in srgb,var(--accent) 88%,var(--ink))}
+  .cell:hover{border-color:var(--sc)}
+  .links a:hover{border-color:var(--accent)}
+}
+@media (max-width:1100px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .rail{position:fixed;inset:0 auto 0 0;width:min(290px,85vw);z-index:40;transform:translateX(-102%);transition:transform 220ms ease-out;height:100%;padding-top:calc(20px + env(safe-area-inset-top, 0px));box-shadow:0 0 40px rgba(0,0,0,.25)}
+  .rail.open{transform:none}
+  .scrim.on{display:block;position:fixed;inset:0;z-index:35;background:rgba(10,15,25,.35)}
+  .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:env(safe-area-inset-top, 0px);z-index:30;background:var(--surface);border-bottom:1px solid var(--line);padding-block:8px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:31;background:var(--surface)}
+  .topbar .brand svg{width:32px}
+  .topbar .brand b{font-size:1.15rem}
+  .menu{margin-left:auto}
+  main{padding-block:22px 64px;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+}
+@media (max-width:860px){.grid2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){
+  .tt-wrap{display:none}
+  .daypills,.daylist{display:flex}
+  main{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+  h1{font-size:1.5rem}
+  .topbar .sync span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .now{grid-template-columns:minmax(0,1fr);padding:16px}
+  .now .left{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition-property:opacity,color,background-color,border-color!important}.btn:active,.seg button:active,.cell:active,.nav:active,.links a:active,.daypills button:active{transform:none}}
+a.btn{text-decoration:none}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="crest" viewBox="0 0 120 140">
+      <path d="M8 8H112V68C112 104 84 124 60 134C36 124 8 104 8 68Z" fill="#14213D" stroke="#C9A04A" stroke-width="5"/>
+      <path d="M17 17H103V67C103 97 80 114 60 123C40 114 17 97 17 67Z" fill="none" stroke="#C9A04A" stroke-width="1.5" opacity=".7"/>
+      <path d="M31 34Q45 29 58 36V55Q45 49 31 53Z" fill="#C9A04A"/>
+      <path d="M89 34Q75 29 62 36V55Q75 49 89 53Z" fill="#C9A04A"/>
+      <path d="M60 36V55" stroke="#14213D" stroke-width="1.5"/>
+      <path d="M30 63H90" stroke="#C9A04A" stroke-width="2"/>
+      <text x="60" y="94" text-anchor="middle" font-family="Zilla Slab, Rockwell, Georgia, serif" font-weight="700" font-size="27" letter-spacing="2" fill="#E9D3A0">ISB</text>
+      <path d="M60 104L63 110L60 116L57 110Z" fill="#C9A04A"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="brand"><svg role="img" aria-label="ISB crest"><use href="#crest"/></svg><div><b>ISB</b></div></div>
+  <span class="sync" data-sync><i></i><span>Connecting…</span></span>
+  <button class="btn menu" id="menuBtn" aria-expanded="false" aria-controls="rail">Menu</button>
+</header>
+<div class="scrim" id="scrim"></div>
+
+<div class="shell">
+  <aside class="rail" id="rail">
+    <div class="brand"><svg role="img" aria-label="ISB crest"><use href="#crest"/></svg><div><b>ISB</b><small>International School of Bo</small></div></div>
+    <nav id="nav" aria-label="Main"></nav>
+    <span class="sync" data-sync><i></i><span>Connecting…</span></span>
+    <div class="theme" role="group" aria-label="Theme">
+      <button data-th="auto">Auto</button><button data-th="light">Light</button><button data-th="dark">Dark</button>
+    </div>
+  </aside>
+  <main id="main"><p class="muted" style="margin:0">Loading ISB…</p></main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+window.addEventListener('error',function(e){var m=document.getElementById('main');if(m&&!m.querySelector('.panel,.view')){m.innerHTML='<div style="background:#FBE3E0;color:#14213D;border-radius:10px;padding:14px;font:15px/1.5 system-ui"><b>ISB couldn\'t start.</b> Send Ishaaq a screenshot of this message: '+String(e.message||'unknown error').replace(/[<>&]/g,'')+'</div>'}});
+</script>
+<script>
+const IC={
+ home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',
+ cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+ book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+ chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+ bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3z"/>',
+ chev:'<path d="M6 9l6 6 6-6"/>',
+ ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+ warn:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',
+ check:'<path d="M5 12l5 5 9-10"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>'
+};
+const ico=(n,extra='')=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${IC[n]}</svg>`;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const SEN='https://app.senecalearning.com/resource-hub?ageGroup=iGCSE';
+const ISR='https://www.youtube.com/@IGCSEscirev';
+const SUBJ={
+ maths:{name:'Maths',code:'4MA1',books:'Edexcel IGCSE Maths A textbook · CGP (to buy)',links:[
+  ['Learn','Cognito: Edexcel IGCSE Maths','https://cognito.org/specifications/gcse/maths/iedexcel'],
+  ['Real past papers','PMT questions by topic (Edexcel IGCSE)','https://www.physicsandmathstutor.com/maths-revision/gcse-questions-edexcel-igcse/'],
+  ['Real past papers','PMT Paper 1 past papers','https://www.physicsandmathstutor.com/past-papers/gcse-maths/edexcel-igcse-a-paper-1/'],
+  ['Real past papers','PMT Paper 2 past papers','https://www.physicsandmathstutor.com/past-papers/gcse-maths/edexcel-igcse-a-paper-2/']]},
+ physics:{name:'Physics',code:'4PH1',books:'Edexcel IGCSE Physics Student Book · CGP Revision Guide (to buy)',links:[
+  ['Learn','Cognito: Edexcel IGCSE Physics','https://cognito.org/specifications/gcse/physics/iedexcel'],
+  ['Learn','IGCSE Science Revision (one video per spec point)',ISR],
+  ['Practise','Seneca iGCSE courses',SEN],
+  ['Real past papers','PMT questions by topic','https://www.physicsandmathstutor.com/physics-revision/igcse-edexcel/'],
+  ['Real past papers','PMT past papers','https://www.physicsandmathstutor.com/past-papers/gcse-physics/']]},
+ chemistry:{name:'Chemistry',code:'4CH1',books:'Edexcel IGCSE Chemistry Student Book · CGP Chemistry (has)',links:[
+  ['Learn','Cognito: Edexcel IGCSE Chemistry','https://cognito.org/specifications/gcse/chemistry/iedexcel'],
+  ['Learn','IGCSE Science Revision (one video per spec point)',ISR],
+  ['Practise','Seneca iGCSE courses',SEN],
+  ['Real past papers','PMT questions by topic','https://www.physicsandmathstutor.com/chemistry-revision/igcse-edexcel/'],
+  ['Real past papers','PMT past papers','https://www.physicsandmathstutor.com/past-papers/gcse-chemistry/']]},
+ biology:{name:'Biology',code:'4BI1',books:'Edexcel IGCSE Biology Student Book · CGP Revision Guide (to buy)',links:[
+  ['Learn','Cognito: Edexcel IGCSE Biology','https://cognito.org/specifications/gcse/biology/iedexcel'],
+  ['Learn','IGCSE Science Revision (one video per spec point)',ISR],
+  ['Practise','Seneca iGCSE courses',SEN],
+  ['Real past papers','PMT questions by topic','https://www.physicsandmathstutor.com/biology-revision/igcse-edexcel/'],
+  ['Real past papers','PMT past papers','https://www.physicsandmathstutor.com/past-papers/gcse-biology/']]},
+ cs:{name:'Computer Science',code:'4CP0',books:'Edexcel IGCSE Computer Science Student Book',links:[
+  ['Learn','Tutopiya: 4CP0 lessons','https://www.tutopiya.com/learning-portal/resource/edexcel-igcse/computer-science/higher-tier/4cp0/developing-code/6a1ea741493d70b6d06797c9'],
+  ['Practise','Seneca iGCSE courses',SEN],
+  ['Real past papers','PMT Paper 1 past papers','https://www.physicsandmathstutor.com/past-papers/gcse-computer-science/edexcel-igcse-paper-1'],
+  ['Real past papers','PMT Paper 2 past papers (coding)','https://www.physicsandmathstutor.com/past-papers/gcse-computer-science/edexcel-igcse-paper-2'],
+  ['Spec','4CP0 specification (Cognito)','https://cognito.org/specifications/gcse/computer-science/iedexcel']]},
+ english:{name:'English Language',code:'4EA1',books:'Edexcel IGCSE English Language A Student Book',links:[
+  ['Practise','Seneca iGCSE courses',SEN],
+  ['Real past papers','PMT Paper 1 past papers','https://www.physicsandmathstutor.com/past-papers/gcse-english-language/edexcel-igcse-a-paper-1/'],
+  ['Real past papers','PMT Paper 2 past papers','https://www.physicsandmathstutor.com/past-papers/gcse-english-language/edexcel-igcse-a-paper-2/'],
+  ['Spec','4EA1 specification (Cognito)','https://cognito.org/specifications/gcse/english-language/iedexcel']]},
+ business:{name:'Business',code:'4BS1',books:'Edexcel IGCSE Business Student Book',links:[
+  ['Learn','Tutopiya: 4BS1 lessons','https://www.tutopiya.com/learning-portal/dashboard/edexcel-igcse/business-studies/standard/4bs1'],
+  ['Practise','Seneca iGCSE courses',SEN],
+  ['Real past papers','Save My Exams: 4BS1 past papers','https://www.savemyexams.com/igcse/business/edexcel/past-papers/'],
+  ['Spec','Official Pearson 4BS1 specification (PDF)','https://qualifications.pearson.com/content/dam/pdf/International%20GCSE/Business%20Studies/2017/specification-and-sample-assessment/9781446942765-international-gcse-business-specification.pdf']]}
+};
+const SORDER=['maths','physics','chemistry','biology','cs','english','business'];
+
+const L=(s,t,spec,d,o={})=>({s,t,spec,d,type:'learn',...o});
+/* School resources from the weekly scheme (need Eesa's school login) */
+const SCH={
+ elimVid:['Teacher\'s video: elimination','https://youtu.be/68hMhae269k'],
+ graphsVid:['Teacher\'s video: solving with graphs','https://youtu.be/3G8uFHEdqH0'],
+ speechVid:['School: motivational speech to study','https://www.youtube.com/watch?v=SoiKHfp4LTA'],
+ speechGuide:['School: Speech Writing Guide and Tips','https://www.youtube.com/watch?v=Ax35BeXtguU'],
+ speechPdf:null,
+ yieldPpt:null,
+ limitPpt:null,
+ bioPages:null,
+ phyPpt:null,
+ phyWs:null,
+ csFolder:null,
+ busPpt:null
+};
+const SME={
+ phy:['Save My Exams: Changes of State questions','https://www.savemyexams.com/igcse/physics/edexcel/19/topic-questions/5-solids-liquids-and-gases/5-2-changes-of-state/'],
+ chem:['Save My Exams: Formulae, Equations, Calculations questions','https://www.savemyexams.com/igcse/chemistry/edexcel/19/topic-questions/1-principles-of-chemistry/1-5-chemical-formulae-equations-calculations/'],
+ bio:['Save My Exams: Co-ordination and Response questions','https://www.savemyexams.com/igcse/biology/edexcel/19/topic-questions/2-structure-and-function-in-living-organisms/co-ordination-and-response/exam-questions/']
+};
+const V={
+ shc:['Specific Heat Capacity: Using the Equation (IGCSE Science Revision)','https://youtu.be/eFnMNXuPly8'],
+ shcPrac:['Heating Curves and SHC Practicals (IGCSE Science Revision)','https://youtu.be/bEdB9cMF0ro'],
+ mole:['The Mole, Reacting Masses and % Yield (IGCSE Science Revision)','https://youtu.be/SJfQLdZJ1Qs'],
+ limit:['Limiting reactants (Cognito lesson, video + quiz)','https://cognito.org/courses/gcse/chemistry-triple/edexcel/higher/notes/cWZwTWlBeFQ/1.22-limiting-reactants'],
+ emp:['Empirical and Molecular Formulae (IGCSE Science Revision)','https://youtu.be/eTENs-O5woE'],
+ resp:['Responding to change: stimulus to response, spec 2.80–2.82 (IGCSE Science Revision)','https://youtu.be/DebAQLvJu8M'],
+ temp:['Temperature Control, spec 2.93 (IGCSE Science Revision)','https://youtu.be/G6Lc14EQ-_M'],
+ nested:['Nested loops (Oak National Academy)','https://www.thenational.academy/pupils/lessons/nested-loops/video'],
+ valid:['Data validation: length check from 3:24 (Craig\'n\'Dave)','https://youtu.be/HHu2f4r12MM?t=204'],
+ validR:['Data validation: range check from 6:32 (Craig\'n\'Dave)','https://youtu.be/HHu2f4r12MM?t=392'],
+ constructs:['Programming constructs: nested structures from 3:52 (Craig\'n\'Dave)','https://youtu.be/3RG0ACtxN8E?t=232']
+};
+const M={
+ elim:['Cognito: Elimination method (video + notes)','https://cognito.org/courses/gcse/maths/iedexcel/higher/lessons/Mi41Nw/2.37-solving-simultaneous-equations-2-elimination-method'],
+ elimQ:['Cognito questions: Simultaneous equations (answers: add "ans" to the link)','https://files.cognitoedu.org/files/3%20-%20GCSE/2%20-%20Qs%20by%20Topic/4%20-%20Maths/5-simultaneous-equations.pdf'],
+ elimA:['Answers','https://files.cognitoedu.org/files/3%20-%20GCSE/2%20-%20Qs%20by%20Topic/4%20-%20Maths/5-simultaneous-equationsans.pdf'],
+ graph:['Cognito: Using graphs (video + notes)','https://cognito.org/courses/gcse/maths/iedexcel/higher/lessons/Mi41Ng/2.36-solving-simultaneous-equations-1-using-graphs'],
+ graphQ:['Cognito questions: Solving graphically','https://files.cognitoedu.org/files/3%20-%20GCSE/2%20-%20Qs%20by%20Topic/4%20-%20Maths/5-solving-simultaneous-equations-graphically.pdf'],
+ graphA:['Answers','https://files.cognitoedu.org/files/3%20-%20GCSE/2%20-%20Qs%20by%20Topic/4%20-%20Maths/5-solving-simultaneous-equations-graphicallyans.pdf'],
+ form:['Oak: Forming simultaneous equations (Cognito has no video on this)','https://www.thenational.academy/pupils/programmes/maths-secondary-year-10-higher/units/simultaneous-equations-2-variables/lessons/forming-simultaneous-equations'],
+ formQ:['Oak: Solving from a context (practice)','https://www.thenational.academy/pupils/programmes/maths-secondary-year-10-higher/units/simultaneous-equations-2-variables/lessons/solving-simultaneous-equations-by-elimination-from-a-context'],
+ genie:['Maths Genie: simultaneous equations questions (with answers)','https://www.mathsgenie.co.uk/gcse/maths/edexcel/grade-5-5-11-simultaneous-equations/questions']
+};
+const E={
+ speech:['How to write a fantastic speech (TeachGCSEEnglish)','https://www.youtube.com/watch?v=v8d_4hD_rX8'],
+ smeSpeech:['Save My Exams: How to write a speech (IGCSE)','https://www.savemyexams.com/igcse/english-language/edexcel/a/16/paper-1-non-fiction-texts-and-transactional-writing/revision-notes/paper-1-non-fiction/paper-1-section-b-writing/how-to-write-a-speech/'],
+ daf:['Persuasive techniques: DAFORREST (Bookworm Teaching)','https://www.youtube.com/watch?v=-Xoj8GmWF6w'],
+ trans:['Transactional writing for Edexcel IGCSE (UK English Tutors)','https://www.youtube.com/watch?v=g5Yxl_gjFyg'],
+ tasks:['17 real IGCSE Paper 1 speech and writing tasks (Colour My Learning)','https://www.colourmylearning.com/2021/01/edexcel-english-language-a-igcse-transactional-writing-past-exam-questions/']
+};
+const B={
+ orgs:['Types of business organisation: sole trader, partnership and more','https://www.youtube.com/watch?v=r0LyQD3JR_c'],
+ quiz:['Tutopiya quiz: Types of business organisation (4BS1, free sign-in)','https://www.tutopiya.com/tools/topic-quiz-finder/edexcel-igcse-business-studies/business-finance/types-of-business-organizations/'],
+ notes:['Save My Exams notes: Types of organisations (IGCSE, PDF)','https://cdn.savemyexams.com/pdfs/JUu3-bU0eU-MX.pdf'],
+ cards:['Save My Exams flashcards: Types of organisations','https://www.savemyexams.com/igcse/business/edexcel/19/flashcards/1-business-activity-and-influences-on-business/types-of-organisations/']
+};
+const FSL={
+ shc:['Specific Heat Capacity (Free Science Lessons)','https://youtu.be/Hs5x0-IU2F4'],
+ shcPrac:['Required Practical: Specific heat capacity (Free Science Lessons)','https://youtu.be/HAPmwu7byGM'],
+ yield1:['Calculating percentage yield 1 (Free Science Lessons)','https://youtu.be/9EV0Oq8g708'],
+ yield2:['Calculating percentage yield 2 (Free Science Lessons)','https://youtu.be/A3ndfwX5lyI'],
+ limit:['Limiting Reactant (Free Science Lessons)','https://youtu.be/MuzOmFhiE8o'],
+ react:['Reacting masses 1 (Free Science Lessons)','https://youtu.be/TV6n5MFH6IU'],
+ balance:['Using moles to balance equations (Free Science Lessons)','https://youtu.be/4wTSLBBBMo0'],
+ nervous:['The Nervous System (Free Science Lessons)','https://youtu.be/oDS1hAqWp2M'],
+ plants:['Plant Hormones (Free Science Lessons)','https://youtu.be/_Bf5WKEMB5o'],
+ thermo:['Thermoregulation (Free Science Lessons)','https://youtu.be/WoMPARSQPZw'],
+ homeo:['Homeostasis (Free Science Lessons)','https://youtu.be/S45_3wWL-Xk']
+};
+const WEEK={id:'2026-10-26',label:'Week 1',range:'26–30 Oct 2026',
+ dates:['2026-10-26','2026-10-27','2026-10-28','2026-10-29','2026-10-30'],
+ names:['Monday','Tuesday','Wednesday','Thursday','Friday'],short:['Mon','Tue','Wed','Thu','Fri'],
+ days:[
+  [L('maths','7.2 Elimination',['7.2'],'Solve simultaneous equations by algebraic elimination.',{res:{video:M.elim,practice:M.elimQ,practice2:M.elimA,qNote:'Do questions 1 to 10. Mark them with the answers sheet and redo any you got wrong.'}}),
+   L('chemistry','Percentage yield',['Ch 5'],'Percentage yield calculations.',{prove:1,read:'Pages 57–59, if you want a written example',res:{video:FSL.yield1,video2:FSL.yield2,practice:SME.chem,qNote:'Do the percentage yield questions. Untimed: mark them and redo any you got wrong.'}}),
+   L('biology','2.80 Responding to change',['2.80'],'How organisms respond to changes in their environment.',{prove:1,res:{video:FSL.nervous,video2:FSL.plants,read:'Pages 108–116: read the part on how plants and animals respond to changes in their environment (2.80). Make notes as you go.',practice:SME.bio}}),
+   L('physics','5.12P Specific heat capacity',['5.12P','5.2'],'What specific heat capacity means, and its unit J/kg °C.',{prove:1,res:{video:FSL.shc,practice:SME.phy,qNote:'Do the Save My Exams questions on specific heat capacity. Untimed: mark them and redo any you got wrong.'}}),
+   L('cs','Nested for loops',['Ch 5'],'Nested for loops in Python.',{prove:1,res:{video:V.nested,practice:['PYnative loop exercises: do 20, 21, 24, 25, 26','https://pynative.com/python-if-else-and-for-loop-exercise-with-solutions/'],classkick:'Do the Classkick slides on nested for loops.',codeNote:'Do PYnative exercises 20, 21, 24, 25 and 26 (patterns and times tables). Type them yourself in the Python editor.'}}),
+   L('english','Speech structure',['Paper 1'],'Transactional writing: hooks, signposting and strong conclusions.',{res:{video:SCH.speechGuide,video2:E.speech,doc:E.smeSpeech,writeTitle:'Make notes on speech structure',write:'From the guide video and the Save My Exams speech notes, note: 3 ways to open (hook), how to signpost each point, and how to end strongly. Then write an opening paragraph for a speech of your own.',practice:SCH.speechVid,qNote:'Watch the motivational speech. Spot the hook, signposts and ending, and write one line on each.'}})],
+  [L('chemistry','Limiting reactant',['Ch 5'],'Limiting reactant and reactant in excess.',{prove:1,read:'Pages 57–59, if you want a written example',res:{video:FSL.limit,practice:SME.chem,qNote:'Do the questions on limiting reactant and excess. Untimed.'}}),
+   L('maths','7.3 Graphical method',['7.3'],'Solve simultaneous equations by drawing graphs.',{res:{video:M.graph,practice:M.graphQ,practice2:M.graphA,qNote:'Do all 5 questions. Draw the graphs carefully with a ruler, then mark them.'}}),
+   L('physics','5.13P ΔQ = m × c × ΔT',['5.13P'],'Use change in thermal energy = mass × specific heat capacity × change in temperature.',{res:{video:FSL.shc,practice:SME.phy,qNote:'Do the ΔQ = m × c × ΔT calculations. Write the equation, substitute, then work it out, with units.'}}),
+   L('cs','While loops: length check',['Ch 5'],'While loops that validate input with a length check.',{prove:1,res:{video:V.valid,practice:['Robust programming: length check exercises (Tony Ballantyne)','https://tech.tonyballantyne.com/2022/10/18/python-course-12-robust-and-secure-programming/'],classkick:'Do the Classkick slides on while loops and length checks.',codeNote:'Do Q1 and Q2 on the Tony Ballantyne page: a while loop that keeps asking until the name length is valid.'}}),
+   L('business','Forms of ownership',['Ch 5'],'Forms of business ownership, risk and limited liability.',{prove:1,res:{video:B.orgs,practice:B.quiz,practice2:B.cards,readLink:B.notes,read:'Chapter 5 in your Business textbook: the section on sole traders, partnerships and limited companies. If the book is not to hand, use the Save My Exams notes.',notesNote:'For each form of ownership write: who owns it, liability (limited or unlimited), one advantage, one disadvantage.'}}),
+   L('biology','2.82 Stimulus, receptor, effector',['2.82'],'A coordinated response needs a stimulus, a receptor and an effector.',{prove:1,res:{video:FSL.nervous,read:'Pages 108–116: read the part on stimulus, receptor and effector (2.82). Draw the pathway as a flow chart.',practice:SME.bio}})],
+  [L('maths','7.4 Word problems',['7.4'],'Set up and solve problems using simultaneous equations.',{res:{video:M.form,practice:M.formQ,practice2:M.elimQ,qNote:'Do the Oak practice, then questions 13 and 14 on the Cognito sheet (coffee and cakes, packs of sweets).'}}),
+   L('physics','5.14P SHC practical',['5.14P'],'Investigating the specific heat capacity of water and a solid.',{prove:1,res:{video:FSL.shcPrac,practice:SME.phy,qNote:'Write the method for the practical step by step (what you measure and with what), then do the practical-style questions.'}}),
+   L('biology','2.93 Skin and temperature',['2.93'],'Role of the skin in temperature regulation: sweating, vasoconstriction, vasodilation.',{prove:1,res:{video:FSL.thermo,read:'Pages 108–116: read the part on the skin and temperature control (2.93): sweating, vasoconstriction and vasodilation.',practice:SME.bio}}),
+   L('chemistry','Formulae recap',['Ch 5'],'Empirical and molecular formulae. This is on your class quiz this week.',{res:{video:V.emp,videoNote:'Free Science Lessons has no video on empirical formulae, so this one is from IGCSE Science Revision.',practice:SME.chem,qNote:'Do the empirical and molecular formula questions.'}}),
+   L('english','Rhetorical devices',['Paper 1'],'Tricolon, anaphora and other devices to build an argument.',{res:{video:E.daf,writeTitle:'Use the devices',write:'Write one sentence of your own for each device: tricolon (rule of three), anaphora, rhetorical question, direct address, statistic.',practice:SCH.speechVid,qNote:'Find each device in the motivational speech from Monday.'}}),
+   L('cs','While loops: range check',['Ch 5'],'While loops that validate input with a range check.',{res:{video:V.validR,practice:['Validating data input: range check task (Oak National Academy)','https://www.thenational.academy/pupils/lessons/validating-data-input-in-a-program/video'],classkick:'Do the Classkick slides on range checks.',codeNote:'Do the Oak task: keep asking for an age until it is between 6 and 13.'}})],
+  [L('chemistry','Mole calculations',['Ch 5'],'Mole-to-mole and mass-to-mass calculations (class quiz topic).',{res:{video:FSL.react,video2:FSL.balance,practice:SME.chem,qNote:'Do the mole and reacting mass questions. Show every step.'}}),
+   L('maths','Mixed practice',['7.2','7.3','7.4'],'Mixed simultaneous equations questions, untimed.',{res:{video:M.elim,videoNote:'Only rewatch if you got stuck this week. Otherwise go straight to the questions.',practice:M.genie,qNote:'Start on the Medium tab, then try Hard. Mark each one with the worked solutions.'}}),
+   L('cs','Coding practice',['Ch 5'],'Programs that combine nested loops and input validation.',{res:{video:V.constructs,practice:['FizzBuzz project with validation (Oak National Academy)','https://www.thenational.academy/pupils/lessons/programming-project-iteration-ii/video'],classkick:'Finish any Classkick slides from this week.',codeNote:'Build the FizzBuzz project. Every input needs a range check.'}}),
+   L('business','Public corporations',['Ch 6'],'Public corporations, and choosing the right form of ownership.',{prove:1,res:{video:B.orgs,videoNote:'No good video exists just on public corporations, so make your notes from the Save My Exams notes in the reading step.',practice:B.cards,readLink:B.notes,read:'Chapter 6 in your Business textbook: public corporations and choosing a form of ownership. The Save My Exams notes cover both, ending with Choosing appropriate business ownership.',notesNote:'Write the reasons for and against public ownership, then compare the forms of ownership on control, finance and use of profits.'}}),
+   L('biology','Recap: 2.80, 2.82, 2.93',['2.80','2.82','2.93'],'Flashcards and recall on this week\'s biology.',{res:{video:FSL.homeo,read:'Skim pages 108–116 again and make one flashcard per key word.',practice:SME.bio}}),
+   L('english','Plan and draft a speech',['Paper 1'],'Plan and draft a speech from an exam-style question.',{res:{doc:E.smeSpeech,video:E.trans,writeTitle:'Plan and draft your speech',write:'Pick a speech task from the list of real Paper 1 tasks below (not the May 2025 one: that\'s saved for a test). Plan for 5 minutes, then write the opening and at least two full paragraphs using this week\'s devices.',doc2:E.tasks,qNote:'Check your draft: hook, signposts, three devices, strong ending.'}})],
+  [{s:'test',t:'Test: Maths + Physics',type:'test',tests:['maths','physics'],d:'Two 25-minute timed tests. Open the Tests page.'},
+   {s:'test',t:'Test: Chemistry + Biology',type:'test',tests:['chemistry','biology'],d:'Two 25-minute timed tests. Open the Tests page.'},
+   {s:'test',t:'Test: Comp Sci + Business',type:'test',tests:['cs','business'],d:'Two 25-minute timed tests. Open the Tests page.'},
+   {s:'english',t:'Timed speech (45 min)',type:'test',tests:['english'],d:'Full timed writing piece. Open the Tests page.'},
+   L('maths','Top-up',[],'Goes to the lowest score from today\'s tests.',{topup:1}),
+   L('chemistry','Top-up',[],'Goes to the second-lowest score from today\'s tests.',{topup:1})]
+ ]};
+
+const PMT='https://pmt.physicsandmathstutor.com/download/';
+const TESTS={
+ maths:{subject:'maths',title:'Simultaneous equations',mins:25,marks:22,spec:['7.2'],fallback:'All 6 questions are real Edexcel IGCSE questions on the elimination method (7.2). The topic sets have no real past-paper questions on the graph method (7.3) or word problems (7.4), so those are practised in Thursday\'s mixed practice block and tested from full past papers next week.',items:[
+  {q:'Q1, Q2, Q4, Q11, Q13, Q19',src:'Simultaneous Equations (H), real Edexcel IGCSE questions',qp:PMT+'Maths/GCSE/Topic-Qs/Edexcel-IGCSE/Algebra/QP/Higher/Solving-Equations-and-Inequalities/Simultaneous%20Equations%20%28H%29%20QP.pdf',ms:PMT+'Maths/GCSE/Topic-Qs/Edexcel-IGCSE/Algebra/MS/Higher/Solving-Equations-and-Inequalities/Simultaneous%20Equations%20%28H%29%20MS.pdf'}]},
+ physics:{subject:'physics',title:'Specific heat capacity',mins:25,marks:null,spec:['5.12P','5.13P','5.14P'],fallback:'PMT has no topic-sorted past-paper questions on specific heat capacity, so this week uses the end-of-section questions on specific heat capacity in your Edexcel IGCSE Physics Student Book. Real past-paper questions will be added from full papers next week.',items:[]},
+ chemistry:{subject:'chemistry',title:'Moles, excess and calculations',mins:25,marks:21,spec:['Ch 5'],fallback:'Percentage yield has no topic-sorted past-paper questions this week. It is practised from textbook pages 57–59 instead.',items:[
+  {q:'Q2, Q4(b)',src:'Chemical Formulae, Equations, Calculations 1 (Paper 1 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%201%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%201%20MS.pdf'},
+  {q:'Q2(a)(i), Q4(a)(i), Q4(a)(ii), Q4(b), Q5(a)(i)',src:'Chemical Formulae, Equations, Calculations 2 (Paper 1 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%202%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%202%20MS.pdf'},
+  {q:'Q2(a), Q2(b)',src:'Chemical Formulae, Equations, Calculations (Paper 2 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A2/Chemical%20Formulae,%20Equations,%20Calculations%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A2/Chemical%20Formulae,%20Equations,%20Calculations%20MS.pdf'}]},
+ biology:{subject:'biology',title:'Coordination and response',mins:25,marks:21,spec:['2.80','2.82','2.93'],items:[
+  {q:'Q3(c), Q4(a), Q4(b), Q4(d)',src:'Coordination and Response 1 (Paper 1 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%201%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%201%20MS.pdf'},
+  {q:'Q4(c), Q4(f), Q6(a)',src:'Coordination and Response 1 (Paper 2 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A2/Coordination%20and%20Response%201%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A2/Coordination%20and%20Response%201%20MS.pdf'}]},
+ cs:{subject:'cs',title:'Loops and validation',mins:25,marks:null,spec:['Ch 5'],fallback:'Only 6 marks of real past-paper questions match loops and validation this week. The rest of the 25 minutes uses the end-of-chapter questions on loops and validation in your Edexcel IGCSE Computer Science Student Book.',items:[
+  {q:'Q4(e), Q6(b), Q6(c)',src:'June 2023 Paper 1 (4CP0/01)',qp:PMT+'Computer-Science/GCSE/Past-Papers/Edexcel-IGCSE/Paper-1/June%202023%20QP%20-%20Paper%201%20Edexcel%20Computer%20Science%20IGCSE.pdf',ms:PMT+'Computer-Science/GCSE/Past-Papers/Edexcel-IGCSE/Paper-1/June%202023%20MS%20-%20Paper%201%20Edexcel%20Computer%20Science%20IGCSE.pdf'}]},
+ business:{subject:'business',title:'Forms of ownership',mins:25,marks:null,spec:['Ch 5','Ch 6'],fallback:'This week uses the end-of-chapter questions for chapters 5–6 in your Edexcel IGCSE Business Student Book. Short answers only this week; the longer evaluate question comes in Week 2.',items:[]},
+ english:{subject:'english',title:'Timed speech',mins:45,marks:null,spec:['Paper 1'],fallback:'Pick one speech-writing task from a real Paper 1 below together with Ishaaq before starting. Claude marks it against the official level descriptors.',items:[
+  {q:'Section B writing task (speech)',src:'Edexcel IGCSE English Language A Paper 1 past papers',qp:'https://www.physicsandmathstutor.com/past-papers/gcse-english-language/edexcel-igcse-a-paper-1/',ms:'https://www.physicsandmathstutor.com/past-papers/gcse-english-language/edexcel-igcse-a-paper-1/'}]}
+};
+const HOWTO=['Before you start: Apple Pencil charged, calculator ready, other apps closed, quiet room.','Press Start test. Your time begins.','Open the question paper and write your answers on it with your Apple Pencil. Show all your working.','When the timer hits zero, pencil down. Stop, even mid-answer. If you finish early you can stop the clock, but the mark scheme still unlocks at the full time.','When the mark scheme unlocks, mark every question in red, honestly.','Then Ishaaq or Mama marks it with Claude in the ISB chat. Claude enters the marks here. Double-check every mark.','Upload a photo of your marked test here. Mama checks one test a week.','70% or more is a pass. Under 70% means a sharpening lesson after 3:30pm (Friday afternoon or early next week), then a retest next Friday.'];
+
+/* ---------- state ---------- */
+const S={blocks:{},tests:{},refl:{},route:'dashboard',sel:null,day:null,openSubj:false,db:null,sample:null,assets:null};
+const bkey=(d,i)=>`${WEEK.id}_${d}_${i}`;
+const tkey=s=>`${WEEK.id}_${s}`;
+const blockState=(d,i)=>S.blocks[bkey(d,i)]||{};
+function isDone(d,i){const b=WEEK.days[d][i];if(b.type==='test')return b.tests.every(s=>{const t=S.tests[tkey(s)];return t&&t.pct!=null});return !!blockState(d,i).done}
+const sname=s=>s==='test'?'Test':SUBJ[s].name.replace('Computer Science','Comp Sci').replace('English Language','English');
+const pad=n=>String(n).padStart(2,'0');
+function todayIdx(){const n=new Date();return WEEK.dates.indexOf(`${n.getFullYear()}-${pad(n.getMonth()+1)}-${pad(n.getDate())}`)}
+const minsNow=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()+n.getSeconds()/60};
+const atMin=m=>{const n=new Date();n.setHours(0,0,0,0);return n.getTime()+m*60000};
+const toast=t=>{const e=document.getElementById('toast');e.textContent=t;e.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>e.classList.remove('show'),2200)};
+function setSync(state){const txt={wait:'Connecting…',ok:'Saved on this iPad',off:'Not saving: open ISB in Claude, signed in',view:'View only: nothing saves'}[state];document.querySelectorAll('[data-sync]').forEach(el=>{el.className='sync '+state;el.querySelector('span').textContent=txt})}
+
+/* write: merge into an existing doc so two devices don't overwrite each other's fields; returns true only once saved */
+async function writeDoc(coll,k,existed,patch,full){
+  if(!S.db){toast('Not saved: open ISB in Claude while signed in');return false}
+  try{const ref=S.db.collection(coll).doc(k);if(existed){try{await ref.update(patch)}catch(e){if(e&&e.code==='invalid_argument')await ref.set(full);else throw e}}else await ref.set(full);return true}
+  catch(e){if(e&&(e.code==='invalid_argument'||e.code==='permission_denied')){S.canWrite=false;setSync('view');render();toast('Not saved: this account can only view ISB')}else toast(e&&e.code==='storage'?'Not saved: this iPad\'s storage is full or blocked.':'Could not save that.');return false}
+}
+async function saveBlock(d,i,patch){
+  const k=bkey(d,i),existed=!!S.blocks[k];const meta={week:WEEK.id,day:d,idx:i,subject:blockInfo(d,i).s};const cur={...(S.blocks[k]||{}),...patch,...meta};
+  S.blocks[k]=cur;render();return writeDoc('blocks',k,existed,{...patch,...meta},cur);
+}
+async function saveTest(s,patch){
+  const k=tkey(s),existed=!!S.tests[k];const meta={week:WEEK.id,subject:s};const cur={...(S.tests[k]||{}),...patch,...meta};
+  S.tests[k]=cur;render();return writeDoc('tests',k,existed,{...patch,...meta},cur);
+}
+/* store rows come from other devices: keep only well-formed ones */
+const num=v=>typeof v==='number'&&Number.isFinite(v)?v:null;
+const str=v=>typeof v==='string'?v:'';
+function cleanTest(t){if(!t||!SUBJ[t.subject])return null;const o={...t};o.pct=num(t.pct);o.score=num(t.score);o.outOf=num(t.outOf);o.at=str(t.at);o.week=str(t.week);o.started=num(t.started);o.ended=num(t.ended);o.photos=Array.isArray(t.photos)?t.photos.filter(x=>typeof x==='string'&&/^[A-Za-z0-9_-]{1,80}$/.test(x)):[];o.feedback=str(t.feedback);o.specResults=t.specResults&&typeof t.specResults==='object'?Object.fromEntries(Object.entries(t.specResults).filter(([,v])=>num(v)!=null)):null;o.oneToOne=!!t.oneToOne;o.redos=num(t.redos)||0;return o}
+function cleanBlock(b){if(!b)return null;const o={...b};o.conf=[1,2,3,4,5].includes(b.conf)?b.conf:null;o.time=['early','on','over'].includes(b.time)?b.time:null;o.steps=Array.isArray(b.steps)?b.steps.map(Boolean):[];o.done=!!b.done;o.proved=!!b.proved;o.started=num(b.started);o.ended=num(b.ended);o.reviewed=num(b.reviewed);o.conv=Array.isArray(b.conv)?b.conv.filter(m=>m&&typeof m.content==='string'&&(m.role==='user'||m.role==='assistant')):[];return o}
+
+/* ---------- health ---------- */
+function subjTests(s){return Object.values(S.tests).filter(t=>t.subject===s&&t.pct!=null).sort((a,b)=>b.at.localeCompare(a.at))}
+/* Friday top-ups go to the lowest scores from today's tests */
+function topupSubjects(){const sc=SORDER.map(s=>{const t=S.tests[tkey(s)];return t&&t.pct!=null?[s,t.pct]:null}).filter(Boolean).sort((a,b)=>a[1]-b[1]);return sc.map(x=>x[0])}
+function blockInfo(d,i){const b=WEEK.days[d][i];if(!b.topup)return b;const k=WEEK.days[d].slice(0,i).filter(x=>x.topup).length;const s=topupSubjects()[k];return s?{...b,s,t:`Top-up: ${SUBJ[s].name}`,d:`Re-learn the points you dropped marks on in today's ${SUBJ[s].name} test, from a different source than last time, then redo those questions.`,spec:[]}:{...b,s:'test',t:'Top-up: decided after marking',d:'This lesson goes to whichever subject scored lowest in today\'s tests. Save your scores on the Tests page and it fills in.',spec:[]}}
+function health(s){const ts=subjTests(s);if(!ts.length)return null;const l=ts.slice(0,3);let h=l.reduce((a,t)=>a+t.pct,0)/l.length;if(ts[0].pct<70)h-=5;return Math.max(0,Math.min(100,Math.round(h)))}
+const hClass=h=>h==null?'none':h>=80?'good':h>=70?'warn':'bad';
+const hWord=h=>h==null?'No tests yet':h>=80?'Going well':h>=70?'Keep an eye on it':'Needs work';
+const hColor=h=>({good:'var(--good)',warn:'var(--warn)',bad:'var(--bad)',none:'var(--faint)'})[hClass(h)];
+
+/* ---------- lesson steps (warm-up recall first: spaced retrieval) ---------- */
+/* Each subject gets its own lesson shape (Eesa's design). Video first, no textbooks.
+   Step minutes add up to the lesson length minus the mid-lesson break. */
+const PLAN={
+ maths:[['warm',2],['video',12],['questions',33]],
+ physics:[['warm',2],['video',12],['questions',23]],
+ chemistry:[['warm',2],['notes',18],['questions',35]],
+ biology:[['warm',2],['notes',25],['questions',28]],
+ cs:[['warm',2],['video',8],['classkick',15],['code',12]],
+ business:[['warm',2],['notes',25],['questions',10]],
+ english:[['warm',2],['video',8],['write',20],['questions',7]]
+};
+const CLASSKICK='https://app.classkick.com/student/FML5YU/Eesa%20Qureshi/1';
+function stepsFor(b,d,i){
+  const plan=PLAN[b.s]||PLAN.maths;const r=b.res||{};const fb=SUBJ[b.s]?SUBJ[b.s].links:[];
+  const firstOf=k=>{const l=fb.find(x=>x[0]===k);return l?[l[1],l[2]]:null};
+  return plan.map(([k,min])=>{
+    if(k==='warm')return {t:'Warm-up recall',min,note:warmText(b,d,i)};
+    if(k==='video')return {t:'Watch the video',min,links:[r.video,r.video2,r.slides].filter(Boolean),note:r.videoNote||(r.video?'':'Use the school slides or the subject page links.')};
+    if(k==='notes')return {t:'Watch the video and make notes',min,links:[r.video,r.video2,r.slides,r.readLink].filter(Boolean),note:r.notesNote||r.videoNote||'Pause the video as you go. Write the key terms and one example for each in your own words.'};
+    if(k==='classkick')return {t:'Work through the Classkick slides',min,links:[['Classkick: your class page',CLASSKICK]],note:r.classkick||'Do the slides for this topic and answer the questions on them.'};
+    if(k==='code')return {t:'Write and run the code',min,links:[r.practice,['Python editor (Raspberry Pi)',PYRUN]].filter(Boolean),note:r.codeNote||'Type the examples yourself, then change them and predict what happens before you run them.'};
+    if(k==='write')return {t:r.writeTitle||'Notes and writing',min,links:[r.doc,r.doc2].filter(Boolean),note:r.write||'Write it out in full, then check it against the guide.'};
+    return {t:k==='questions'?'Practice questions':'Questions',min,links:[r.practice||firstOf('Practise'),r.practice2].filter(Boolean),note:r.qNote||'Untimed. Mark them yourself and redo any you got wrong.'};
+  });
+}
+const PYRUN='https://editor.raspberrypi.org';
+function prevLesson(s,d,i){for(let dd=d;dd>=0;dd--){const day=WEEK.days[dd];for(let ii=(dd===d?i-1:day.length-1);ii>=0;ii--){const b=day[ii];if(b.s===s&&b.type==='learn')return {b,d:dd}}}return null}
+function warmText(b,d,i){const p=prevLesson(b.s,d,i);return p?`From memory, write down 3 things from ${WEEK.names[p.d]}'s ${sname(b.s)} lesson: ${p.b.t}. Then check.`:`From memory, write down 3 things from your last ${sname(b.s)} lesson at school. Then check your notes.`}
+/* ---------- the school day: 7:30 to 3:30, lessons in order, timed from when Eesa actually starts ---------- */
+const DAYSTART=7*60+30,DAYEND=15*60+30,MS=60000;
+const DUR={maths:50,chemistry:60,biology:60,physics:40,cs:40,english:40,business:40};
+const REVIEW=5,GAP=10,DHUHR=45,DHUHR_AFTER=3;
+function lessonDur(d,i){const b=blockInfo(d,i);if(b.type==='test')return b.tests.reduce((a,s)=>a+TESTS[s].mins,0);return DUR[b.s]||40}
+const midBreak=dur=>dur>=60?5:3;
+const halfAt=dur=>Math.round(dur/2);
+const gapAfter=i=>i===DHUHR_AFTER?DHUHR:GAP;
+const ACTIVE=['work','mid','over','review','test'];
+/* lesson timer lives on the lesson's record so every device sees the same clock; local copy only when nothing is saved yet */
+const BT={};
+function bTimer(d,i){const st=S.blocks[bkey(d,i)];if(st&&st.started!==undefined)return st.started?{start:st.started,ended:st.ended||null,reviewed:st.reviewed||null}:null;const k=bkey(d,i);if(k in BT)return BT[k];try{return JSON.parse(localStorage.getItem('isb_b_'+k)||'null')}catch(e){return null}}
+function setBTimer(d,i,v,extra={}){const k=bkey(d,i);BT[k]=v||null;try{if(v)localStorage.setItem('isb_b_'+k,JSON.stringify(v));else localStorage.removeItem('isb_b_'+k)}catch(e){}return saveBlock(d,i,{started:v?v.start:null,ended:v&&v.ended||null,reviewed:v&&v.reviewed||null,...extra})}
+/* a test lesson's clock comes from its test timers */
+function lessonTimer(d,i){
+  const b=WEEK.days[d][i];if(b.type!=='test')return bTimer(d,i);
+  const vs=b.tests.map(s=>{const v=timerState(s);if(!v||!v.start)return null;const full=v.start+TESTS[s].mins*MS;return {start:v.start,ended:v.ended||(Date.now()>=full?full:null)}});
+  const on=vs.filter(Boolean);if(!on.length)return null;
+  const ended=vs.every(v=>v&&v.ended)?Math.max(...vs.map(v=>v.ended)):null;
+  return {start:Math.min(...on.map(v=>v.start)),ended,reviewed:ended};
+}
+function phaseOf(d,i,now=Date.now()){
+  const t=lessonTimer(d,i),dur=lessonDur(d,i),b=WEEK.days[d][i],o={i,dur};
+  if(!t||!t.start)return {...o,p:isDone(d,i)?'done':'idle'};
+  o.start=t.start;
+  if(b.type==='test'){if(!t.ended)return {...o,p:'test'};return {...o,p:'after',ended:t.ended,reviewed:t.ended,until:t.ended+gapAfter(i)*MS}}
+  const H=halfAt(dur),mb=midBreak(dur),el=(now-t.start)/MS;
+  if(!t.ended){if(el<H)return {...o,p:'work',until:t.start+H*MS};if(el<H+mb)return {...o,p:'mid',until:t.start+(H+mb)*MS};return {...o,p:el<dur?'work':'over',until:t.start+dur*MS}}
+  if(!t.reviewed)return {...o,p:'review',ended:t.ended,until:t.ended+REVIEW*MS};
+  return {...o,p:'after',ended:t.ended,reviewed:t.reviewed,until:t.reviewed+gapAfter(i)*MS};
+}
+/* minutes of actual learning so far (the mid-lesson break doesn't count) */
+function learnMin(dur,el){const H=halfAt(dur),mb=midBreak(dur);return el<H?el:el<H+mb?H:el-mb}
+/* today's flow: which lesson is on, which is next, and estimated times from right now */
+function dayFlow(ti,now=Date.now()){
+  const day=WEEK.days[ti],ph=day.map((x,i)=>phaseOf(ti,i,now));
+  const cur=ph.findIndex(p=>ACTIVE.includes(p.p));
+  const fin=i=>ph[i].p==='after'||ph[i].p==='done'||(isDone(ti,i)&&ph[i].p==='idle');
+  const next=day.findIndex((x,i)=>i!==cur&&!fin(i));
+  let cursor=atMin(DAYSTART),finish=null;const est=[];
+  day.forEach((x,i)=>{const p=ph[i],rv=x.type==='test'?0:REVIEW;let s,e;
+    if(p.p==='after'){s=p.start;e=p.reviewed;cursor=Math.max(cursor,p.until)}
+    else if(p.p==='done'||fin(i)){est.push(null);return}
+    else if(ACTIVE.includes(p.p)){s=p.start;e=p.p==='review'?Math.max(p.until,now):p.p==='test'?Math.max(s+p.dur*MS,now):Math.max(s+p.dur*MS,now)+rv*MS;cursor=e+gapAfter(i)*MS}
+    else{s=Math.max(cursor,now);e=s+(p.dur+rv)*MS;cursor=e+gapAfter(i)*MS}
+    est.push({s,e,actual:p.p!=='idle'});finish=Math.max(finish||0,e)});
+  const last=ph.filter(p=>p.p==='after').sort((a,b)=>b.reviewed-a.reviewed)[0]||null;
+  return {ph,cur,next,est,finish,last};
+}
+function flowKey(){const ti=todayIdx();if(ti<0)return 'x'+new Date().getDate();const F=dayFlow(ti),now=Date.now();return ti+'|'+F.ph.map(p=>p.p).join(',')+'|'+(F.last&&now<F.last.until?1:0)+'|'+(now<atMin(DAYSTART)?1:0)}
+function phaseAt(steps,min){let acc=0;for(let k=0;k<steps.length;k++){acc+=steps[k].min;if(min<acc)return k}return steps.length-1}
+const fmtSigned=sec=>sec>=0?fmt(sec):'+'+fmt(-sec);
+/* the big lesson clock: text, caption and a key that changes when the phase does */
+function lessonClock(d,i,now=Date.now()){
+  const p=phaseOf(d,i,now),sec=ms=>Math.max(0,Math.round(ms/1000));
+  if(p.p==='work')return {k:'work'+(now<p.start+halfAt(p.dur)*MS?1:2),txt:fmt(sec(p.start+p.dur*MS-now)),cap:'left in this lesson'};
+  if(p.p==='mid')return {k:'mid',txt:fmt(sec(p.until-now)),cap:`${midBreak(p.dur)}-min break: stand up, drink water`,cls:'brk'};
+  if(p.p==='over')return {k:'over',txt:'+'+fmt(sec(now-p.until)),cap:'over time: end the lesson',cls:'over'};
+  if(p.p==='review')return {k:'review',txt:fmtSigned(Math.round((p.until-now)/1000)),cap:'5-minute review',cls:now>p.until?'over':''};
+  if(p.p==='after'){const took=Math.max(1,Math.round((p.ended-p.start)/MS));return now<p.until?{k:'after1',txt:fmt(sec(p.until-now)),cap:`${p.i===DHUHR_AFTER?'Dhuhr and lunch':'break'} · lesson took ${took} min`,cls:'brk'}:{k:'after2',txt:`${took} min`,cap:'lesson finished'}}
+  return {k:'idle',txt:fmt(p.dur*60),cap:`${p.dur} min lesson`};
+}
+
+/* ---------- nav ---------- */
+const ROUTES=[['dashboard','Dashboard','home'],['week','This week','cal'],['subjects','Subjects','book'],['tests','Tests','clock'],['progress','Progress','chart'],['requests','Requests','bulb']];
+function renderNav(){
+  const r=S.route;let h='';
+  for(const [k,label,ic] of ROUTES){
+    if(k==='subjects'){
+      const on=!!SUBJ[r],open=S.openSubj||on;
+      h+=`<button class="nav ${open?'open':''}" id="subjToggle" aria-expanded="${open}">${ico(ic)}${label}<span class="chev">${ico('chev','width="16" height="16"')}</span></button>`;
+      if(open)h+=`<div class="sublist">${SORDER.map(s=>`<button class="nav ${r===s?'on':''}" data-go="${s}" ${r===s?'aria-current="page"':''}><span class="dot" style="background:var(--c-${s})"></span>${SUBJ[s].name}</button>`).join('')}</div>`;
+    }else h+=`<button class="nav ${r===k?'on':''}" data-go="${k}" ${r===k?'aria-current="page"':''}>${ico(ic)}${label}</button>`;
+  }
+  const nav=document.getElementById('nav');nav.innerHTML=h;
+  nav.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+  document.getElementById('subjToggle').onclick=()=>{S.openSubj=!S.openSubj;renderNav()};
+}
+const narrow=()=>matchMedia('(max-width:1100px)').matches;
+function syncRail(){const r=document.getElementById('rail');r.inert=narrow()&&!r.classList.contains('open')}
+function setMenu(open,focusBack){const r=document.getElementById('rail'),was=r.classList.contains('open');r.classList.toggle('open',open);document.getElementById('scrim').classList.toggle('on',open);document.getElementById('menuBtn').setAttribute('aria-expanded',String(open));syncRail();if(open){const f=r.querySelector('.nav.on')||r.querySelector('.nav');f&&f.focus()}else if(was&&focusBack)document.getElementById('menuBtn').focus()}
+function go(r){S.route=r;S.sel=null;try{history.replaceState(null,'','#'+r)}catch(e){}setMenu(false);render();window.scrollTo(0,0)}
+
+/* ---------- dashboard ---------- */
+function nowCard(){
+  const ti=todayIdx(),m=minsNow();
+  if(ti<0){
+    const before=new Date()<new Date(WEEK.dates[0]+'T00:00');const wd=new Date().getDay();const weekend=wd===0||wd===6;
+    const b=WEEK.days[0][0];
+    if(before)return `<section class="now" style="--sc:var(--c-${b.s})"><div><span class="muted">School starts Monday 26 October</span><h2>First lesson: <span class="subj">${sname(b.s)}</span> · ${esc(b.t)}</h2><p class="muted" style="margin:0">Starts at 7:30. Pencil charged, iPad ready.</p></div></section>`;
+    return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${weekend?'No school today':'Waiting for this week'}</span><h2>${weekend?'Enjoy the weekend':'This week\'s timetable isn\'t ready yet'}</h2><p class="muted" style="margin:0">${weekend?'The next timetable appears once Ishaaq approves it.':'Ask Ishaaq to send this week\'s scheme to Claude. Until then, redo any lessons you didn\'t finish and any points marked Needs sharpening.'}</p></div></section>`;
+  }
+  const day=WEEK.days[ti],F=dayFlow(ti),now=Date.now(),n=day.length;
+  const doneN=day.filter((x,k)=>isDone(ti,k)).length;
+  if(F.cur<0&&F.next<0)return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${WEEK.names[ti]}</span><h2>School's done for today</h2><p class="muted" style="margin:0">${doneN} of ${n} lessons ticked off.${doneN<n?' Open This week to tick off the steps you finished.':' Well done.'}</p>${pips(ti,-1)}</div></section>`;
+  let i,label,until=null,since=null,sub='',btn;
+  if(F.cur>=0){i=F.cur;const p=F.ph[i];
+    label={work:'Now',mid:'Mid-lesson break',over:'Over time',review:'5-minute review',test:'Test lesson'}[p.p]+` · started ${ampm(p.start)}`;
+    if(p.p==='over'){since=p.until;sub='over: end the lesson'}else if(p.p!=='test'){until=p.p==='work'?p.start+p.dur*MS:p.until;sub={work:'left in this lesson',mid:'of break left',review:'to rate it and prove it'}[p.p]}
+  }else{i=F.next;const L=F.last;
+    if(L&&now<L.until){label=L.i===DHUHR_AFTER?'Dhuhr and lunch break · up next':'10-minute break · up next';until=L.until;sub='of break left'}
+    else if(now<atMin(DAYSTART)&&!F.last){label='School starts at 7:30';until=atMin(DAYSTART);sub='until 7:30'}
+    else label=F.last?'Break over · up next':'Up next';
+  }
+  const b=blockInfo(ti,i),sc=b.s==='test'?'test':b.s,left=day.filter((x,k)=>F.est[k]&&!F.est[k].actual||k===F.cur).length;
+  const late=now>atMin(DAYEND);
+  const finTxt=F.finish?(late?`It's past 3:30 and ${left} lesson${left===1?' is':'s are'} left. Finish ${left===1?'it':'them'} now, or after Asr.`:`${left} lesson${left===1?'':'s'} left · finishing about ${ampm(F.finish)}${F.finish>atMin(DAYEND)?', after 3:30: keep breaks to time':''}`):'';
+  return `<section class="now" style="--sc:var(--c-${sc})"><div><span class="muted">${label}</span>
+    <h2><span class="subj">${sname(b.s)}</span> · ${esc(b.t)}</h2>
+    <p class="muted" style="margin:0 0 4px">Lesson ${i+1} of ${n} · ${lessonDur(ti,i)} min${b.type==='test'?'':` with a ${midBreak(lessonDur(ti,i))}-min break in the middle, then a 5-min review`}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn primary" data-open="${ti}_${i}">${b.type==='test'?'Go to tests':F.cur>=0?'Open lesson':'Open and start'}</button></div>
+    <p class="muted" style="margin:10px 0 0;font-size:.88rem">${finTxt}</p>
+    ${pips(ti,i)}</div>
+    ${until?`<div class="left" data-until="${until}">--<small>${sub}</small></div>`:since?`<div class="left over" data-since="${since}">--<small>${sub}</small></div>`:''}</section>`;
+}
+const ampm=ms=>hhmm(ms)+(new Date(ms).getHours()<12?' am':' pm');
+/* today's estimated start times, recalculated from what has actually happened */
+function startLabel(ti,i,F){const e=F&&F.est[i];if(isDone(ti,i)&&!(e&&e.actual))return '';if(!e)return '';return (e.actual?'':'~')+hhmm(e.s)}
+function curIdx(ti){if(ti<0)return -1;const F=dayFlow(ti);return F.cur>=0?F.cur:F.next}
+function pips(ti,nb){const F=dayFlow(ti);return `<div class="pips" aria-label="Today's lessons">${WEEK.days[ti].map((x,k)=>`<span class="${isDone(ti,k)||F.ph[k].p==='after'?'d':''} ${k===nb?'n':''}" title="Lesson ${k+1}: ${esc(sname(blockInfo(ti,k).s))}"></span>`).join('')}</div>`}
+function vDashboard(){
+  const ti=todayIdx(),nb=curIdx(ti),F=ti>=0?dayFlow(ti):null;
+  let done=0,total=0,fullDays=0;
+  WEEK.days.forEach((day,d)=>{let all=true;day.forEach((b,i)=>{total++;if(isDone(d,i))done++;else all=false});if(all)fullDays++});
+  const hs=SORDER.map(health).filter(h=>h!=null);const overall=hs.length?Math.round(hs.reduce((a,b)=>a+b,0)/hs.length):null;
+  let today='';
+  if(ti>=0)today=WEEK.days[ti].map((x,i)=>{const b=blockInfo(ti,i);const dn=isDone(ti,i),now=i===nb;return `<button class="row linkbtn" data-open="${ti}_${i}" style="width:100%;${now?'color:var(--accent);font-weight:700':''}"><span class="mono muted" style="width:44px;font-size:.82rem">${startLabel(ti,i,F)}</span><span class="dot" style="background:var(--c-${b.s==='test'?'test':b.s})"></span><span style="flex:1;min-width:0">${esc(b.t)}</span>${dn?`<span class="pill p-good">${ico('check','width="12" height="12"')}Done</span>`:now?`<span class="pill p-acc">${F.cur===i?'Now':'Next'}</span>`:''}</button>`}).join('')+`<p class="muted" style="font-size:.84rem;margin:8px 0 0">Times with ~ are estimates. They move with you: each lesson starts when you press Start. Dhuhr and lunch come after lesson 4.</p>`;
+  else today=`<div class="empty">No lessons today. ${WEEK.label} runs ${WEEK.range}.</div>`;
+  const rows=SORDER.map(s=>{const h=health(s),last=subjTests(s)[0];return `<button class="row linkbtn" data-go="${s}" style="width:100%"><span style="width:112px;flex:none;font-weight:700;display:flex;align-items:center;gap:8px"><span class="dot" style="background:var(--c-${s})"></span>${sname(s)}</span><span class="bar"><i style="width:${h??0}%;background:${hColor(h)}"></i></span><span class="mono" style="width:30px;text-align:right;font-weight:500">${h??'–'}</span><span class="mono muted" style="width:44px;text-align:right;font-size:.8rem" title="Last test score">${last?last.pct+'%':'–'}</span></button>`}).join('');
+  const alerts=buildAlerts();
+  return `<div class="view">
+   <div class="head"><div><h1>${ti>=0?'Assalamu alaikum, Eesa':'ISB'}</h1><p class="meta">${WEEK.label}, ${WEEK.range} · ${done} of ${total} lessons done · ${fullDays} full day${fullDays===1?'':'s'}</p></div></div>
+   ${nowCard()}
+   <div class="grid2">
+     <section class="panel"><div class="head" style="margin-bottom:6px;align-items:baseline"><h2>Subject health</h2><span class="label">Overall <b style="color:${hColor(overall)};font-size:1rem">${overall??'–'}</b></span></div>
+       <div class="list">${rows}</div>
+       <p class="muted" style="font-size:.86rem;margin:10px 0 0">${hs.length?'Score: average of the last 3 Friday tests, minus 5 while a sharpening lesson is open. Then the latest test score. Green 80+, amber 70–79, red under 70.':'Scores appear after the first Friday tests on 30 October. Green 80+, amber 70–79, red under 70.'}</p>
+     </section>
+     <div class="view" style="gap:18px">
+       <section class="panel"><h2>Today</h2><div class="list">${today}</div></section>
+       <section class="panel" style="${alerts.some(a=>a.k==='bad')?'border-color:var(--bad)':''}"><h2>Needs attention</h2><div>${alerts.length?alerts.map(a=>`<div class="alert"><span style="color:var(--${a.k==='bad'?'bad':a.k==='warn'?'warn':'accent'})">${ico(a.k==='info'?'info':'warn')}</span><span>${a.t}</span></div>`).join(''):'<div class="muted" style="font-size:.94rem">Nothing needs attention right now.</div>'}</div></section>
+     </div>
+   </div></div>`;
+}
+function buildAlerts(){
+  const a=[];
+  for(const t of Object.values(S.tests)){if(t.week===WEEK.id&&t.pct!=null&&t.pct<70)a.push({k:'bad',t:`Sharpening lesson needed: ${SUBJ[t.subject].name} scored ${Math.round(t.pct)}%. Do it after 3:30pm on a weekday (Friday afternoon or early next week), then retest next Friday.`})}
+  for(const t of Object.values(S.tests)){if(t.oneToOne)a.push({k:'bad',t:`One-to-one session with Claude needed for ${SUBJ[t.subject].name}: the same point failed twice.`})}
+  WEEK.days.forEach((day,d)=>day.forEach((b,i)=>{const st=blockState(d,i);if(b.prove&&(st.done||st.reviewed)&&!st.proved)a.push({k:'warn',t:`Prove it still to do: ${SUBJ[b.s].name}, ${esc(b.t)}.`})}));
+  if(todayIdx()===4)a.push({k:'info',t:'Friday is test day. Start with the tests from 7:30, in order.'});
+  return a.slice(0,8);
+}
+
+/* ---------- week ---------- */
+function vWeek(){
+  const ti=todayIdx(),nb=curIdx(ti),F=ti>=0?dayFlow(ti):null;
+  let h=`<div class="h"></div>${WEEK.days[0].map((t,i)=>(i===DHUHR_AFTER+1?'<div class="h"></div>':'')+`<div class="h">Lesson ${i+1}</div>`).join('')}`;
+  WEEK.days.forEach((day,d)=>{
+    h+=`<div class="d ${d===ti?'today':''}">${WEEK.short[d]}<small>${WEEK.dates[d].slice(8)} Oct</small></div>`;
+    day.forEach((b,i)=>{if(i===DHUHR_AFTER+1)h+=`<div class="gap">${d===0?'Dhuhr':''}</div>`;h+=cell(blockInfo(d,i),d,i,d===ti&&i===nb)});
+  });
+  if(S.day==null)S.day=ti>=0?ti:0;
+  const pills=WEEK.short.map((n,d)=>`<button class="${d===S.day?'on':''}" data-day="${d}" aria-pressed="${d===S.day}">${n} ${WEEK.dates[d].slice(8)}</button>`).join('');
+  const dl=WEEK.days[S.day].map((x,i)=>{const b=blockInfo(S.day,i);return `<div><div class="when">Lesson ${i+1} · ${lessonDur(S.day,i)} min${S.day===ti&&startLabel(ti,i,F)?' · '+startLabel(ti,i,F):''}${i===DHUHR_AFTER+1?' · after Dhuhr and lunch':''}</div>${cell(b,S.day,i,S.day===ti&&i===nb)}</div>`}).join('');
+  return `<div class="view"><div class="head"><div><h1>This week</h1><p class="meta">${WEEK.label}, ${WEEK.range} · 7:30 to 3:30 · lessons go in order and start when you press Start · tap one to open it</p></div></div>
+   <div class="tt-wrap"><div class="tt">${h}</div></div>
+   <div class="daypills">${pills}</div><div class="daylist">${dl}</div>
+   <div id="detail">${S.sel?detail(...S.sel):''}</div></div>`;
+}
+function cell(b,d,i,isnow){
+  const sel=S.sel&&S.sel[0]===d&&S.sel[1]===i;
+  return `<button class="cell ${isDone(d,i)?'done':''} ${sel?'sel':''} ${isnow?'isnow':''}" style="--sc:var(--c-${b.s==='test'?'test':b.s})" data-cell="${d}_${i}" aria-label="${esc(WEEK.names[d]+' lesson '+(i+1)+', '+sname(b.s)+': '+b.t+(isDone(d,i)?', done':''))}"><span class="s">${sname(b.s)} · ${lessonDur(d,i)}m${isnow?' · now':''}</span><span class="t">${esc(b.t)}</span>${b.prove?'<span class="tag">Prove it</span>':b.topup?'<span class="tag">Top-up</span>':''}<span class="ok">${ico('check','width="12" height="12"')}</span></button>`;
+}
+function detail(d,i){
+  const b=blockInfo(d,i),st=blockState(d,i),sc=b.s==='test'?'test':b.s;
+  if(b.type==='test'||!SUBJ[b.s])return `<section class="panel detail" style="--sc:var(--c-${sc})"><div><h2>${esc(b.t)}</h2><p class="meta">${WEEK.names[d]} · Lesson ${i+1}</p></div><p style="margin:0">${esc(b.d)}</p><div><button class="btn primary" data-go="tests">Go to tests</button></div></section>`;
+  const sv=st.steps||[];const plan=stepsFor(b,d,i);const P=phaseOf(d,i),dur=P.dur,mb=midBreak(dur),H=halfAt(dur);
+  const running=['work','mid','over'].includes(P.p);const ph=P.p==='work'||P.p==='over'?phaseAt(plan,learnMin(dur,(Date.now()-P.start)/MS)):-1;
+  const C=lessonClock(d,i);
+  const lnk=l=>`<a href="${esc(l[1])}" target="_blank" rel="noopener">${ico('ext')}${esc(l[0])}</a>`;
+  const steps=plan.map((p,k)=>`<div class="step ${k===ph?'cur':''}" data-phase="${k}"><label><input type="checkbox" data-step="${k}" ${sv[k]?'checked':''}><span><b>${esc(p.t)}</b> <span class="muted">· ${p.min} min</span></span></label>${p.note?`<p class="stepnote">${esc(p.note)}</p>`:''}${p.links&&p.links.length?`<div class="links">${p.links.map(lnk).join('')}</div>`:''}</div>`).join('');
+  const conv=st.conv||[];
+  const gptUrl='https://chatgpt.com/?q='+encodeURIComponent(proveBrief(b));
+  const prove=`<div class="prove"><div><h3>Prove it in ChatGPT</h3><p style="margin:4px 0 0;font-size:.92rem">Tap the button. ChatGPT opens already set up as your teacher for this lesson. Explain what you learned like you're the teacher, or ask it anything you're stuck on. Tap the microphone to speak instead of typing. Then come back here and tap <b>I've proved it</b>.${b.prove?' This lesson\'s Prove it is one Mama checks.':''}</p></div>
+      ${conv.length?`<details><summary class="muted" style="cursor:pointer;font-size:.9rem">Earlier Prove it chat</summary><div class="chat" style="margin-top:8px">${conv.map(m=>`<div class="msg ${m.role==='user'?'me':'cl'}"><span class="who">${m.role==='user'?'You':'Claude'}</span>${esc(m.content)}</div>`).join('')}</div></details>`:''}
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><a class="btn primary" href="${esc(gptUrl)}" target="_blank" rel="noopener">${ico('ext')}Prove it in ChatGPT</a><button class="btn" data-copybrief="${d}_${i}">Copy the teacher instructions</button>${st.proved?`<span class="pill p-good">${ico('check','width="12" height="12"')}Proved</span><button class="btn ghost" id="proveUndo">Undo</button>`:'<button class="btn" id="proveDone">I\'ve proved it</button>'}</div>
+      <p class="muted" style="margin:0;font-size:.84rem">If ChatGPT opens empty, tap Copy, then paste into a new ChatGPT chat.</p></div>`;
+  const btns=P.p==='idle'||P.p==='done'?`<button class="btn primary" data-bstart="${d}_${i}">Start lesson</button>`
+    :running?`<button class="btn primary" data-bend="${d}_${i}">End lesson</button>`
+    :P.p==='review'?`<button class="btn primary" data-brev="${d}_${i}">Finish review</button><button class="btn ghost" data-bstop="${d}_${i}">Restart timer</button>`
+    :`<button class="btn ghost" data-bstop="${d}_${i}">Restart timer</button>`;
+  const gapTxt=gapAfter(i)===DHUHR?'Dhuhr and lunch (45 min)':'your 10-minute break';
+  return `<section class="panel detail" style="--sc:var(--c-${sc})">
+    <div class="top"><div style="min-width:0;flex:1"><h2><span style="color:var(--sc)">${SUBJ[b.s].name}</span> · ${esc(b.t)}</h2><p class="meta">${WEEK.names[d]} · Lesson ${i+1} · ${dur} min · spec ${b.spec.map(esc).join(', ')}</p><p style="margin:8px 0 0">${esc(b.d)}</p>
+      <p class="muted" style="margin:8px 0 0;font-size:.88rem">${P.start?`Started ${ampm(P.start)}. `:''}The clock runs from when you press Start. At ${H} minutes it gives you a ${mb}-min break, then you carry on. After the lesson: a 5-minute review, then ${gapTxt}.</p></div>
+      <div class="timer"><div style="text-align:right"><span class="clock mono ${C.cls||''}" data-bclock="${d}_${i}" data-k="${C.k}" role="timer">${C.txt}</span><div class="muted" data-bcap style="font-size:.8rem;margin-top:4px">${C.cap}</div></div>${btns}</div></div>
+    ${P.p==='mid'?`<div class="midnote" role="status">${mb}-minute break. Stand up, stretch, drink some water. The clock tells you when to carry on.</div>`:''}
+    <div class="steps">${steps}</div>
+    <section class="review ${P.p==='review'?'cur':''}" aria-labelledby="rv_${d}_${i}">
+      <div><h3 id="rv_${d}_${i}">After the lesson: 5-minute review</h3><p class="muted" style="margin:4px 0 0;font-size:.9rem">${P.p==='review'?`Rate the lesson, then prove it in ChatGPT. Press Finish review when you're done and ${gapTxt} starts.`:running?'Press End lesson when you finish, even if it\'s early. Then do this part.':`Rate the lesson, then prove it in ChatGPT. ${gapTxt[0].toUpperCase()+gapTxt.slice(1)} starts after this.`}</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:20px">
+        <div><div class="label" id="confL" style="margin-bottom:6px">How confident do you feel?</div><div class="seg" role="group" aria-labelledby="confL">${[1,2,3,4,5].map(n=>`<button data-conf="${n}" class="${st.conf===n?'on':''}" aria-pressed="${st.conf===n}">${n}</button>`).join('')}</div></div>
+        <div><div class="label" id="timeL" style="margin-bottom:6px">How did the time go?</div><div class="seg" role="group" aria-labelledby="timeL">${[['early','Early'],['on','On time'],['over','Ran over']].map(([k,l])=>`<button data-time="${k}" class="${st.time===k?'on':''}" aria-pressed="${st.time===k}">${l}</button>`).join('')}</div></div>
+      </div>
+      ${prove}
+      ${P.p==='review'?`<div><button class="btn primary" data-brev="${d}_${i}">Finish review, start the break</button></div>`:''}
+    </section>
+  </section>`;
+}
+
+/* ---------- subjects ---------- */
+function vSubject(s){
+  const sj=SUBJ[s],h=health(s),ts=subjTests(s);
+  const groups={};for(const l of sj.links)(groups[l[0]]=groups[l[0]]||[]).push(l);
+  const linksH=Object.entries(groups).map(([g,ls])=>`<div><h3 style="margin-bottom:8px">${g}</h3><div class="links">${ls.map(l=>`<a href="${l[2]}" target="_blank" rel="noopener">${ico('ext')}${esc(l[1])}</a>`).join('')}</div></div>`).join('');
+  const pts=[];WEEK.days.forEach((day,d)=>day.forEach((b,i)=>{if(b.s===s&&b.type==='learn'&&!b.topup)pts.push({b,d,i})}));
+  const t=S.tests[tkey(s)];
+  const chk=pts.map(({b,d,i})=>{const dn=isDone(d,i);let st='Not started',c='p-none';if(dn){st='Learnt';c='p-acc'}if(t&&t.pct!=null){if(t.pct>=70&&dn){st='Passed';c='p-good'}else if(t.pct<70){st='Needs sharpening';c='p-bad'}}return `<div class="row"><span class="mono muted" style="width:96px;font-size:.8rem;flex:none">${b.spec.map(esc).join(', ')}</span><span style="flex:1;min-width:0">${esc(b.t)}</span><span class="pill ${c}">${st}</span></div>`}).join('');
+  return `<div class="view" style="--sc:var(--c-${s})">
+   <div class="head"><div><h1 style="color:var(--c-${s})">${sj.name}</h1><p class="meta">${sj.code} · Pearson Edexcel International GCSE</p></div>
+     <div style="text-align:right"><div style="font-family:var(--f-display);font-size:2rem;font-weight:600;line-height:1;color:${hColor(h)}">${h??'–'}<span class="muted" style="font-size:.95rem"> /100</span></div><span class="pill p-${hClass(h)}" style="margin-top:6px">${hWord(h)}</span></div></div>
+   <section class="panel" style="display:flex;flex-direction:column;gap:16px">${linksH}</section>
+   <section class="panel"><h2>Spec checklist, ${WEEK.label}</h2><div class="chk">${chk||'<div class="empty">No new spec points for this subject this week.</div>'}</div>
+     <p class="muted" style="font-size:.86rem;margin:10px 0 0">Points go from not started, to learnt, to passed once the Friday test scores 70% or more.</p></section>
+   <section class="panel"><h2>Test history</h2>${ts.length?`<div class="list">${ts.map(x=>`<div class="row"><span class="mono muted" style="width:96px">${esc(x.week)}</span><span style="flex:1">${esc(TESTS[s]?.title||'')}</span><span class="pill p-${hClass(x.pct)}">${Math.round(x.pct)}%</span></div>`).join('')}</div>`:'<div class="empty">The first test is on Friday 30 October.</div>'}</section>
+  </div>`;
+}
+
+/* ---------- tests ---------- */
+const TIMER={};
+/* test timer lives in the shared store so it's the same on every device; local copy only as a fallback */
+function timerState(s){const t=S.tests[tkey(s)];if(t&&t.started)return {start:t.started,ended:t.ended};if(t&&t.redos&&!t.started)return TIMER[s]||null;if(TIMER[s])return TIMER[s];try{return JSON.parse(localStorage.getItem('isb_t2_'+tkey(s))||'null')}catch(e){return null}}
+function setTimer(s,v){TIMER[s]=v;try{localStorage.setItem('isb_t2_'+tkey(s),JSON.stringify(v))}catch(e){}saveTest(s,{started:v.start,ended:v.ended||null})}
+function remaining(s){const v=timerState(s);if(!v)return null;if(v.ended)return 0;return Math.max(0,Math.round(v.start/1000+TESTS[s].mins*60-Date.now()/1000))}
+function unlocksAt(s){const v=timerState(s);return v?v.start+TESTS[s].mins*60000:null}
+const msUnlocked=s=>{const u=unlocksAt(s);return u!=null&&Date.now()>=u};
+const hhmm=ms=>{const d=new Date(ms);return `${d.getHours()%12||12}:${pad(d.getMinutes())}`};
+const fmt=n=>`${pad(Math.floor(n/60))}:${pad(n%60)}`;
+function vTests(){
+  const order=WEEK.days[4].map((b,i)=>b.type==='test'?[`Lesson ${i+1}`,b.tests]:null).filter(Boolean);
+  return `<div class="view"><div class="head"><div><h1>Tests</h1><p class="meta">Friday 30 October · ${WEEK.label}</p></div></div>
+   <section class="panel"><h2>How to do a test</h2><ol class="howto">${HOWTO.map(x=>`<li>${x}</li>`).join('')}</ol></section>
+   ${order.map(([lab,ss])=>`<h2 class="blockhead">${lab}</h2>${ss.map(testCard).join('')}`).join('')}
+  </div>`;
+}
+function testCard(s){
+  const T=TESTS[s],st=S.tests[tkey(s)]||{},rem=remaining(s),started=rem!=null,ended=rem===0,open=msUnlocked(s);
+  const lockTxt=started&&!open?`Mark scheme unlocks at ${hhmm(unlocksAt(s))}`:'Mark scheme locked';
+  const items=T.items.map(it=>`<div class="q"><span><b>${esc(it.q)}</b><br><span class="muted" style="font-size:.84rem">${esc(it.src)}</span></span><span class="links"><a href="${it.qp}" target="_blank" rel="noopener">${ico('ext')}Question paper</a>${open?`<a href="${it.ms}" target="_blank" rel="noopener">${ico('ext')}Mark scheme</a>`:`<span class="pill p-none" data-lock="${s}">${lockTxt}</span>`}</span></div>`).join('');
+  const photos=(st.photos||[]).map(id=>`<a href="/_blob/${id}" target="_blank" rel="noopener"><img src="/_blob/${id}" alt="Marked test photo" width="72" height="72" style="object-fit:cover;border-radius:8px;border:1px solid var(--line)"></a>`).join('');
+  return `<section class="panel test" style="--sc:var(--c-${s})">
+    <div class="head" style="align-items:flex-start"><div><h2><span class="subj">${SUBJ[s].name}</span> · ${esc(T.title)}</h2><p class="meta mono" style="font-size:.84rem">${T.mins} min${T.marks?` · ${T.marks} marks`:''} · spec ${T.spec.map(esc).join(', ')}</p></div>
+      <div style="text-align:right"><div class="clock ${ended?'over':''}" data-clock="${s}" role="timer">${fmt(started?rem:T.mins*60)}</div>
+      <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:8px">${!started?`<button class="btn primary" data-start="${s}">Start test</button>`:ended?'<span class="pill p-warn">Pencil down</span>':`<button class="btn" data-stop="${s}">Finish early</button>`}${started?`<button class="btn ghost" data-redo="${s}">Redo test</button>`:''}</div>
+      <div data-confirm="${s}" ${S.confirming===s&&started&&!ended?'':'hidden'} style="margin-top:8px;font-size:.88rem">Stop the clock now? The mark scheme still unlocks at the full time. <button class="btn" data-yes="${s}">Yes, stop</button></div></div></div>
+      <div data-redoconfirm="${s}" ${S.redoing===s?'':'hidden'} style="margin-top:8px;font-size:.88rem;max-width:300px;margin-left:auto">Start this test again from scratch? The timer and score reset. Mama can see how many times a test was redone. <button class="btn" data-redoyes="${s}">Yes, redo</button></div>${st.redos?`<div class="muted" style="font-size:.8rem;margin-top:4px">Redone ${st.redos} time${st.redos>1?'s':''}</div>`:''}
+    ${T.fallback?`<div class="fallback">${esc(T.fallback)}</div>`:''}
+    ${items?`<div class="qlist">${items}</div>`:''}
+    <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end">
+      <div><label class="label" for="sc_${s}" style="display:block;margin-bottom:4px">Marks scored</label><input type="number" inputmode="numeric" min="0" step="1" id="sc_${s}" value="${num(st.score)??''}"></div>
+      <div><label class="label" for="of_${s}" style="display:block;margin-bottom:4px">Out of</label><input type="number" inputmode="numeric" min="1" step="1" id="of_${s}" value="${num(st.outOf)??T.marks??''}"></div>
+      <button class="btn primary" data-score="${s}">Save score</button>${T.marks?'':'<span class="muted" style="font-size:.86rem;flex-basis:100%">Out of: add up the marks printed next to each question you did.</span>'}
+      ${st.pct!=null?`<span class="pill p-${hClass(st.pct)}">${st.pct}% · ${st.pct>=70?'Passed':'Sharpening lesson needed'}</span>`:''}
+      <span class="err" id="er_${s}" role="alert"></span>
+    </div>
+    ${st.specResults?`<div class="list">${Object.entries(st.specResults).map(([k,v])=>`<div class="row"><span class="mono" style="width:90px">${esc(k)}</span><span style="flex:1"></span><span class="pill p-${hClass(v)}">${Math.round(v)}%</span></div>`).join('')}</div>`:''}
+    ${st.feedback?`<div class="msg cl" style="max-width:none"><span class="who">Claude's marking</span>${esc(st.feedback)}</div>`:''}
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">${S.assets?`<label class="btn">${ico('check')}Upload marked test<input type="file" accept="image/*" data-up="${s}" hidden></label>`:'<span class="muted" style="font-size:.88rem">Keep a photo of the marked test in your Photos app for Mama.</span>'}${photos}</div>
+  </section>`;
+}
+
+/* ---------- progress + requests ---------- */
+function vProgress(){
+  const perDay=WEEK.days.map((day,d)=>day.filter((b,i)=>isDone(d,i)).length);
+  const quad={solid:0,danger:0,under:0,weak:0};
+  WEEK.days.forEach((day,d)=>day.forEach((b,i)=>{const st=blockState(d,i);const t=S.tests[tkey(b.s)];if(!st.conf||!t||t.pct==null)return;const conf=st.conf>=4,pass=t.pct>=70;quad[conf&&pass?'solid':conf?'danger':pass?'under':'weak']++}));
+  const rows=SORDER.map(s=>{const t=S.tests[tkey(s)];const prev=Object.values(S.tests).filter(x=>x.subject===s&&x.pct!=null&&x.week<WEEK.id).sort((a,b)=>b.week.localeCompare(a.week))[0];const confs=[];WEEK.days.forEach((day,d)=>day.forEach((b,i)=>{if(b.s===s&&blockState(d,i).conf)confs.push(blockState(d,i).conf)}));const avg=confs.length?(confs.reduce((a,b)=>a+b,0)/confs.length).toFixed(1):'–';
+   return `<div class="row"><span style="width:130px;flex:none;font-weight:700;display:flex;align-items:center;gap:8px"><span class="dot" style="background:var(--c-${s})"></span>${SUBJ[s].name}</span><span class="mono muted" style="flex:1;font-size:.86rem">Feels ${avg}/5</span><span class="mono muted" style="width:64px;text-align:right">${prev?Math.round(prev.pct)+'%':'–'}</span><span style="width:72px;text-align:right">${t&&t.pct!=null?`<span class="pill p-${hClass(t.pct)}">${Math.round(t.pct)}%</span>`:'<span class="muted">–</span>'}</span></div>`}).join('');
+  const r=S.refl[WEEK.id]||{};const max=Math.max(6,...perDay);
+  return `<div class="view"><div class="head"><div><h1>Progress</h1><p class="meta">${WEEK.label}, ${WEEK.range}</p></div></div>
+   <div class="grid2">
+    <section class="panel"><div class="head" style="margin-bottom:6px;align-items:baseline"><h2>Subjects</h2><span class="label" style="display:flex;gap:26px"><span>Last week</span><span>This week</span></span></div><div class="list">${rows}</div></section>
+    <section class="panel"><h2>Lessons done each day</h2><div class="daybars">${perDay.map((n,d)=>`<div class="c"><span>${n}</span><i style="height:${n/max*100}%"></i><span>${WEEK.short[d]}</span></div>`).join('')}</div></section>
+   </div>
+   <section class="panel"><h2>Feeling vs knowing</h2><p class="muted" style="margin:0 0 12px;font-size:.92rem">Each lesson's confidence rating compared with that subject's Friday score.</p>
+    <div class="quad"><div><b style="color:var(--good)">${quad.solid}</b>Felt confident, scored 70%+</div><div style="background:var(--bad-soft)"><b style="color:var(--bad)">${quad.danger}</b>Danger zone: felt confident, scored under 70%</div><div><b>${quad.under}</b>Felt unsure, scored 70%+</div><div><b style="color:var(--warn)">${quad.weak}</b>Felt unsure, scored under 70%</div></div></section>
+   <section class="panel"><h2>Eesa's Friday reflection</h2>
+    <div style="display:flex;flex-direction:column;gap:12px"><div><label class="label" for="rf1" style="display:block;margin-bottom:4px">What felt hardest this week?</label><textarea id="rf1" style="min-height:64px">${esc(r.hardest||'')}</textarea></div>
+    <div><label class="label" for="rf2" style="display:block;margin-bottom:4px">Anything you'd change?</label><textarea id="rf2" style="min-height:64px">${esc(r.change||'')}</textarea></div>
+    <div><button class="btn primary" id="rfSave">Save reflection</button></div></div></section>
+   <section class="panel"><h2>Back up</h2><p class="muted" style="margin:0 0 12px;font-size:.92rem">Everything is saved on this iPad only. Every Friday, tap Back up and keep the file (Files app or email it to Ishaaq). If anything is ever lost, tap Restore and pick the latest file.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" id="bkGo">Back up</button><label class="btn">Restore from a file<input type="file" accept=".json,application/json" id="bkIn" hidden></label></div></section>
+  </div>`;
+}
+function vRequests(){
+  return `<div class="view"><div class="head"><div><h1>Requests</h1><p class="meta">Got an idea to make ISB better? It opens an email to Ishaaq. Just press Send.</p></div></div>
+   <section class="panel" style="max-width:640px;display:flex;flex-direction:column;gap:10px"><label for="reqIn"><h2>What feature do you want?</h2></label>
+   <textarea id="reqIn" placeholder="A countdown to my next test on the dashboard"></textarea><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="reqGo">Send to Ishaaq</button><span id="reqErr" class="err" role="alert"></span></div></section></div>`;
+}
+
+/* ---------- render + wiring ---------- */
+/* Live updates from other devices never rebuild the page while someone is typing; they wait until the box loses focus. */
+let pendingLive=false;
+const typing=()=>{const a=document.activeElement;return a&&document.getElementById('main').contains(a)&&(a.tagName==='TEXTAREA'||(a.tagName==='INPUT'&&a.type!=='checkbox'&&a.type!=='file'))};
+function liveRender(){if(typing()){pendingLive=true;return}render()}
+document.addEventListener('focusout',()=>{setTimeout(()=>{if(pendingLive&&!typing()){pendingLive=false;render()}},0)});
+function focusKey(el){if(!el||!el.attributes)return null;for(const a of ['data-cell','data-conf','data-time','data-step','data-day','data-start','data-stop','data-yes','data-score','data-bstart','data-bstop','data-bend','data-brev','data-open','data-go']){if(el.hasAttribute&&el.hasAttribute(a))return `[${a}="${el.getAttribute(a)}"]`}return el.id?'#'+el.id:null}
+function render(){
+  let fk=null;
+  try{
+  renderNav();
+  const r=S.route,m=document.getElementById('main');
+  const keep={};['proveIn','reqIn','rf1','rf2'].forEach(id=>{const el=document.getElementById(id);if(el&&el.value)keep[id]=el.value});
+  if(S.clearInput){delete keep[S.clearInput];S.clearInput=null}
+  fk=m.contains(document.activeElement)?focusKey(document.activeElement):null;
+  pendingLive=false;
+  const banner=S.canWrite===false?`<div class="viewonly" role="alert"><b>This account can only view ISB, so ticks and scores won't save.</b> Ishaaq: open the Share menu on ISB, turn off "Anyone with the link", and invite Mama's email as an <b>Editor</b>. Then reload this page.</div>`:'';
+  m.innerHTML=banner+(r==='week'?vWeek():r==='tests'?vTests():r==='progress'?vProgress():r==='requests'?vRequests():SUBJ[r]?vSubject(r):vDashboard());
+  m.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+  m.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>{const [d,i]=b.dataset.open.split('_').map(Number);if(WEEK.days[d][i].type==='test'){go('tests');return}S.route='week';S.day=d;S.sel=[d,i];try{history.replaceState(null,'','#week')}catch(e){}render();const el=document.getElementById('detail');if(el){el.scrollIntoView({block:'start'});const h=el.querySelector('h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true})}}});
+  m.querySelectorAll('[data-cell]').forEach(b=>b.onclick=()=>{const [d,i]=b.dataset.cell.split('_').map(Number);S.sel=[d,i];render();const el=document.getElementById('detail');if(el){el.scrollIntoView({behavior:'smooth',block:'nearest'});const h=el.querySelector('h2');if(h){h.tabIndex=-1;h.focus({preventScroll:true})}}});
+  m.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{S.day=+b.dataset.day;S.sel=null;render()});
+  if(S.sel){const [d,i]=S.sel;
+    m.querySelectorAll('[data-step]').forEach(c=>c.onchange=async()=>{const st=[...(blockState(d,i).steps||[])];st[+c.dataset.step]=c.checked;const n=stepsFor(blockInfo(d,i),d,i).length;const done=Array.from({length:n},(x,k)=>!!st[k]).every(Boolean);const ok=await saveBlock(d,i,{steps:st,done,at:new Date().toISOString()});if(ok&&done)toast('Lesson done')});
+    m.querySelectorAll('[data-conf]').forEach(c=>c.onclick=()=>saveBlock(d,i,{conf:+c.dataset.conf}));
+    m.querySelectorAll('[data-time]').forEach(c=>c.onclick=()=>saveBlock(d,i,{time:c.dataset.time}));
+    m.querySelectorAll('[data-bstart]').forEach(c=>c.onclick=async()=>{const now=Date.now();if(await setBTimer(d,i,{start:now}))toast(`Started at ${ampm(now)}. ${lessonDur(d,i)} minutes from now.`)});
+    m.querySelectorAll('[data-bstop]').forEach(c=>c.onclick=()=>{setBTimer(d,i,null)});
+    m.querySelectorAll('[data-bend]').forEach(c=>c.onclick=async()=>{const t=bTimer(d,i);if(!t)return;const end=Date.now(),dur=lessonDur(d,i);const mins=Math.round((end-t.start)/MS);const extra={mins};if(!blockState(d,i).time)extra.time=mins<dur-5?'early':mins<=dur+2?'on':'over';if(await setBTimer(d,i,{...t,ended:end},extra))toast(`Lesson ended after ${Math.max(1,mins)} min. Now the 5-minute review.`);const rv=document.querySelector('.review');if(rv)rv.scrollIntoView({behavior:'smooth',block:'start'})});
+    m.querySelectorAll('[data-brev]').forEach(c=>c.onclick=async()=>{const t=bTimer(d,i);if(!t)return;const now=Date.now();if(await setBTimer(d,i,{...t,reviewed:now}))toast(`Break until ${ampm(now+gapAfter(i)*MS)}`)});
+    const pg=document.getElementById('proveGo');if(pg){pg.onclick=()=>proveIt(d,i);if(S.proving){pg.disabled=true;pg.textContent='Claude is reading…';const pi=document.getElementById('proveIn');if(pi)pi.disabled=true}}
+    const pd=document.getElementById('proveDone');if(pd)pd.onclick=async()=>{if(await saveBlock(d,i,{proved:true}))toast('Proved')};const pu=document.getElementById('proveUndo');if(pu)pu.onclick=()=>saveBlock(d,i,{proved:false});m.querySelectorAll('[data-copybrief]').forEach(c=>c.onclick=async()=>{const t=proveBrief(blockInfo(d,i));try{await navigator.clipboard.writeText(t);toast('Copied. Paste it into ChatGPT.')}catch(e){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Copied. Paste it into ChatGPT.')}catch(e2){toast('Could not copy')}ta.remove()}});
+  }
+  m.querySelectorAll('[data-start]').forEach(b=>b.onclick=()=>{setTimer(b.dataset.start,{start:Date.now()});render()});
+  m.querySelectorAll('[data-stop]').forEach(b=>b.onclick=()=>{S.confirming=b.dataset.stop;render();const y=m.querySelector(`[data-yes="${b.dataset.stop}"]`);y&&y.focus()});
+  m.querySelectorAll('[data-redo]').forEach(b=>b.onclick=()=>{S.redoing=b.dataset.redo;render();const y=m.querySelector(`[data-redoyes="${b.dataset.redo}"]`);y&&y.focus()});
+  m.querySelectorAll('[data-redoyes]').forEach(b=>b.onclick=async()=>{const s=b.dataset.redoyes;S.redoing=null;S.confirming=null;delete TIMER[s];try{localStorage.removeItem('isb_t2_'+tkey(s))}catch(e){}const prev=(S.tests[tkey(s)]||{}).redos||0;if(await saveTest(s,{started:null,ended:null,score:null,outOf:null,pct:null,at:new Date().toISOString(),redos:prev+1}))toast('Test reset. Press Start when ready.')});
+  m.querySelectorAll('[data-yes]').forEach(b=>b.onclick=()=>{const s=b.dataset.yes;S.confirming=null;setTimer(s,{...(timerState(s)||{start:Date.now()}),ended:Date.now()});render()});
+  m.querySelectorAll('[data-score]').forEach(b=>b.onclick=async()=>{const s=b.dataset.score;const sc=document.getElementById('sc_'+s),of=document.getElementById('of_'+s),er=document.getElementById('er_'+s);const a=Math.round(+sc.value),o=Math.round(+of.value);if(sc.value===''||of.value===''||!Number.isFinite(a)||!Number.isFinite(o)||a<0||o<1||a>o){er.textContent='Enter the marks scored and the total. Marks scored can\'t be higher than the total.';sc.focus();return}if(await saveTest(s,{score:a,outOf:o,pct:Math.round(a/o*100),at:new Date().toISOString()}))toast('Score saved')});
+  m.querySelectorAll('input[type=number]').forEach(inp=>inp.addEventListener('input',()=>{const s=inp.id.slice(3);const er=document.getElementById('er_'+s);if(er)er.textContent=''}));
+  m.querySelectorAll('[data-up]').forEach(inp=>inp.onchange=async()=>{const s=inp.dataset.up,f=inp.files[0];if(!f)return;try{toast('Uploading…');const r=await S.assets.upload(f);if(!r||typeof r.id!=='string')throw new Error('no id');if(await saveTest(s,{photos:[...((S.tests[tkey(s)]||{}).photos||[]),r.id]}))toast('Photo uploaded')}catch(e){toast('Upload failed. Try a smaller photo.')}});
+  const bk=document.getElementById('bkGo');if(bk)bk.onclick=()=>{const blob=new Blob([JSON.stringify(LDB.dump(),null,1)],{type:'application/json'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=`ISB-backup-${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);toast('Backup saved')};
+  const bi=document.getElementById('bkIn');if(bi)bi.onchange=async()=>{const f=bi.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!o||typeof o!=='object'||!o.blocks&&!o.tests)throw 0;LDB.load(o);toast('Restored')}catch(e){toast('That file isn\'t an ISB backup')}};
+  const rf=document.getElementById('rfSave');if(rf)rf.onclick=async()=>{const v={hardest:document.getElementById('rf1').value.trim(),change:document.getElementById('rf2').value.trim(),week:WEEK.id,at:new Date().toISOString()};S.refl[WEEK.id]=v;if(!S.db){toast('Not saved: open ISB in Claude while signed in');return}try{await S.db.collection('reflections').doc(WEEK.id).set(v);toast('Reflection saved')}catch(e){toast('Could not save. Check your connection.')}};
+  const rq=document.getElementById('reqGo');if(rq)rq.onclick=()=>{const t=document.getElementById('reqIn'),er=document.getElementById('reqErr');const v=t.value.trim();if(!v){er.textContent='Write your idea first.';t.focus();return}er.textContent='';try{S.db.collection('requests').add({text:v,at:new Date().toISOString()})}catch(e){}location.href='mailto:growqureshi@gmail.com?subject='+encodeURIComponent('ISB feature request')+'&body='+encodeURIComponent(v);S.clearInput='reqIn';toast('Opening Mail. Press Send.')};
+  const ri=document.getElementById('reqIn');if(ri)ri.oninput=()=>{document.getElementById('reqErr').textContent=''};
+  for(const [id,v] of Object.entries(keep)){const el=document.getElementById(id);if(el&&!el.value)el.value=v;else if(el&&id.startsWith('rf'))el.value=v}
+  if(fk){const el=m.querySelector(fk);if(el&&!el.disabled)el.focus({preventScroll:true})}
+  document.querySelectorAll('.theme button').forEach(b=>{const on=b.dataset.th===getTheme();b.classList.toggle('on',on);b.setAttribute('aria-pressed',String(on))});
+  syncRail();
+  tick();
+  }catch(err){console.error(err);const m=document.getElementById('main');if(m)m.innerHTML=`<div class="panel"><h2>Something went wrong showing this page</h2><p class="muted">Reload ISB. If it keeps happening, tell Ishaaq.</p><button class="btn" onclick="location.reload()">Reload</button></div>`}
+}
+function proveBrief(b){
+  return `You are Eesa's teacher, and also like a warm but no-nonsense older brother. Eesa is 14 and in Year 10, studying Pearson Edexcel International GCSE ${SUBJ[b.s].name} (${SUBJ[b.s].code}). An adult is sitting with him. He has just studied: "${b.t}" (spec ${(b.spec||[]).join(', ')}): ${b.d}
+This is a conversation, not an interrogation. Each message from Eesa is either an explanation of what he learned, a question, or both.
+- If he asks a question, answer it directly and properly first: plain words, an everyday example, and the exact exam keywords an Edexcel mark scheme would credit. Never dodge it, turn it back on him, or make him earn the answer.
+- If he explains something, say in one line what he got right, then name any gap or mistake and fix it in plain words with the exam keywords.
+- Only ask a check question when it would genuinely show whether he has understood a gap you just fixed. Most replies don't need one, never ask more than one, and don't ask one after you've answered his question unless he asks to be tested.
+- If he says he's got it or wants to move on, accept that and wrap up in a line.
+Under 170 words. Plain text, no headings or markdown.
+To start, reply with one short friendly line asking Eesa to explain what he learned or ask his question. Then wait for him.`;
+}
+async function proveIt(d,i){
+  const b=blockInfo(d,i),inp=document.getElementById('proveIn'),er=document.getElementById('proveErr');const text=inp.value.trim();
+  if(!text){er.textContent='Write your explanation or your question first.';inp.focus();return}
+  if(S.proving)return;
+  const conv=[...(blockState(d,i).conv||[]),{role:'user',content:text}];
+  const brief=`You are Eesa's teacher, and also like a warm but no-nonsense older brother. Eesa is 14 and in Year 10, studying Pearson Edexcel International GCSE ${SUBJ[b.s].name} (${SUBJ[b.s].code}). An adult is sitting with him. He has just studied: "${b.t}" (spec ${(b.spec||[]).join(', ')}): ${b.d}
+This is a conversation, not an interrogation. Each message from Eesa is either an explanation of what he learned, a question, or both.
+- If he asks a question, answer it directly and properly first: plain words, an everyday example, and the exact exam keywords an Edexcel mark scheme would credit. Never dodge it, turn it back on him, or make him earn the answer.
+- If he explains something, say in one line what he got right, then name any gap or mistake and fix it in plain words with the exam keywords.
+- Only ask a check question when it would genuinely show whether he has understood a gap you just fixed. Most replies don't need one, never ask more than one, and don't ask one after you've answered his question unless he asks to be tested.
+- If he says he's got it or wants to move on, accept that and wrap up in a line.
+Under 170 words. Plain text, no headings or markdown.`;
+  const msgs=conv.map((m,k)=>k===0?{role:'user',content:brief+'\n\nEesa\'s first message:\n'+m.content}:m);
+  S.proving=true;inp.disabled=true;const btn=document.getElementById('proveGo');btn.disabled=true;btn.textContent='Claude is reading…';er.textContent='';
+  try{const r=await S.sample(msgs,{modelTier:'default',cache:false});conv.push({role:'assistant',content:String(r&&r.text||'')});S.proving=false;S.clearInput='proveIn';const el=document.getElementById('proveIn');if(el)el.value='';await saveBlock(d,i,{conv})}
+  catch(e){S.proving=false;render();const e2=document.getElementById('proveErr');if(e2)e2.textContent=e&&e.code==='rate_limited'?'Too many requests. Wait a minute and try again.':e&&e.code==='not_granted'?'Claude access wasn\'t allowed for this page.':'Claude couldn\'t answer. Try again.'}
+}
+function getTheme(){try{return localStorage.getItem('isb_theme')||'auto'}catch(e){return 'auto'}}
+function applyTheme(t){const r=document.documentElement;if(t==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',t);try{localStorage.setItem('isb_theme',t)}catch(e){}}
+document.querySelectorAll('.theme button').forEach(b=>b.onclick=()=>{applyTheme(b.dataset.th);render()});
+document.getElementById('menuBtn').onclick=()=>setMenu(!document.getElementById('rail').classList.contains('open'));
+document.getElementById('scrim').onclick=()=>setMenu(false,true);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false,true)});
+matchMedia('(max-width:1100px)').addEventListener('change',()=>{setMenu(false);syncRail()});
+
+/* live clocks: one tick updates text only; a full render only when the block, the day or a lock changes */
+let lastFlow=flowKey();
+function tick(){
+  document.querySelectorAll('[data-until]').forEach(el=>{const ms=+el.dataset.until-Date.now();const min=Math.max(0,Math.ceil(ms/60000));el.firstChild.nodeValue=min>=60?`${Math.floor(min/60)}h ${min%60}m`:`${min} min`});
+  document.querySelectorAll('[data-since]').forEach(el=>{const min=Math.max(0,Math.floor((Date.now()-el.dataset.since)/60000));el.firstChild.nodeValue=`+${min} min`});
+  let flip=false;
+  document.querySelectorAll('[data-bclock]').forEach(el=>{const [d,i]=el.dataset.bclock.split('_').map(Number);const C=lessonClock(d,i);if(C.k!==el.dataset.k){flip=true;return}el.textContent=C.txt;el.className='clock mono '+(C.cls||'');const cap=el.parentNode.querySelector('[data-bcap]');if(cap)cap.textContent=C.cap;const P=phaseOf(d,i);if(P.p==='work'||P.p==='over'){const ph=phaseAt(stepsFor(blockInfo(d,i),d,i),learnMin(P.dur,(Date.now()-P.start)/MS));document.querySelectorAll('.step').forEach(l=>l.classList.toggle('cur',+l.dataset.phase===ph))}});
+  document.querySelectorAll('[data-clock]').forEach(el=>{const s=el.dataset.clock,rem=remaining(s);if(rem==null)return;el.textContent=fmt(rem);if(rem===0&&!el.classList.contains('over'))flip=true});
+  document.querySelectorAll('[data-lock]').forEach(el=>{if(msUnlocked(el.dataset.lock))flip=true});
+  return flip;
+}
+setInterval(()=>{const fk=flowKey();if(fk!==lastFlow){lastFlow=fk;if(S.route==='dashboard'||S.route==='week'){liveRender();return}}if(tick())liveRender()},1000);
+
+applyTheme(getTheme());
+const validRoute=h=>h&&(SUBJ[h]||ROUTES.some(r=>r[0]===h));
+const h0=(location.hash||'').slice(1);if(validRoute(h0))S.route=h0;
+window.addEventListener('hashchange',()=>{const h=(location.hash||'').slice(1);if(validRoute(h)&&h!==S.route){S.route=h;S.sel=null;setMenu(false);render();window.scrollTo(0,0)}});
+setSync('wait');
+render();
+
+/* ---------- saving: everything lives in this browser (iPad), no account needed ---------- */
+const SEED={"blocks": {"2026-10-26_0_0": {"at": "2026-10-27T08:09:33.680Z", "conf": 4, "day": 0, "done": true, "idx": 0, "mins": 58, "steps": [true, true, true], "subject": "maths", "time": "on", "week": "2026-10-26"}, "2026-10-26_0_1": {"at": "2026-10-27T11:37:01.401Z", "conf": 5, "conv": [{"content": "in this lesson I learnt how to calculate percentage you and the way to do that is first they give you an equation and then you have to calculate the moles in the first element or compound which depend depending on the equation Will equal the amount of moles in another element or compound then after getting those more values you should calculate the So after you get the moles then you calculate the mass of the second element or compound and you calculate the mass by timing or multiplying the by the relative formula mass and to calculate the percentage yield they\u2019ll give you an example of a scientist who did the experiment and it will show you how much of the product the scientist sensitive and based on the calculation of the mass calculated that will be the maximum theoretical mass and then you put it in the percentage yield formula which is actual mass of product made over maximum theoretical mass of product and times it by 100 or multiplied by 100 and then you\u2019ll get the answer and you put it in a percentage form", "role": "user"}, {"content": "Good work: your formula, actual mass over maximum theoretical mass times 100, is exactly right, and you know the calculated mass is the theoretical one.\n\nGaps compared with a mark scheme:\n\n1. Moles of the first substance: you didn't say how to find them. The keyword step is moles = mass \u00f7 relative formula mass (Mr). You also said \"multiply by Mr\" for mass, which is right, but say it as mass = moles \u00d7 Mr.\n\n2. Using the equation: the key word is \"mole ratio\" (or \"molar ratio\"). The balancing numbers tell you how many moles of product form from the moles of reactant. Like a recipe: 2 slices of bread make 1 sandwich, so 10 slices make 5 sandwiches. Say \"use the ratio\", not \"will equal\", because the moles are not always equal.\n\n3. \"Actual yield\": say \"actual yield\" for what the scientist really got, and \"theoretical yield\" for the maximum.\n\n4. Units: give the answer as a % (never above 100%), and keep masses in the same unit, such as grams.\n\nCheck question: in the equation 2Mg + O\u2082 \u2192 2MgO, if you have 0.5 mol of Mg, how many moles of MgO could you make at most, and why?", "role": "assistant"}, {"content": "i got it now it\u2019s ok", "role": "user"}, {"content": "Glad it's clicking, Eesa, but \"I got it\" is exactly what I'd like to see you prove. You haven't answered the check question yet, and that's where the real learning happens.\n\nTry it now: in 2Mg + O\u2082 \u2192 2MgO, if you start with 0.5 mol of Mg, how many moles of MgO could you make at most? Tell me which numbers in the equation you used and why. Use the words \"mole ratio\" in your answer.\n\nIf you get that, the next step is a full one: a scientist makes 4.0 g of MgO, but the maximum theoretical yield was 5.0 g. What's the percentage yield? Have a go, and show me your working step by step, even if you're unsure. A wrong attempt is more useful to me than \"I got it\", because I can see where to help.", "role": "assistant"}], "day": 0, "done": true, "idx": 1, "mins": 53, "proved": true, "steps": [true, true, true], "subject": "chemistry", "time": "over", "week": "2026-10-26"}, "2026-10-26_0_2": {"at": "2026-10-27T15:07:49.242Z", "conf": 4, "conv": [{"content": "listen bru , im so tired, just tell me the least u wanna know so we can get this over with", "role": "user"}, {"content": "Fair enough, mate, I'll keep it tight. But you haven't taught me anything yet, so I can't spot gaps. Let's fix that in one go.\n\nWhat you got right: you showed up tired and still want to finish, and that's the right attitude.\n\nGap: no content yet. For spec 2.80, the mark scheme wants the key chain: a change in the environment is a stimulus, which is detected by a receptor, and the organism then makes a response. Keep stimulus, receptor and response as exact words, because \"reaction\" and \"sensor\" won't get marks.\n\nEveryday example: a hot pan touches your hand. The heat is the stimulus, the temperature receptors in your skin detect it, and your muscles pull your hand away. That's the response.\n\nAlso remember that organisms respond to stay alive, for example to find food, avoid danger or find mates.\n\nCheck question: a plant on a windowsill grows towards the light. Name the stimulus and the response, using the exact keywords.", "role": "assistant"}, {"content": "im asking you to tell me what u wanna know", "role": "user"}, {"content": "Fair, you want the target, so here it is. Keep it to three things.\n\nWhat you got right: you asked what's needed, which is smart when you're tired.\n\nWhat the mark scheme wants for 2.80:\n1. The chain: stimulus (a change in the environment), receptor (detects it), response (what the organism does).\n2. Why: responding helps survival, e.g. finding food or avoiding danger.\n3. Use these exact words. \"Reaction\" and \"sensor\" lose marks.\n\nEveryday example: your phone buzzes (stimulus), your eyes and ears detect it (receptors), you pick it up (response).\n\nNow say it back in your own words, one sentence, then we're done.\n\nCheck question: a plant on a windowsill grows towards the light. What is the stimulus, and what is the response?", "role": "assistant"}, {"content": "bro just cut to the case, ask me the question and make it clear, I don't know what ur asking right now", "role": "user"}, {"content": "Got it, here's just the question.\n\nA plant on a windowsill bends towards the window.\n\nQuestion: what is the stimulus?\n\nOne word or short phrase is fine. We'll do the response after.", "role": "assistant"}, {"content": "the stimulus is the change in environment, so in this case, its the light affecting the plant. and the response is the resulting action, which in this case, is the plant growing and bending towards the light .", "role": "user"}, {"content": "Good work: you got the stimulus (light) and the response (growing towards it) both right, and you explained them as a change and a resulting action.\n\nGaps, compared with what the mark scheme credits:\n1. Keyword \"receptor\" is missing. The chain needs stimulus, then receptor, then response, and a question on this often asks for all three.\n2. Say \"growing towards light\" as a response, and name it as a plant's response. (At IGCSE you'll later call this phototropism, but you only need the idea for now.)\n3. Missing the \"why\": responding helps survival.\n\nEveryday example: when you walk from a dark room into sunshine, your eyes are the receptors that detect the bright light (stimulus), and your pupils shrink (response). That protects your eyes, which is the survival reason.\n\nCheck question: why does a plant benefit from growing towards light? Answer in one short sentence.", "role": "assistant"}, {"content": "wait, so tell me why would've been a better answer", "role": "user"}, {"content": "Good news: your stimulus and response were right, so you're only missing the last link.\n\nGap: the \"why\". A better answer ends with a \"because\" that links the response to survival, using exact keywords.\n\nHere's the pattern with a different example: \"The hand pulls away from the hot pan (response) because this avoids damage to the body (survival).\"\n\nEveryday example: you're low on phone battery, so you move to sit near a socket. Moving is the response, and the benefit is getting the energy you need.\n\nNow do the same for the plant. Light is the plant's energy source, a bit like that socket. I won't give you the finished sentence, but one process is the key word the mark scheme wants.\n\nCheck question: what process do plants use light for? One word is fine.", "role": "assistant"}, {"content": "so give me the ideal answer that would've been perfect", "role": "user"}, {"content": "Here's the model answer for your plant explanation, with one word left blank because that's my check question.\n\nWhat you got right: your stimulus (light) and response (growing towards it) were both correct.\n\nIdeal answer: \"The stimulus is light, a change in the environment. Receptors in the shoot tip detect it. The response is the shoot growing towards the light. This helps the plant survive because it gets more light for ________, which makes the food (glucose) it needs to grow.\"\n\nGaps that answer fixes:\n1. \"Receptors\" named in the chain.\n2. A \"because\" linking the response to survival.\n\nEveryday example: it's like turning your face to a heater when you're cold. You detect the cold, you move, and you get the warmth you need.\n\nCheck question: what one word goes in the blank?", "role": "assistant"}], "day": 0, "done": true, "idx": 2, "mins": 178, "proved": true, "steps": [true, true, true, true], "subject": "biology", "time": "over", "week": "2026-10-26"}, "2026-10-26_0_3": {"at": "2026-10-27T15:41:07.904Z", "conf": 4, "conv": [{"content": "I learned that specific heat capacity of a substance is the amount of energy required to raise the temperature of 1kg of the substance by 1 degree celsius. I also learnt the formula for this, which is  : delta thermal energy = mass x specific heat capacity x temperature change, and I solved questions using this formula.", "role": "user"}, {"content": "Nice one, Eesa: your definition has the key ideas, energy, 1 kg and 1 \u00b0C, and you know the equation links them.\n\nGaps compared with an Edexcel mark scheme:\n\n1. Unit: you haven't given the unit, J/kg \u00b0C (joules per kilogram per degree Celsius). Marks are often lost here.\n2. Keyword: the standard wording is \"change in thermal energy\", and the symbols are \u0394Q = m \u00d7 c \u00d7 \u0394\u03b8. Say \"change in thermal energy\" in full.\n3. Meaning: \"specific\" means per 1 kg, and \"heat capacity\" is how much energy a material soaks up. Water's value is about 4200 J/kg \u00b0C, so it takes a lot of energy to warm up. That's why a cup of tea stays hot for ages while a metal spoon in it heats up quickly. The spoon has a low specific heat capacity.\n4. Be careful with \"amount of energy required\". Write \"energy needed to raise the temperature of 1 kg by 1 \u00b0C\" and make sure you say the energy is transferred to the substance.\n\nCheck question: Two 1 kg blocks, one copper (c = 390 J/kg \u00b0C) and one aluminium (c = 900 J/kg \u00b0C), each receive the same energy. Which one gets hotter, and why?", "role": "assistant"}, {"content": "would u say I know the topic well now?", "role": "user"}, {"content": "Not quite yet, but you're close. Your definition and equation are solid, and that's the hard core of the topic.\n\nGaps still open:\n\n1. Unit: you haven't yet stated J/kg \u00b0C. Examiners want it, and you need it for calculations too.\n2. Meaning of the number: you haven't shown you can say what a high or low specific heat capacity does. A low value means a small amount of energy changes the temperature a lot, like a metal spoon in hot tea heating up fast. A high value means the substance needs lots of energy for the same rise, like water in a kettle taking ages to warm.\n3. My check question is still unanswered, so I can't tell if you can apply the idea, not just recite it.\n\nAlso watch for questions giving grams or kJ. Convert to kg and J before using \u0394Q = m \u00d7 c \u00d7 \u0394\u03b8.\n\nCheck question: copper (390 J/kg \u00b0C) and aluminium (900 J/kg \u00b0C), both 1 kg, get the same energy. Which gets hotter, and why?", "role": "assistant"}, {"content": "ok. the unit for specific heat capacity is J/kg \u00b0C.  I also learnt the meaning of the number, A low value means a small amount of energy changes the temperature a lot, like a metal spoon in hot tea heating up fast. A high value means the substance needs lots of energy for the same rise, like water in a kettle taking ages to warm. also the answer to that question is The copper block gets hotter.\nWhy: Copper has a lower specific heat capacity than aluminium, meaning it takes less energy to heat up. Given the same amount of energy, copper's temperature will rise much higher.", "role": "user"}, {"content": "Good work, Eesa: your unit is right, your copper answer is correct, and your reasoning about low specific heat capacity is spot on.\n\nGaps compared with an Edexcel mark scheme:\n\n1. Wording: \"takes less energy to heat up\" is vague. Examiners want \"less energy is needed to raise the temperature of 1 kg by 1 \u00b0C\". Always bring in the 1 kg and 1 \u00b0C.\n2. Numbers as evidence: you didn't use the values. Say \"copper 390 J/kg \u00b0C is lower than aluminium 900 J/kg \u00b0C\", so the same energy gives a bigger temperature rise. Quoting data earns marks.\n3. Equation link: rearrange \u0394Q = m \u00d7 c \u00d7 \u0394\u03b8 to \u0394\u03b8 = \u0394Q \u00f7 (m \u00d7 c). Mass and energy are the same, so a smaller c gives a bigger \u0394\u03b8. It's like two people pushing the same shove: the lighter trolley speeds up more.\n4. Remember the symbols: \u0394Q is change in thermal energy, \u0394\u03b8 is temperature change.\n\nCheck question: A 0.50 kg block of aluminium (c = 900 J/kg \u00b0C) is heated from 20 \u00b0C to 60 \u00b0C. How much energy does it gain? Show your working.", "role": "assistant"}], "day": 0, "done": true, "idx": 3, "mins": 12, "proved": true, "steps": [true, true, true], "subject": "physics", "time": "early", "week": "2026-10-26"}, "2026-10-26_1_0": {"at": "2026-10-28T09:29:28.800Z", "conf": 4, "conv": [{"content": "basically in this lesson is learn how to calculate limiting reactants and basically how you do it is that they give you a question and they give you a question like this. How many moles of zinc iodide would be produced if we use 0.5 moles of zinc and one mole of iodine .calculate the mass of the product . Basically what you have to do is write them the equation write down the moles of each one then the moles of zinc iodide will be 0.5 moles because the limiting reacting in the equation which is zinc is 0.5 moles so then we have to calculate the mass which is the mole times the relative formula mass which is 0.5\u00d7319 which is 159.5", "role": "user"}, {"content": "Nice work, Eesa. Your method is right: write the equation, compare moles, find the limiting reactant, use it to get the product, then do mass = moles \u00d7 Mr. And 0.5 \u00d7 319 = 159.5 g is correct.\n\nTwo things to tighten up for the exam.\n\nFirst, say why zinc is limiting. Zn + I\u2082 \u2192 ZnI\u2082 is a 1:1 ratio, so 0.5 mol of zinc needs only 0.5 mol of iodine. You have 1 mol, so iodine is in excess (0.5 mol left over). Zinc is the limiting reactant because it runs out first and so decides how much product forms. A mark scheme wants those words: \"limiting reactant\", \"in excess\", \"mole ratio\".\n\nSecond, include the unit. The answer is 159.5 g, and it's worth showing the Mr: 65 + (2 \u00d7 127) = 319.\n\nThink of making cheese sandwiches: 1 cheese slice per sandwich, 0.5 slices but 1 bread... the cheese runs out first, so it limits the sandwiches.", "role": "assistant"}, {"content": "ok thanks , i\u2019ve got it now", "role": "user"}, {"content": "Brilliant, Eesa. You've got the key idea: the limiting reactant runs out first and decides how much product you get, and the one in excess is left over. One small fix to my sandwich example, by the way: I muddled the numbers, so just remember it as \"the ingredient that runs out first limits the sandwiches.\" Next time, always check the mole ratio from the equation before deciding which is limiting. Good session, on to the next topic whenever you're ready.", "role": "assistant"}, {"content": "my feedback for this lesson that u should take note of is that the savemyexams link questions that are shown here are not the right topic that im studying", "role": "user"}, {"content": "Thanks for telling me, Eesa. That's useful feedback. I can't see or change the Save My Exams links the app shows, and I can't pass your note on myself, so it's worth letting the adult with you know. They can report it to whoever runs the app, or you can search Save My Exams yourself for \"Limiting Reactants\" under Edexcel International GCSE Chemistry (4CH1), which is the topic you've just studied.\n\nIn the meantime, you can practise this topic with questions like the zinc and iodine one: write the equation, find the moles of each reactant, use the mole ratio to spot the limiting reactant, then work out the product's mass. If you get stuck on any of them, bring it back here and we'll go through it.", "role": "assistant"}, {"content": "also, if the lesson or topic that im learning doesn't have a video on the freescience lessons channel, then use another channel, like cognito", "role": "user"}, {"content": "Good thinking, Eesa. Cognito is a solid choice for Edexcel International GCSE Chemistry, and it's a sensible backup when a topic isn't on FreeScienceLessons.\n\nOne thing to be upfront about: I can't see or change which videos the app recommends, so I can't make that switch myself. The adult with you can pass the suggestion on to whoever runs the app. In the meantime, you can search YouTube yourself for \"Cognito limiting reactant\" or \"limiting reactants and excess reactants GCSE chemistry\". Just check the video covers moles and mole ratios, since that's what your spec needs.\n\nQuick tip: when you use any video, pause it before the answer appears and try the calculation yourself. That's how it sticks.\n\nAnything else about limiting reactants you want to go over, or shall we wrap up here?", "role": "assistant"}, {"content": "and I don't even think this video and questions covers everything in the topic im meant to be doing", "role": "user"}, {"content": "Fair point, Eesa. I can't see what the app's video and questions cover, so I can't say what's missing, but it's smart to check.\n\nHere's how: ask the adult with you to open the Pearson Edexcel International GCSE Chemistry (4CH1) specification and find the statements on limiting reactants and moles. Use them as a checklist. For each statement, ask yourself, \"Can I do this without help?\" Anything you can't do is a gap.\n\nHere's what a limiting reactant topic usually includes, so you can check it against the spec:\n- explaining what \"limiting reactant\" and \"in excess\" mean\n- using the mole ratio from a balanced equation to find which reactant is limiting\n- calculating the mass of product from the limiting reactant\n- working out how much of the excess reactant is left over\n\nIf the video skips any of these, find another video or past paper questions on that point. Tell the adult too, so the app's maker can hear about it.\n\nWant to try the \"how much excess is left over\" part with your zinc and iodine example?", "role": "assistant"}, {"content": "oh wait never mind, I take the least message back my bad", "role": "user"}, {"content": "No problem at all, Eesa, nothing to apologise for. Checking that a lesson covers your whole spec is a good habit, so keep doing it.\n\nIf the video and questions do cover everything, great. If you ever spot a gap later, you now know how to check it against the 4CH1 spec.\n\nYou've done well today: you can find the limiting reactant using the mole ratio, say which reactant is in excess, and calculate the mass of product with its unit. Whenever you're ready, on to the next topic.", "role": "assistant"}], "day": 1, "done": true, "ended": 1793179453173, "idx": 0, "mins": 68, "proved": true, "reviewed": 1793179758398, "started": 1793175382336, "steps": [true, true, true], "subject": "chemistry", "time": "on", "week": "2026-10-26"}, "2026-10-26_1_1": {"at": "2026-10-28T14:20:01.360Z", "conf": 4, "conv": [{"content": "dw i got it", "role": "user"}, {"content": "Nice one, Eesa. Quick recap so it's locked in for the exam:\n\nTo solve simultaneous equations by the graphical method, you draw both lines accurately on the same axes, then read off the coordinates of the point of intersection. That point is the solution, and the x-value and y-value are your two answers.\n\nThree things that catch people out in exams:\n1. Rearrange to y = mx + c if you need to, or make a table of values, and plot at least 2-3 points per line, using a ruler.\n2. Write the answer as x = ... and y = ..., not just as a coordinate pair, unless the question asks for coordinates.\n3. If the lines are parallel, there is no solution. If they're the same line, there are infinitely many.\n\nYou can also check your answer by substituting it back into both original equations. If both work, you're right.\n\nGood to move on. If you want to try a question later, just say.", "role": "assistant"}], "day": 1, "done": true, "ended": 1793197185271, "idx": 1, "mins": 202, "reviewed": 1793197221881, "started": 1793185070846, "steps": [true, true, true], "subject": "maths", "time": "over", "week": "2026-10-26"}, "2026-10-26_1_2": {"at": "2026-10-28T15:34:59.426Z", "conv": [{"content": "i did this yesterday lol", "role": "user"}, {"content": "Fair enough, Eesa, doing it yesterday is the best time to lock it in. No quiz, just a quick refresher on what matters for the exam.\n\nThe equation is \u0394Q = m \u00d7 c \u00d7 \u0394T. In words: change in thermal energy (joules, J) = mass (kg) \u00d7 specific heat capacity (J/kg\u00b0C) \u00d7 change in temperature (\u00b0C).\n\nSpecific heat capacity is the energy needed to raise the temperature of 1 kg of a substance by 1\u00b0C. That's the definition mark, so learn it word for word.\n\nEveryday example: water has a high specific heat capacity (about 4200 J/kg\u00b0C), so a kettle takes ages to heat up and a pan of water stays warm long after. Metal has a low one, so a spoon heats up fast.\n\nTwo traps examiners love: convert grams to kilograms first, and \u0394T means final temperature minus initial temperature, not just the final one.\n\nIf you've got questions about any of it, or want a practice calculation, just say so. Otherwise you're good to move on.", "role": "assistant"}], "day": 1, "done": true, "ended": 1793201695012, "idx": 2, "mins": 0, "reviewed": 1793201770170, "started": 1793201694530, "steps": [true, true, true], "subject": "physics", "time": "early", "week": "2026-10-26"}, "2026-10-26_1_3": {"at": "2026-10-28T16:24:05.630Z", "conf": 4, "conv": [{"content": "I learned how write while loops code with a length check", "role": "user"}, {"content": "Nice one, Eesa. A length check is a validation type, and a while loop is the classic way to enforce it: keep asking until the input is the right length.\n\nHere's the shape in Python:\n\npassword = input(\"Enter password: \")\nwhile len(password) < 8:\n    print(\"Too short, try again\")\n    password = input(\"Enter password: \")\n\nThe key points for the exam:\n- The condition says when the input is invalid, so the loop repeats while the data is wrong.\n- You must ask again inside the loop, otherwise it never ends (an infinite loop).\n- len() counts the characters. A length check only tests how many characters there are, not whether the data is sensible or correct. That's the difference between validation and verification.\n- For a range of lengths, use: while len(x) < 8 or len(x) > 12.\n\nWant me to give you a quick exam-style question on it, or are you happy to move on?", "role": "assistant"}], "day": 1, "done": true, "ended": 1793204717926, "idx": 3, "mins": 20, "proved": true, "reviewed": 1793210173887, "started": 1793203546386, "steps": [true, true, true, true], "subject": "cs", "time": "early", "week": "2026-10-26"}, "2026-10-26_1_4": {"at": "2026-10-28T17:52:36.633Z", "conv": [{"content": "it have me the wrong video k=now I don't know what to do", "role": "user"}, {"content": "No worries, Eesa, this happens and it's easy to sort out. You don't need the video to get going.\n\nFor Forms of ownership (Edexcel 4BS1), the key things are:\n\n1. Sole trader: one owner, unlimited liability, keeps all profit, easy to set up.\n2. Partnership: two or more owners, usually unlimited liability, shared decisions and profit.\n3. Private limited company (Ltd): shares sold privately, limited liability.\n4. Public limited company (plc): shares sold on the stock exchange, limited liability.\n\nThe big idea is limited liability. It means owners can only lose the money they put in, not their personal things like their house. With unlimited liability, owners are personally responsible for all the business debts, which is the risk.\n\nHere's what to do: tell me which of these you already know a bit about, or just say what you think limited liability means in your own words. Or if you'd rather, ask me anything about the topic and I'll explain it properly.", "role": "assistant"}], "day": 1, "done": true, "ended": 1793209908339, "idx": 4, "mins": 82, "proved": true, "reviewed": 1793209949838, "started": 1793204999713, "steps": [true, true, true], "subject": "business", "time": "over", "week": "2026-10-26"}, "2026-10-26_1_5": {"at": "2026-10-28T17:54:47.657Z", "conf": 4, "conv": [{"content": "i learned this yesterday already", "role": "user"}, {"content": "Fair enough, then we don't need to start from scratch. Quick refresher so it's fresh for the exam: a coordinated response has three parts in order. The stimulus is the change in the environment that gets detected, like a hot pan. The receptor is the cell or organ that detects it, like temperature receptors in your skin. The effector is the muscle or gland that carries out the response, like your arm muscle pulling your hand away.\n\nExam tip: mark schemes like \"stimulus = change in environment\" and \"effector = muscle or gland\". Don't say the brain is the effector, because the brain coordinates but doesn't respond.\n\nSince you already know it, tell me in your own words what you remember, or ask me anything that's still fuzzy. If you're happy with it, say so and we'll move on.", "role": "assistant"}], "day": 1, "done": true, "idx": 5, "proved": true, "steps": [true, true, true], "subject": "biology", "time": "early", "week": "2026-10-26"}, "2026-10-26_2_0": {"at": "2026-10-29T12:53:10.097Z", "conf": 4, "conv": [{"content": "dw I get it", "role": "user"}, {"content": "Good, glad it clicked. Quick recap of the steps that earn the marks on a simultaneous equations word problem: define your letters clearly (for example, let x = cost of a pen in pounds), form two equations from the information, then eliminate one variable by making the coefficients match and adding or subtracting. Solve for the first unknown, substitute back to find the second, and always check your answer in the other equation. Finish by answering the question in words with units, because the final answer line often carries its own mark.\n\nWatch for the classic slips: subtracting a negative incorrectly, and forgetting to say what x and y stand for.\n\nNice work today. If you want to try one later, grab a past paper question on this and give it a go. For now, you're good to move on.", "role": "assistant"}], "day": 2, "done": true, "ended": 1793276723560, "idx": 0, "mins": 54, "reviewed": 1793279550905, "started": 1793273485231, "steps": [true, true, true], "subject": "maths", "time": "over", "week": "2026-10-26"}}};
+const LDB=(()=>{
+  const KEY='isb_db_v1';let data=null;
+  try{data=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+  if(!data||typeof data!=='object')data=JSON.parse(JSON.stringify(SEED));
+  const subs=[],cp=v=>JSON.parse(JSON.stringify(v));
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){return false}};
+  save();
+  const snap=c=>({docs:Object.entries(data[c]||{}).map(([id,v])=>({id,data:()=>cp(v)}))});
+  const fire=c=>subs.filter(s=>s[0]===c).forEach(s=>s[1](snap(c)));
+  const fail=()=>Object.assign(new Error('storage'),{code:'storage'});
+  return {
+    collection:c=>({
+      doc:id=>({
+        set:async v=>{(data[c]=data[c]||{})[id]=cp(v);if(!save())throw fail();setTimeout(()=>fire(c))},
+        update:async v=>{const col=data[c]=data[c]||{};if(!col[id])throw Object.assign(new Error('missing'),{code:'invalid_argument'});Object.assign(col[id],cp(v));if(!save())throw fail();setTimeout(()=>fire(c))}
+      }),
+      add:async v=>{(data[c]=data[c]||{})['r'+Date.now()]=cp(v);save()},
+      onSnapshot:cb=>{subs.push([c,cb]);setTimeout(()=>cb(snap(c)));return ()=>{}}
+    }),
+    dump:()=>cp(data),
+    load:o=>{data=cp(o);save();['blocks','tests','reflections'].forEach(fire)}
+  };
+})();
+(()=>{
+  S.db=LDB;S.sample=null;S.assets=null;S.canWrite=true;setSync('ok');
+  try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+  const sub=(coll,clean,set)=>LDB.collection(coll).onSnapshot(sn=>{const o={};sn.docs.forEach(x=>{const v=clean(x.data());if(v)o[x.id]=v});set(o);liveRender()});
+  sub('blocks',cleanBlock,o=>S.blocks=o);
+  sub('tests',cleanTest,o=>S.tests=o);
+  sub('reflections',r=>r&&typeof r==='object'?{hardest:str(r.hardest),change:str(r.change),week:str(r.week)}:null,o=>S.refl=o);
+  render();
+})();
+</script>
