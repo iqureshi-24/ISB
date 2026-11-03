@@ -380,6 +380,7 @@ const FSL={
  thermo:['Thermoregulation (Free Science Lessons)','https://youtu.be/WoMPARSQPZw'],
  homeo:['Homeostasis (Free Science Lessons)','https://youtu.be/S45_3wWL-Xk']
 };
+/* ===== WEEK-START: everything between these markers is rebuilt each week ===== */
 const YT=(title,id,t)=>[title,`https://www.youtube.com/watch?v=${id}${t?'&t='+t+'s':''}`];
 const W2={
  /* chemistry */
@@ -492,6 +493,7 @@ const TESTS={
   {q:'Q4 only',src:'June 2018 Paper 1 (4EA1/01)',qp:PMT+'English-Language/GCSE/Past-Papers/Edexcel-IGCSE-A/New-Spec-Paper-1/QP/June%202018%20QP.pdf',ms:PMT+'English-Language/GCSE/Past-Papers/Edexcel-IGCSE-A/New-Spec-Paper-1/MS/June%202018%20MS.pdf'}]}
 };
 
+/* ===== WEEK-END ===== */
 const HOWTO=['Before you start: Apple Pencil charged, calculator ready, other apps closed, quiet room.','Press Start test. Your time begins.','Open the question paper and write your answers on it with your Apple Pencil. Show all your working.','When the timer hits zero, pencil down. Stop, even mid-answer. If you finish early you can stop the clock, but the mark scheme still unlocks at the full time.','When the mark scheme unlocks, mark every question in red, honestly.','Then Ishaaq or Mama marks it with Claude in the ISB chat. Claude enters the marks here. Double-check every mark.','Upload a photo of your marked test here. Mama checks one test a week.','70% or more is a pass. Under 70% means a sharpening lesson after 3:00pm (Friday afternoon or early next week), then a retest next Friday.'];
 
 /* ---------- state ---------- */
@@ -502,6 +504,7 @@ const blockState=(d,i)=>S.blocks[bkey(d,i)]||{};
 function isDone(d,i){const b=WEEK.days[d][i];if(b.type==='test')return b.tests.every(s=>{const t=S.tests[tkey(s)];return t&&t.pct!=null});return !!blockState(d,i).done}
 const sname=s=>s==='test'?'Test':SUBJ[s].name.replace('Computer Science','Comp Sci').replace('English Language','English');
 const pad=n=>String(n).padStart(2,'0');
+const SCHEME_FOLDER='https://drive.google.com/drive/folders/1nZBfhNF6RhLxzaXIxiR1mUzXFCOa19xL';
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function todayIdx(){const n=new Date();return WEEK.dates.indexOf(`${n.getFullYear()}-${pad(n.getMonth()+1)}-${pad(n.getDate())}`)}
 const minsNow=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()+n.getSeconds()/60};
@@ -707,7 +710,8 @@ function vDashboard(){
      </section>
      <div class="view" style="gap:18px">
        <section class="panel"><h2>Today</h2><div class="list">${today}</div></section>
-       <section class="panel" style="${alerts.some(a=>a.k==='bad')?'border-color:var(--bad)':''}"><h2>Needs attention</h2><div>${alerts.length?alerts.map(a=>`<div class="alert"><span style="color:var(--${a.k==='bad'?'bad':a.k==='warn'?'warn':'accent'})">${ico(a.k==='info'?'info':'warn')}</span><span>${a.t}</span></div>`).join(''):'<div class="muted" style="font-size:.94rem">Nothing needs attention right now.</div>'}</div></section>
+       <section class="panel"><h2>Next week's scheme</h2><p class="muted" style="margin:0 0 10px;font-size:.92rem">When school sends next week's scheme, save the PDF into this folder. Claude checks it, builds the new week and puts it on ISB by itself. Ishaaq gets an email when it's done.</p><a class="btn primary" href="${SCHEME_FOLDER}" target="_blank" rel="noopener">${ico('ext')}Upload the weekly scheme</a></section>
+     <section class="panel" style="${alerts.some(a=>a.k==='bad')?'border-color:var(--bad)':''}"><h2>Needs attention</h2><div>${alerts.length?alerts.map(a=>`<div class="alert"><span style="color:var(--${a.k==='bad'?'bad':a.k==='warn'?'warn':'accent'})">${ico(a.k==='info'?'info':'warn')}</span><span>${a.t}</span></div>`).join(''):'<div class="muted" style="font-size:.94rem">Nothing needs attention right now.</div>'}</div></section>
      </div>
    </div></div>`;
 }
