@@ -99,7 +99,7 @@ main{min-width:0;padding-block:30px 64px;padding-left:max(32px, env(safe-area-in
 .pips span.d{background:var(--good)} .pips span.n{background:var(--sc)}
 /* timetable */
 .tt-wrap{overflow-x:auto}
-.tt{display:grid;grid-template-columns:50px repeat(4,minmax(100px,1fr)) 18px repeat(2,minmax(100px,1fr));gap:6px;min-width:740px}
+.tt{display:grid;grid-template-columns:50px repeat(3,minmax(100px,1fr)) 18px repeat(2,minmax(100px,1fr)) 18px;gap:6px;min-width:740px}
 .tt .h{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);text-align:center;padding-bottom:2px}
 .tt .d{font-family:var(--f-display);font-weight:600;display:flex;flex-direction:column;justify-content:center;font-size:1rem;line-height:1.1}
 .tt .d small{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);font-weight:400}
@@ -380,61 +380,119 @@ const FSL={
  thermo:['Thermoregulation (Free Science Lessons)','https://youtu.be/WoMPARSQPZw'],
  homeo:['Homeostasis (Free Science Lessons)','https://youtu.be/S45_3wWL-Xk']
 };
-const WEEK={id:'2026-10-26',label:'Week 1',range:'26–30 Oct 2026',
- dates:['2026-10-26','2026-10-27','2026-10-28','2026-10-29','2026-10-30'],
+const YT=(title,id,t)=>[title,`https://www.youtube.com/watch?v=${id}${t?'&t='+t+'s':''}`];
+const W2={
+ /* chemistry */
+ concFSL1:YT('Using Concentration of Solutions 1 (Free Science Lessons)','xsma3KjKPx8'),
+ concFSL2:YT('Concentration of Solutions, g/dm³ (Free Science Lessons)','3G3KQIyoZDI'),
+ concCog:YT('Moles, Concentration & Volume Calculations (Cognito, 6 min)','MEQ1YGxfAQ4'),
+ gasFSL:YT('Using Gas Volumes (Free Science Lessons)','tYE-1nywlFs'),
+ gasCog:YT('Gas Calculations: Volume & Moles, from 1:24 to 5:57 (Cognito)','Xx9xrkbDLog',84),
+ smeConc:['Save My Exams notes: Calculate Concentrations of Solutions (exactly this topic)','https://www.savemyexams.com/igcse/chemistry/edexcel/19/revision-notes/1-principles-of-chemistry/1-5-chemical-formulae-equations-calculations/1-5-9-calculate-concentrations-of-solutions'],
+ smeGas:['Save My Exams notes: Calculate Volumes of Gases (exactly this topic)','https://www.savemyexams.com/igcse/chemistry/edexcel/19/revision-notes/1-principles-of-chemistry/1-5-chemical-formulae-equations-calculations/1-5-10-calculate-volumes-of-gases/'],
+ smeChemQ:['Save My Exams questions: Formulae, Equations & Calculations (do only the concentration and gas volume ones)','https://www.savemyexams.com/igcse/chemistry/edexcel/19/topic-questions/1-principles-of-chemistry/1-5-chemical-formulae-equations-calculations/exam-questions/'],
+ /* biology */
+ nervFSL:YT('The Nervous System (Free Science Lessons)','oDS1hAqWp2M'),
+ nervCog:YT('The Nervous System: Reflex Arcs, from 3:13 (Cognito)','BnsZo4j1YvU',193),
+ endoFSL:YT('The Endocrine System (Free Science Lessons)','c6olhi88KZs'),
+ endoCog:YT('Endocrine vs Nervous System, from 4:08 (Cognito)','2fctpbrN0s8',248),
+ smeBio:['Save My Exams questions: Co-ordination and Response','https://www.savemyexams.com/igcse/biology/edexcel/19/topic-questions/2-structure-and-function-in-living-organisms/co-ordination-and-response/exam-questions/'],
+ /* physics */
+ presCogA:YT('Pressure: Equation & How it Works, 0:00 to 1:06 (Cognito)','sfnsuS0-o58'),
+ presCogA2:YT('Same video, 3:11 to the end: calculating force from pressure (Cognito)','sfnsuS0-o58',191),
+ presCogB:YT('Pressure: Equation & How it Works, 1:06 to 3:11 (Cognito)','sfnsuS0-o58',66),
+ gasPartFSL:YT('Particle Motion in Gases (Free Science Lessons)','hKO3DpgiISk'),
+ fluidFSL:YT('Pressure in Fluids (Free Science Lessons)','P08-lYPy1hI'),
+ atmosCog:YT('Atmospheric Pressure (Cognito)','s8C2RktZtbM'),
+ smePres:['Save My Exams questions: Density and Pressure','https://www.savemyexams.com/igcse/physics/edexcel/19/topic-questions/5-solids-liquids-and-gases/5-1-density-and-pressure/exam-questions/'],
+ smeGasQ:['Save My Exams questions: Ideal Gases (gas pressure ones)','https://www.savemyexams.com/igcse/physics/edexcel/19/topic-questions/5-solids-liquids-and-gases/5-3-ideal-gases/exam-questions/'],
+ /* maths */
+ oakNL:['Oak: Solving a linear and a quadratic pair by substitution (video, worksheet, quizzes)','https://www.thenational.academy/teachers/programmes/maths-secondary-ks4-higher/units/simultaneous-equations-2-variables/lessons/solving-a-quadratic-and-linear-pair-of-simultaneous-equations-using-substitution'],
+ mgNLvid:['Maths Genie: Quadratic simultaneous equations video','https://mathsgenie.co.uk/gcse/maths/edexcel/grade-8-9-8-1-quadratic-simultaneous-equations/videos'],
+ mgNLq:['Maths Genie: Quadratic simultaneous equations questions (with answers)','https://mathsgenie.co.uk/gcse/maths/edexcel/grade-8-9-8-1-quadratic-simultaneous-equations/questions'],
+ mgNLbook:['Maths Genie: worksheet with solutions','https://mathsgenie.co.uk/gcse/maths/edexcel/grade-8-9-8-1-quadratic-simultaneous-equations/booklet'],
+ oakNLprob:['Oak: Problem solving with linear and quadratic simultaneous equations (video)','https://www.thenational.academy/pupils/lessons/problem-solving-with-linear-and-quadratic-simultaneous-equations/video'],
+ mgNLexam:['Maths Genie: exam questions booklet (with worked answers)','https://www.mathsgenie.co.uk/resources/9-quadratic-simultaneous-equations.pdf'],
+ mgFrac:['Maths Genie: Fractions questions','https://mathsgenie.co.uk/igcse/maths/edexcel/grade-3-3-1-fractions/questions/q1'],
+ mgRound:['Maths Genie: Rounding questions','https://mathsgenie.co.uk/igcse/maths/edexcel/grade-1-1-6-rounding/questions/q9'],
+ mgEst:['Maths Genie: Estimating video','https://mathsgenie.co.uk/igcse/maths/edexcel/grade-3-3-2-estimating/videos'],
+ mgInd:['Maths Genie: Indices video','https://mathsgenie.co.uk/igcse/maths/edexcel/grade-4-4-2-indices/videos'],
+ mgNegInd:['Maths Genie: Fractional and negative indices questions','https://mathsgenie.co.uk/igcse/maths/edexcel/grade-6-6-2-fractional-and-negative-indices/questions'],
+ mgSurd:['Maths Genie: Surds questions','https://mathsgenie.co.uk/igcse/maths/edexcel/grade-7-7-1-surds/questions/q1'],
+ smeAngles:['Save My Exams: Angles in polygons and parallel lines questions','https://savemyexams.com/igcse/maths/edexcel/22/topic-questions/4-geometry-and-trigonometry/angles-in-polygons-and-parallel-lines'],
+ mgCircle:['Maths Genie: Area and circumference of circles','https://www.mathsgenie.co.uk/gcse/maths/aqa/content/grade-3-3-16-area-and-circumference-of-circles'],
+ /* english + business */
+ smeHawk:['Save My Exams: H is for Hawk (summary, themes, tips)','https://www.savemyexams.com/igcse/english-language_paper-1-non-fiction-texts-and-transactional-writing/edexcel/a/16/revision-notes/paper-1-non-fiction/paper-1-section-a-reading/h-is-for-hawk'],
+ tutClass:['Tutopiya quiz: Classification of businesses (free sign-in)','https://www.tutopiya.com/tools/topic-quiz-finder/edexcel-igcse-business-studies/business-finance/classification-of-businesses/'],
+ tutLoc:['Tutopiya quiz: Decisions on location (free sign-in)','https://www.tutopiya.com/tools/topic-quiz-finder/edexcel-igcse-business-studies/business-finance/decisions-on-location/'],
+ tutClassN:['Tutopiya revision notes: Classification of businesses','https://www.tutopiya.com/blog/edexcel-igcse-business-studies/classification-of-businesses-edexcel-igcse-business-studies/'],
+ tutLocN:['Tutopiya revision notes: Decisions on location','https://www.tutopiya.com/blog/edexcel-igcse-business-studies/decisions-on-location-edexcel-igcse-business-studies/']
+};
+const CLASSKICK='https://app.classkick.com/student/FML5YU/Eesa%20Qureshi/1';
+const gptLink=q=>'https://chatgpt.com/?q='+encodeURIComponent(q);
+const CK=n=>({t:`Classkick slide ${n}`,links:[['Classkick: your class page',CLASSKICK]],note:`Work through slide ${n} and answer every question on it. If something doesn't make sense, ask ChatGPT to explain it.`});
+const WEEK={id:'2026-11-02',label:'Week 2',range:'2–6 Nov 2026',
+ dates:['2026-11-02','2026-11-03','2026-11-04','2026-11-05','2026-11-06'],
  names:['Monday','Tuesday','Wednesday','Thursday','Friday'],short:['Mon','Tue','Wed','Thu','Fri'],
  days:[
-  [L('maths','7.2 Elimination',['7.2'],'Solve simultaneous equations by algebraic elimination.',{res:{video:M.elim,practice:M.elimQ,practice2:M.elimA,qNote:'Do questions 1 to 10. Mark them with the answers sheet and redo any you got wrong.'}}),
-   L('chemistry','Percentage yield',['Ch 5'],'Percentage yield calculations.',{prove:1,read:'Pages 57–59, if you want a written example',res:{video:FSL.yield1,video2:FSL.yield2,practice:SME.chem,qNote:'Do the percentage yield questions. Untimed: mark them and redo any you got wrong.'}}),
-   L('biology','2.80 Responding to change',['2.80'],'How organisms respond to changes in their environment.',{prove:1,res:{video:FSL.nervous,video2:FSL.plants,read:'Pages 108–116: read the part on how plants and animals respond to changes in their environment (2.80). Make notes as you go.',practice:SME.bio}}),
-   L('physics','5.12P Specific heat capacity',['5.12P','5.2'],'What specific heat capacity means, and its unit J/kg °C.',{prove:1,res:{video:FSL.shc,practice:SME.phy,qNote:'Do the Save My Exams questions on specific heat capacity. Untimed: mark them and redo any you got wrong.'}}),
-   L('cs','Nested for loops',['Ch 5'],'Nested for loops in Python.',{prove:1,res:{video:V.nested,practice:['PYnative loop exercises: do 20, 21, 24, 25, 26','https://pynative.com/python-if-else-and-for-loop-exercise-with-solutions/'],classkick:'Do the Classkick slides on nested for loops.',codeNote:'Do PYnative exercises 20, 21, 24, 25 and 26 (patterns and times tables). Type them yourself in the Python editor.'}}),
-   L('english','Speech structure',['Paper 1'],'Transactional writing: hooks, signposting and strong conclusions.',{res:{video:SCH.speechGuide,video2:E.speech,doc:E.smeSpeech,writeTitle:'Make notes on speech structure',write:'From the guide video and the Save My Exams speech notes, note: 3 ways to open (hook), how to signpost each point, and how to end strongly. Then write an opening paragraph for a speech of your own.',practice:SCH.speechVid,qNote:'Watch the motivational speech. Spot the hook, signposts and ending, and write one line on each.'}})],
-  [L('chemistry','Limiting reactant',['Ch 5'],'Limiting reactant and reactant in excess.',{prove:1,read:'Pages 57–59, if you want a written example',res:{video:FSL.limit,practice:SME.chem,qNote:'Do the questions on limiting reactant and excess. Untimed.'}}),
-   L('maths','7.3 Graphical method',['7.3'],'Solve simultaneous equations by drawing graphs.',{res:{video:M.graph,practice:M.graphQ,practice2:M.graphA,qNote:'Do all 5 questions. Draw the graphs carefully with a ruler, then mark them.'}}),
-   L('physics','5.13P ΔQ = m × c × ΔT',['5.13P'],'Use change in thermal energy = mass × specific heat capacity × change in temperature.',{res:{video:FSL.shc,practice:SME.phy,qNote:'Do the ΔQ = m × c × ΔT calculations. Write the equation, substitute, then work it out, with units.'}}),
-   L('cs','While loops: length check',['Ch 5'],'While loops that validate input with a length check.',{prove:1,res:{video:V.valid,practice:['Robust programming: length check exercises (Tony Ballantyne)','https://tech.tonyballantyne.com/2022/10/18/python-course-12-robust-and-secure-programming/'],classkick:'Do the Classkick slides on while loops and length checks.',codeNote:'Do Q1 and Q2 on the Tony Ballantyne page: a while loop that keeps asking until the name length is valid.'}}),
-   L('business','Forms of ownership',['Ch 5'],'Forms of business ownership, risk and limited liability.',{prove:1,res:{video:B.orgs,practice:B.quiz,practice2:B.cards,readLink:B.notes,read:'Chapter 5 in your Business textbook: the section on sole traders, partnerships and limited companies. If the book is not to hand, use the Save My Exams notes.',notesNote:'For each form of ownership write: who owns it, liability (limited or unlimited), one advantage, one disadvantage.'}}),
-   L('biology','2.82 Stimulus, receptor, effector',['2.82'],'A coordinated response needs a stimulus, a receptor and an effector.',{prove:1,res:{video:FSL.nervous,read:'Pages 108–116: read the part on stimulus, receptor and effector (2.82). Draw the pathway as a flow chart.',practice:SME.bio}})],
-  [L('maths','7.4 Word problems',['7.4'],'Set up and solve problems using simultaneous equations.',{res:{video:M.form,practice:M.formQ,practice2:M.elimQ,qNote:'Do the Oak practice, then questions 13 and 14 on the Cognito sheet (coffee and cakes, packs of sweets).'}}),
-   L('physics','5.14P SHC practical',['5.14P'],'Investigating the specific heat capacity of water and a solid.',{prove:1,res:{video:FSL.shcPrac,practice:SME.phy,qNote:'Write the method for the practical step by step (what you measure and with what), then do the practical-style questions.'}}),
-   L('biology','2.93 Skin and temperature',['2.93'],'Role of the skin in temperature regulation: sweating, vasoconstriction, vasodilation.',{prove:1,res:{video:FSL.thermo,read:'Pages 108–116: read the part on the skin and temperature control (2.93): sweating, vasoconstriction and vasodilation.',practice:SME.bio}}),
-   L('chemistry','Formulae recap',['Ch 5'],'Empirical and molecular formulae. This is on your class quiz this week.',{res:{video:V.emp,videoNote:'Free Science Lessons has no video on empirical formulae, so this one is from IGCSE Science Revision.',practice:SME.chem,qNote:'Do the empirical and molecular formula questions.'}}),
-   L('english','Rhetorical devices',['Paper 1'],'Tricolon, anaphora and other devices to build an argument.',{res:{video:E.daf,writeTitle:'Use the devices',write:'Write one sentence of your own for each device: tricolon (rule of three), anaphora, rhetorical question, direct address, statistic.',practice:SCH.speechVid,qNote:'Find each device in the motivational speech from Monday.'}}),
-   L('cs','While loops: range check',['Ch 5'],'While loops that validate input with a range check.',{res:{video:V.validR,practice:['Validating data input: range check task (Oak National Academy)','https://www.thenational.academy/pupils/lessons/validating-data-input-in-a-program/video'],classkick:'Do the Classkick slides on range checks.',codeNote:'Do the Oak task: keep asking for an age until it is between 6 and 13.'}})],
-  [L('chemistry','Mole calculations',['Ch 5'],'Mole-to-mole and mass-to-mass calculations (class quiz topic).',{res:{video:FSL.react,video2:FSL.balance,practice:SME.chem,qNote:'Do the mole and reacting mass questions. Show every step.'}}),
-   L('maths','Mixed practice',['7.2','7.3','7.4'],'Mixed simultaneous equations questions, untimed.',{res:{video:M.elim,videoNote:'Only rewatch if you got stuck this week. Otherwise go straight to the questions.',practice:M.genie,qNote:'Start on the Medium tab, then try Hard. Mark each one with the worked solutions.'}}),
-   L('cs','Coding practice',['Ch 5'],'Programs that combine nested loops and input validation.',{res:{video:V.constructs,practice:['FizzBuzz project with validation (Oak National Academy)','https://www.thenational.academy/pupils/lessons/programming-project-iteration-ii/video'],classkick:'Finish any Classkick slides from this week.',codeNote:'Build the FizzBuzz project. Every input needs a range check.'}}),
-   L('business','Public corporations',['Ch 6'],'Public corporations, and choosing the right form of ownership.',{prove:1,res:{video:B.orgs,videoNote:'No good video exists just on public corporations, so make your notes from the Save My Exams notes in the reading step.',practice:B.cards,readLink:B.notes,read:'Chapter 6 in your Business textbook: public corporations and choosing a form of ownership. The Save My Exams notes cover both, ending with Choosing appropriate business ownership.',notesNote:'Write the reasons for and against public ownership, then compare the forms of ownership on control, finance and use of profits.'}}),
-   L('biology','Recap: 2.80, 2.82, 2.93',['2.80','2.82','2.93'],'Flashcards and recall on this week\'s biology.',{res:{video:FSL.homeo,read:'Skim pages 108–116 again and make one flashcard per key word.',practice:SME.bio}}),
-   L('english','Plan and draft a speech',['Paper 1'],'Plan and draft a speech from an exam-style question.',{res:{doc:E.smeSpeech,video:E.trans,writeTitle:'Plan and draft your speech',write:'Pick a speech task from the list of real Paper 1 tasks below (not the May 2025 one: that\'s saved for a test). Plan for 5 minutes, then write the opening and at least two full paragraphs using this week\'s devices.',doc2:E.tasks,qNote:'Check your draft: hook, signposts, three devices, strong ending.'}})],
-  [{s:'test',t:'Test: Maths + Physics',type:'test',tests:['maths','physics'],d:'Two 25-minute timed tests. Open the Tests page.'},
-   {s:'test',t:'Test: Chemistry + Biology',type:'test',tests:['chemistry','biology'],d:'Two 25-minute timed tests. Open the Tests page.'},
-   {s:'test',t:'Test: Comp Sci + Business',type:'test',tests:['cs','business'],d:'Two 25-minute timed tests. Open the Tests page.'},
-   {s:'english',t:'Timed speech (45 min)',type:'test',tests:['english'],d:'Full timed writing piece. Open the Tests page.'},
-   L('maths','Top-up',[],'Goes to the lowest score from today\'s tests.',{topup:1}),
-   L('chemistry','Top-up',[],'Goes to the second-lowest score from today\'s tests.',{topup:1})]
+  [L('maths','23.4 Linear + quadratic',['23.4'],'Solve simultaneous equations where one is linear and one is quadratic, by substitution.',{res:{video:W2.oakNL,video2:W2.mgNLvid,videoNote:'Watch the Oak video first. Use the Maths Genie video if you want a second explanation.',practice:W2.mgNLq,qNote:'Do the Maths Genie questions. Check each answer straight away and redo any you got wrong.'}}),
+   L('chemistry','Concentration in mol/dm³',['1.34C'],'Calculate amount of substance, volume and concentration (mol/dm³ and g/dm³). Remember: cm³ ÷ 1000 = dm³.',{prove:1,res:{video:W2.concFSL1,video2:W2.concFSL2,readLink:W2.smeConc,notesNote:'Write the triangle: moles = concentration × volume (dm³). Then one worked example in mol/dm³ and one in g/dm³.',practice:W2.smeChemQ,practice2:W2.smeConc,qNote:'Do only the concentration questions on the Save My Exams page. Show every step and the units.'}}),
+   L('biology','2.86 The nervous system',['2.80','2.82','2.86'],'How the nervous system carries messages: receptors, neurones, the CNS and effectors, and the reflex arc.',{prove:1,res:{video:W2.nervFSL,notesNote:'Draw the pathway: stimulus → receptor → sensory neurone → CNS → motor neurone → effector → response. Then draw the reflex arc.',practice:W2.smeBio,qNote:'Do the nervous system and reflex questions. Mark them and redo any you got wrong.'}}),
+   L('english','H is for Hawk: the story',['Anthology'],'What happens in the extract, and what Helen Macdonald wants the reader to feel.',{res:{topic:'"H is for Hawk" by Helen Macdonald, from the Edexcel International GCSE English Anthology (non-fiction)',aiAsk:'Start with what happens in the extract and why she is training the hawk, then the writer\'s purpose and main feelings. I will paste parts of the text when I need to.',readLink:W2.smeHawk,aiNote:'Read the extract in your anthology first (or the Save My Exams summary). Then ask ChatGPT to teach it.',writeTitle:'Write a 5-sentence summary',write:'In your own words: what happens, how she feels, how she sees the hawk, how it changes, and what the writer wants us to feel.'}}),
+   L('cs','Classkick slides 22–23',['Ch 9'],'Chapter 9 Input/Output: validation. Slides 22 and 23.',{noWarm:1,steps:[CK(22),CK(23)]})],
+  [L('physics','5.5 Pressure = force ÷ area',['5.5'],'Know and use p = F / A, and its unit (Pa = N/m²).',{prove:1,res:{video:W2.presCogA,video2:W2.presCogA2,videoNote:'Free Science Lessons has no video on this, so it\'s Cognito. Watch 0:00 to 1:06, then skip to 3:11 and watch to the end. Save 1:06 to 3:11 for tomorrow\'s lesson.',practice:W2.smePres,qNote:'Do the pressure = force ÷ area questions. Write the equation, substitute, then work it out with units.'}}),
+   L('maths','23.4 Circles and harder pairs',['23.4'],'Linear + quadratic pairs including circles (x² + y² = r²), and what the answers mean on a graph.',{res:{video:W2.oakNLprob,practice:W2.mgNLbook,qNote:'Do the Maths Genie worksheet, including the x² + y² ones. Check with the solutions.'}}),
+   L('business','1.3.1 Classification of businesses',['1.3.1'],'Primary, secondary and tertiary sectors: classify business activities and explain the differences.',{res:{topic:'4BS1 spec 1.3.1 Primary, secondary and tertiary activities: primary sector (extracting raw materials from the earth), secondary sector (converting raw materials into finished or semi-finished goods), tertiary sector (provision of services)',aiAsk:'Give me lots of real business examples to classify.',readLink:W2.tutClassN,practice:W2.tutClass,qNote:'Do the quiz. Then write 3 businesses you know and say which sector each is in and why.'}}),
+   L('english','H is for Hawk: language',['Anthology'],'How the writer uses language: imagery, metaphors, verbs and vocabulary for the hawk and for her feelings.',{res:{topic:'the writer\'s use of language in "H is for Hawk" by Helen Macdonald (Edexcel IGCSE English Anthology)',aiAsk:'Focus on language techniques and their effects, with short quotations. Teach me how to write about effect, not just name the technique.',readLink:W2.smeHawk,writeTitle:'Write 2 language paragraphs',write:'Pick two quotations. For each: what technique it is, what it shows about the hawk or her feelings, and the effect on the reader.'}}),
+   L('biology','2.86 The hormonal system',['2.86'],'How hormones control responses: glands, hormones in the blood, target organs (adrenaline, insulin and others).',{prove:1,res:{video:W2.endoFSL,notesNote:'Make a table: gland, hormone, target, effect. Include adrenaline and insulin.',practice:W2.smeBio,qNote:'Do the hormone questions. Mark them and redo any you got wrong.'}})],
+  [L('chemistry','Molar gas volume (24 dm³)',['1.35C'],'One mole of any gas at room temperature and pressure takes up 24 dm³ (24 000 cm³). Gas volume calculations from equations.',{prove:1,res:{video:W2.gasFSL,readLink:W2.smeGas,notesNote:'Write: moles = volume (dm³) ÷ 24, and moles = volume (cm³) ÷ 24 000. Then one worked example of each.',practice:W2.smeChemQ,practice2:W2.smeGas,qNote:'Do only the gas volume questions on the Save My Exams page. Show every step.'}}),
+   L('maths','23.4 Exam questions',['23.4'],'Real exam-style questions on linear + quadratic simultaneous equations.',{res:{video:W2.mgNLvid,videoNote:'Only rewatch if you got stuck. Otherwise go straight to the questions.',practice:W2.mgNLexam,qNote:'Do as many as you can, full working. Mark with the worked answers.'}}),
+   L('physics','5.15 and 5.6 Pressure in gases and fluids',['5.15','5.6'],'Gas molecules move randomly and hit the walls, causing pressure. Pressure at a point in a still fluid acts equally in all directions.',{prove:1,res:{video:W2.gasPartFSL,video2:W2.presCogB,videoNote:'Watch the Free Science Lessons video in full. Then the Cognito one from 1:06 to 3:11 only (the part you saved from yesterday).',practice:W2.smeGasQ,practice2:W2.smePres,qNote:'Do the gas pressure questions. Explain in terms of particles: moving, colliding with walls, force, pressure.'}}),
+   L('cs','Classkick slides 24–25',['Ch 9'],'Chapter 9 Input/Output: validation. Slides 24 and 25.',{noWarm:1,steps:[CK(24),CK(25)]}),
+   L('english','H is for Hawk: structure',['Anthology'],'How the extract is structured: the opening, the shifts in focus and mood, and the ending.',{res:{topic:'the structure of "H is for Hawk" by Helen Macdonald (Edexcel IGCSE English Anthology)',aiAsk:'Teach me how to write about structure: openings, shifts in focus, time, pace, sentence lengths and endings.',readLink:W2.smeHawk,writeTitle:'Write 2 structure paragraphs',write:'One on how the extract opens, one on how it changes or ends. Say what the writer does and why it engages the reader.'}})],
+  [L('biology','2.86 Nervous vs hormonal',['2.80','2.82','2.86'],'Compare nervous and hormonal communication: speed, how the message travels, how long the effect lasts, how widespread it is.',{prove:1,res:{video:W2.endoCog,video2:W2.nervCog,videoNote:'This is Cognito (a different video from Tuesday). Watch from 4:08 to the end, then the reflex arc one from 3:13.',notesNote:'Make a comparison table: nervous vs hormonal (signal, speed, route, duration, where it acts).',practice:W2.smeBio,qNote:'Do the questions comparing nervous and hormonal control, plus any reflex ones you haven\'t done.'}}),
+   L('physics','5.7 Pressure difference = h × ρ × g',['5.7'],'Use pressure difference = height × density × g. Atmospheric pressure.',{prove:1,res:{video:W2.fluidFSL,video2:W2.atmosCog,practice:W2.smePres,qNote:'Do the h × ρ × g questions. Write the equation, substitute, work it out, units (Pa).'}}),
+   L('business','1.4.1 Decisions on location',['1.4.1'],'The main factors in where a business locates or relocates.',{res:{topic:'4BS1 spec 1.4.1 The main factors influencing location decisions and relocation of a business: proximity to market, labour, materials and competitors; nature of the business activity; the impact of the internet on location decisions (e-commerce and/or fixed premises); legal controls and trade blocs',aiAsk:'Use real examples (a supermarket, a factory, an online shop, a coffee chain). Then show me how to answer a "justify which option" exam question.',readLink:W2.tutLocN,practice:W2.tutLoc,qNote:'Do the quiz. Then write which location factors matter most for a coffee shop, and why.'}}),
+   L('maths','CFU3 revision',['Ch 1','Ch 3','Ch 11'],'Revision for the school check: fractions, rounding and estimation; powers and roots; shape and space.',{steps:[
+     {t:'Fractions, rounding and estimation',links:[W2.mgFrac,W2.mgRound,W2.mgEst],note:'Do a few fraction and rounding questions. Watch the estimating video if you\'re unsure: round each number to 1 significant figure first.'},
+     {t:'Powers and roots',links:[W2.mgInd,W2.mgNegInd,W2.mgSurd],note:'Index laws, then negative and fractional indices, then surds. Check every answer.'},
+     {t:'Shape and space',links:[W2.smeAngles,W2.mgCircle],note:'Angles in polygons and parallel lines, then area and circumference of circles.'}]}),
+   L('english','Exam technique: the language and structure question',['Paper 1'],'How to answer the 12-mark "How does the writer use language and structure…" question on an anthology text.',{res:{topic:'how to answer the 12-mark Edexcel IGCSE English Language A Paper 1 question "How does the writer use language and structure to interest and engage the reader?" on an anthology text, using "H is for Hawk"',aiAsk:'Explain what the top level of the mark scheme wants, and how to plan in 3 minutes.',readLink:W2.smeHawk,writeTitle:'Plan and write one full paragraph',write:'Plan an answer on how the writer presents the hawk. Then write one full paragraph that covers both language and structure.'}})],
+  [{s:'test',t:'Tests: Maths, Physics, Chemistry',type:'test',tests:['maths','physics','chemistry'],d:'Three 25-minute timed tests, back to back. Open the Tests page.'},
+   {s:'test',t:'Tests: Biology, Business, English',type:'test',tests:['biology','business','english'],d:'Three 25-minute timed tests, back to back. Open the Tests page.'},
+   L('chemistry','Fix your test',['1.34C','1.35C'],'Go over the questions you dropped marks on in this morning\'s chemistry test.',{noWarm:1,steps:[
+     {t:'Mark up what went wrong',note:'For every question you lost marks on, write the right answer from the mark scheme and why yours was wrong.'},
+     {t:'Re-learn the weak part',links:[W2.concCog,W2.gasCog],note:'Cognito recap: concentration (6 min), and gas calculations from 1:24 to 5:57.'},
+     {t:'Redo the questions',links:[W2.smeChemQ],note:'Redo the test questions you got wrong without looking, then two more like them from Save My Exams.'}]}),
+   L('business','Fix your test: justify questions',['1.3.1','1.4.1'],'Go over this morning\'s business test, then practise the 9-mark "justify which option" question.',{noWarm:1,steps:[
+     {t:'Mark up what went wrong',note:'For every question you lost marks on, write what the mark scheme wanted.'},
+     {t:'Learn the justify technique with AI',links:[['Learn it in ChatGPT',gptLink('I\'m Eesa, 14, doing Pearson Edexcel International GCSE Business (4BS1). Teach me how to answer the 9-mark "Justify which one of these two options" question so it reaches the top level: knowledge, application to the case, analysis chains, and a justified decision. Use a location example. Then give me a practice question and mark my answer.')]],note:'Then try the practice question it gives you.'}]}),
+   L('cs','Classkick slide 26 and review',['Ch 9'],'Chapter 9 Input/Output: validation. Slide 26, then go back over 22–26 ready for your teacher\'s test.',{noWarm:1,steps:[CK(26),{t:'Go back over slides 22–26',links:[['Classkick: your class page',CLASSKICK]],note:'Redo any questions you weren\'t sure about. Your school teacher is giving the CS test, so there is no ISB CS test this week.'}]})]
  ]};
 
 const PMT='https://pmt.physicsandmathstutor.com/download/';
+const BUSP='https://pub-b96af5a8f7044337bcb17a51b3fd4a60.r2.dev/past-papers/business/';
 const TESTS={
- maths:{subject:'maths',title:'Simultaneous equations',mins:25,marks:22,spec:['7.2'],fallback:'All 6 questions are real Edexcel IGCSE questions on the elimination method (7.2). The topic sets have no real past-paper questions on the graph method (7.3) or word problems (7.4), so those are practised in Thursday\'s mixed practice block and tested from full past papers next week.',items:[
-  {q:'Q1, Q2, Q4, Q11, Q13, Q19',src:'Simultaneous Equations (H), real Edexcel IGCSE questions',qp:PMT+'Maths/GCSE/Topic-Qs/Edexcel-IGCSE/Algebra/QP/Higher/Solving-Equations-and-Inequalities/Simultaneous%20Equations%20%28H%29%20QP.pdf',ms:PMT+'Maths/GCSE/Topic-Qs/Edexcel-IGCSE/Algebra/MS/Higher/Solving-Equations-and-Inequalities/Simultaneous%20Equations%20%28H%29%20MS.pdf'}]},
- physics:{subject:'physics',title:'Specific heat capacity',mins:25,marks:null,spec:['5.12P','5.13P','5.14P'],fallback:'PMT has no topic-sorted past-paper questions on specific heat capacity, so this week uses the end-of-section questions on specific heat capacity in your Edexcel IGCSE Physics Student Book. Real past-paper questions will be added from full papers next week.',items:[]},
- chemistry:{subject:'chemistry',title:'Moles, excess and calculations',mins:25,marks:21,spec:['Ch 5'],fallback:'Percentage yield has no topic-sorted past-paper questions this week. It is practised from textbook pages 57–59 instead.',items:[
-  {q:'Q2, Q4(b)',src:'Chemical Formulae, Equations, Calculations 1 (Paper 1 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%201%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%201%20MS.pdf'},
-  {q:'Q2(a)(i), Q4(a)(i), Q4(a)(ii), Q4(b), Q5(a)(i)',src:'Chemical Formulae, Equations, Calculations 2 (Paper 1 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%202%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%202%20MS.pdf'},
-  {q:'Q2(a), Q2(b)',src:'Chemical Formulae, Equations, Calculations (Paper 2 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A2/Chemical%20Formulae,%20Equations,%20Calculations%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A2/Chemical%20Formulae,%20Equations,%20Calculations%20MS.pdf'}]},
- biology:{subject:'biology',title:'Coordination and response',mins:25,marks:21,spec:['2.80','2.82','2.93'],items:[
-  {q:'Q3(c), Q4(a), Q4(b), Q4(d)',src:'Coordination and Response 1 (Paper 1 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%201%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%201%20MS.pdf'},
-  {q:'Q4(c), Q4(f), Q6(a)',src:'Coordination and Response 1 (Paper 2 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A2/Coordination%20and%20Response%201%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A2/Coordination%20and%20Response%201%20MS.pdf'}]},
- cs:{subject:'cs',title:'Loops and validation',mins:25,marks:null,spec:['Ch 5'],fallback:'Only 6 marks of real past-paper questions match loops and validation this week. The rest of the 25 minutes uses the end-of-chapter questions on loops and validation in your Edexcel IGCSE Computer Science Student Book.',items:[
-  {q:'Q4(e), Q6(b), Q6(c)',src:'June 2023 Paper 1 (4CP0/01)',qp:PMT+'Computer-Science/GCSE/Past-Papers/Edexcel-IGCSE/Paper-1/June%202023%20QP%20-%20Paper%201%20Edexcel%20Computer%20Science%20IGCSE.pdf',ms:PMT+'Computer-Science/GCSE/Past-Papers/Edexcel-IGCSE/Paper-1/June%202023%20MS%20-%20Paper%201%20Edexcel%20Computer%20Science%20IGCSE.pdf'}]},
- business:{subject:'business',title:'Forms of ownership',mins:25,marks:null,spec:['Ch 5','Ch 6'],fallback:'This week uses the end-of-chapter questions for chapters 5–6 in your Edexcel IGCSE Business Student Book. Short answers only this week; the longer evaluate question comes in Week 2.',items:[]},
- english:{subject:'english',title:'Timed speech',mins:45,marks:null,spec:['Paper 1'],fallback:'Pick one speech-writing task from a real Paper 1 below together with Ishaaq before starting. Claude marks it against the official level descriptors.',items:[
-  {q:'Section B writing task (speech)',src:'Edexcel IGCSE English Language A Paper 1 past papers',qp:'https://www.physicsandmathstutor.com/past-papers/gcse-english-language/edexcel-igcse-a-paper-1/',ms:'https://www.physicsandmathstutor.com/past-papers/gcse-english-language/edexcel-igcse-a-paper-1/'}]}
+ maths:{subject:'maths',title:'Linear + quadratic simultaneous equations',mins:25,marks:25,spec:['23.4'],items:[
+  {q:'Q6, Q9, Q18, Q24, Q28',src:'Simultaneous Equations (H), real Edexcel IGCSE questions',qp:PMT+'Maths/GCSE/Topic-Qs/Edexcel-IGCSE/Algebra/QP/Higher/Solving-Equations-and-Inequalities/Simultaneous%20Equations%20%28H%29%20QP.pdf',ms:PMT+'Maths/GCSE/Topic-Qs/Edexcel-IGCSE/Algebra/MS/Higher/Solving-Equations-and-Inequalities/Simultaneous%20Equations%20%28H%29%20MS.pdf'}]},
+ physics:{subject:'physics',title:'Pressure',mins:25,marks:22,spec:['5.5','5.6','5.7','5.15'],items:[
+  {q:'Q1(b)(i), (ii), (iii), Q2(a), (b), (c), Q3(a)(i), (ii), (iii)',src:'Density and Pressure 1, real Edexcel IGCSE questions',qp:PMT+'Physics/GCSE/Topic-Qs/Edexcel-IGCSE/5-Solids-Liquids-and-Gases/Set-A1/Density%20and%20Pressure%201%20QP.pdf',ms:PMT+'Physics/GCSE/Topic-Qs/Edexcel-IGCSE/5-Solids-Liquids-and-Gases/Set-A1/Density%20and%20Pressure%201%20MS.pdf'},
+  {q:'Q2(a)(i), (ii), Q2(b)(i), (ii)',src:'Density and Pressure 3, real Edexcel IGCSE questions',qp:PMT+'Physics/GCSE/Topic-Qs/Edexcel-IGCSE/5-Solids-Liquids-and-Gases/Set-A1/Density%20and%20Pressure%203%20QP.pdf',ms:PMT+'Physics/GCSE/Topic-Qs/Edexcel-IGCSE/5-Solids-Liquids-and-Gases/Set-A1/Density%20and%20Pressure%203%20MS.pdf'}]},
+ chemistry:{subject:'chemistry',title:'Concentration and gas volumes',mins:25,marks:20,spec:['1.34C','1.35C'],items:[
+  {q:'Q4(a)(i), Q4(a)(ii), Q5(a)(i), Q5(a)(ii), Q6(a) to (e)',src:'Chemical Formulae, Equations, Calculations (Paper 2 set)',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A2/Chemical%20Formulae,%20Equations,%20Calculations%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A2/Chemical%20Formulae,%20Equations,%20Calculations%20MS.pdf'},
+  {q:'Q2(a)(ii), Q2(b)',src:'Chemical Formulae, Equations, Calculations 2 (Paper 1 set). For Q2(a)(ii), part (a)(i)\'s answer is 0.005 mol.',qp:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%202%20QP.pdf',ms:PMT+'Chemistry/GCSE/Topic-Qs/Edexcel-IGCSE/1-Principles-of-Chemistry/Set-A1/Chemical%20Formulae,%20Equations,%20Calculations%202%20MS.pdf'}]},
+ biology:{subject:'biology',title:'Nervous and hormonal control',mins:25,marks:22,spec:['2.80','2.82','2.86'],items:[
+  {q:'Q2(a)',src:'Coordination and Response 1 (Paper 1 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%201%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%201%20MS.pdf'},
+  {q:'Q1(b)(i), Q1(b)(ii), Q1(c), Q6(b)',src:'Coordination and Response 2 (Paper 1 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%202%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A1/Coordination%20and%20Response%202%20MS.pdf'},
+  {q:'Q3(c)(i), (ii), (iii), Q4(c)(i)',src:'Coordination and Response 2 (Paper 2 set)',qp:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A2/Coordination%20and%20Response%202%20QP.pdf',ms:PMT+'Biology/GCSE/Topic-Qs/Edexcel-IGCSE/2-Structures-and-Functions-in-Living-Organisms/Set-A2/Coordination%20and%20Response%202%20MS.pdf'}]},
+ business:{subject:'business',title:'Sectors and location, with a justify question',mins:25,marks:15,spec:['1.3.1','1.4.1'],fallback:'This fortnight\'s longer question is Q3(e): a 9-mark "justify which option". Leave about 12 minutes for it.',items:[
+  {q:'Q1(a)(i), Q1(c), Q3(b), Q3(e)',src:'Summer 2025 Paper 2 (Starbucks case study)',qp:BUSP+'2025/may-jun/Paper_2.pdf',ms:BUSP+'2025/may-jun/Paper_2_MS.pdf'},
+  {q:'Q3(b)',src:'November 2023 Paper 1',qp:BUSP+'2023/oct-nov/4bs1-01-que-20231114.pdf',ms:BUSP+'2023/oct-nov/4bs1-01-rms-20240125.pdf'}]},
+ english:{subject:'english',title:'H is for Hawk: language and structure',mins:25,marks:12,spec:['Paper 1'],fallback:'Answer Question 4 only (on Text Two, H is for Hawk). Writing week is next week.',items:[
+  {q:'Q4 only',src:'June 2018 Paper 1 (4EA1/01)',qp:PMT+'English-Language/GCSE/Past-Papers/Edexcel-IGCSE-A/New-Spec-Paper-1/QP/June%202018%20QP.pdf',ms:PMT+'English-Language/GCSE/Past-Papers/Edexcel-IGCSE-A/New-Spec-Paper-1/MS/June%202018%20MS.pdf'}]}
 };
-const HOWTO=['Before you start: Apple Pencil charged, calculator ready, other apps closed, quiet room.','Press Start test. Your time begins.','Open the question paper and write your answers on it with your Apple Pencil. Show all your working.','When the timer hits zero, pencil down. Stop, even mid-answer. If you finish early you can stop the clock, but the mark scheme still unlocks at the full time.','When the mark scheme unlocks, mark every question in red, honestly.','Then Ishaaq or Mama marks it with Claude in the ISB chat. Claude enters the marks here. Double-check every mark.','Upload a photo of your marked test here. Mama checks one test a week.','70% or more is a pass. Under 70% means a sharpening lesson after 3:30pm (Friday afternoon or early next week), then a retest next Friday.'];
+
+const HOWTO=['Before you start: Apple Pencil charged, calculator ready, other apps closed, quiet room.','Press Start test. Your time begins.','Open the question paper and write your answers on it with your Apple Pencil. Show all your working.','When the timer hits zero, pencil down. Stop, even mid-answer. If you finish early you can stop the clock, but the mark scheme still unlocks at the full time.','When the mark scheme unlocks, mark every question in red, honestly.','Then Ishaaq or Mama marks it with Claude in the ISB chat. Claude enters the marks here. Double-check every mark.','Upload a photo of your marked test here. Mama checks one test a week.','70% or more is a pass. Under 70% means a sharpening lesson after 3:00pm (Friday afternoon or early next week), then a retest next Friday.'];
 
 /* ---------- state ---------- */
 const S={blocks:{},tests:{},refl:{},route:'dashboard',sel:null,day:null,openSubj:false,db:null,sample:null,assets:null};
@@ -444,6 +502,7 @@ const blockState=(d,i)=>S.blocks[bkey(d,i)]||{};
 function isDone(d,i){const b=WEEK.days[d][i];if(b.type==='test')return b.tests.every(s=>{const t=S.tests[tkey(s)];return t&&t.pct!=null});return !!blockState(d,i).done}
 const sname=s=>s==='test'?'Test':SUBJ[s].name.replace('Computer Science','Comp Sci').replace('English Language','English');
 const pad=n=>String(n).padStart(2,'0');
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function todayIdx(){const n=new Date();return WEEK.dates.indexOf(`${n.getFullYear()}-${pad(n.getMonth()+1)}-${pad(n.getDate())}`)}
 const minsNow=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()+n.getSeconds()/60};
 const atMin=m=>{const n=new Date();n.setHours(0,0,0,0);return n.getTime()+m*60000};
@@ -481,42 +540,50 @@ const hWord=h=>h==null?'No tests yet':h>=80?'Going well':h>=70?'Keep an eye on i
 const hColor=h=>({good:'var(--good)',warn:'var(--warn)',bad:'var(--bad)',none:'var(--faint)'})[hClass(h)];
 
 /* ---------- lesson steps (warm-up recall first: spaced retrieval) ---------- */
-/* Each subject gets its own lesson shape (Eesa's design). Video first, no textbooks.
-   Step minutes add up to the lesson length minus the mid-lesson break. */
+/* Each subject gets its own lesson shape. Steps are untimed tick boxes. A lesson can list its own steps in `steps`. */
 const PLAN={
- maths:[['warm',2],['video',12],['questions',33]],
- physics:[['warm',2],['video',12],['questions',23]],
- chemistry:[['warm',2],['notes',18],['questions',35]],
- biology:[['warm',2],['notes',25],['questions',28]],
- cs:[['warm',2],['video',8],['classkick',15],['code',12]],
- business:[['warm',2],['notes',25],['questions',10]],
- english:[['warm',2],['video',8],['write',20],['questions',7]]
+ maths:['warm','video','questions'],
+ physics:['warm','video','questions'],
+ chemistry:['warm','notes','questions'],
+ biology:['warm','notes','questions'],
+ cs:['warm','classkick'],
+ business:['warm','ai','questions'],
+ english:['warm','ai','write']
 };
-const CLASSKICK='https://app.classkick.com/student/FML5YU/Eesa%20Qureshi/1';
+function aiPrompt(b){const r=b.res||{};return `I'm Eesa, 14, studying Pearson Edexcel International GCSE ${SUBJ[b.s].name} (${SUBJ[b.s].code}). Teach me this topic: ${r.topic||b.t}${b.spec&&b.spec.length?' (spec '+b.spec.join(', ')+')':''}. ${r.aiAsk||''} Explain it step by step in plain English with everyday examples and the exact keywords the Edexcel mark scheme rewards. Teach one part at a time, check I've understood with one short question before moving on, and answer any questions I ask directly. At the end, help me turn it into short revision notes.`}
 function stepsFor(b,d,i){
-  const plan=PLAN[b.s]||PLAN.maths;const r=b.res||{};const fb=SUBJ[b.s]?SUBJ[b.s].links:[];
+  const r=b.res||{};const fb=SUBJ[b.s]?SUBJ[b.s].links:[];
   const firstOf=k=>{const l=fb.find(x=>x[0]===k);return l?[l[1],l[2]]:null};
-  return plan.map(([k,min])=>{
-    if(k==='warm')return {t:'Warm-up recall',min,note:warmText(b,d,i)};
-    if(k==='video')return {t:'Watch the video',min,links:[r.video,r.video2,r.slides].filter(Boolean),note:r.videoNote||(r.video?'':'Use the school slides or the subject page links.')};
-    if(k==='notes')return {t:'Watch the video and make notes',min,links:[r.video,r.video2,r.slides,r.readLink].filter(Boolean),note:r.notesNote||r.videoNote||'Pause the video as you go. Write the key terms and one example for each in your own words.'};
-    if(k==='classkick')return {t:'Work through the Classkick slides',min,links:[['Classkick: your class page',CLASSKICK]],note:r.classkick||'Do the slides for this topic and answer the questions on them.'};
-    if(k==='code')return {t:'Write and run the code',min,links:[r.practice,['Python editor (Raspberry Pi)',PYRUN]].filter(Boolean),note:r.codeNote||'Type the examples yourself, then change them and predict what happens before you run them.'};
-    if(k==='write')return {t:r.writeTitle||'Notes and writing',min,links:[r.doc,r.doc2].filter(Boolean),note:r.write||'Write it out in full, then check it against the guide.'};
-    return {t:k==='questions'?'Practice questions':'Questions',min,links:[r.practice||firstOf('Practise'),r.practice2].filter(Boolean),note:r.qNote||'Untimed. Mark them yourself and redo any you got wrong.'};
+  if(b.steps)return [...(b.noWarm?[]:[{t:'Warm-up recall',note:warmText(b,d,i)}]),...b.steps.map(s=>({t:s.t,note:s.note||'',links:(s.links||[]).filter(Boolean)}))];
+  return (PLAN[b.s]||PLAN.maths).map(k=>{
+    if(k==='warm')return {t:'Warm-up recall',note:warmText(b,d,i)};
+    if(k==='video')return {t:'Watch the video',links:[r.video,r.video2].filter(Boolean),note:r.videoNote||''};
+    if(k==='notes')return {t:'Watch the video and make notes',links:[r.video,r.video2,r.readLink].filter(Boolean),note:r.notesNote||r.videoNote||'Pause the video as you go. Write the key terms and one example for each in your own words.'};
+    if(k==='ai')return {t:'Learn it with AI and make notes',links:[['Learn it in ChatGPT',gptLink(aiPrompt(b))],r.readLink].filter(Boolean),note:`Topic: ${r.topic||b.t}${b.spec&&b.spec.length?' · spec '+b.spec.join(', '):''}. ${r.aiNote||'ChatGPT opens ready to teach you this. Work through it, ask anything you\'re unsure about, and write notes in your own words.'}`};
+    if(k==='classkick')return {t:'Work through the Classkick slides',links:[['Classkick: your class page',CLASSKICK]],note:r.classkick||'Do the slides for this topic and answer the questions on them.'};
+    if(k==='write')return {t:r.writeTitle||'Notes and writing',links:[r.doc,r.doc2].filter(Boolean),note:r.write||'Write it out in full, then check it.'};
+    return {t:'Practice questions',links:[r.practice||firstOf('Practise'),r.practice2,r.practice3].filter(Boolean),note:r.qNote||'Untimed. Mark them yourself and redo any you got wrong.'};
   });
 }
 const PYRUN='https://editor.raspberrypi.org';
 function prevLesson(s,d,i){for(let dd=d;dd>=0;dd--){const day=WEEK.days[dd];for(let ii=(dd===d?i-1:day.length-1);ii>=0;ii--){const b=day[ii];if(b.s===s&&b.type==='learn')return {b,d:dd}}}return null}
 function warmText(b,d,i){const p=prevLesson(b.s,d,i);return p?`From memory, write down 3 things from ${WEEK.names[p.d]}'s ${sname(b.s)} lesson: ${p.b.t}. Then check.`:`From memory, write down 3 things from your last ${sname(b.s)} lesson at school. Then check your notes.`}
-/* ---------- the school day: 7:30 to 3:30, lessons in order, timed from when Eesa actually starts ---------- */
-const DAYSTART=7*60+30,DAYEND=15*60+30,MS=60000;
-const DUR={maths:50,chemistry:60,biology:60,physics:40,cs:40,english:40,business:40};
-const REVIEW=5,GAP=10,DHUHR=45,DHUHR_AFTER=3;
-function lessonDur(d,i){const b=blockInfo(d,i);if(b.type==='test')return b.tests.reduce((a,s)=>a+TESTS[s].mins,0);return DUR[b.s]||40}
+/* ---------- the school day: 8:00 to 3:00, fixed lesson times, Dhuhr and Asr breaks (Taiba Welfare Foundation times) ---------- */
+const DAYSTART=8*60,DAYEND=15*60,MS=60000;
+const REVIEW=5,GAP=10;
+/* [start "HH:MM" (24h), minutes]. Each lesson is followed by its 5-minute review. */
+const SLOTS={std:[['08:00',60],['09:15',60],['10:30',60],['12:05',50],['13:10',50]],fri:[['08:00',75],['09:25',75],['10:50',40],['12:05',50],['13:10',50]]};
+const PRAYERS=[{after:2,name:'Dhuhr',from:'11:35',to:'12:05',note:'Dhuhr starts about 11:43'},{after:4,name:'Asr',from:'14:05',to:'14:35',note:'Asr starts about 2:00'}];
+const toMin=s=>{const [a,b]=s.split(':').map(Number);return a*60+b};
+const clock12=m=>`${Math.floor(m/60)%12||12}:${pad(Math.round(m%60))}`;
+const slotsFor=d=>d===4?SLOTS.fri:SLOTS.std;
+function slot(d,i){const x=slotsFor(d)[i]||['15:00',50];const s=toMin(x[0]);return {start:s,mins:x[1],end:s+x[1]}}
+const slotTxt=(d,i)=>{const s=slot(d,i);return `${clock12(s.start)}–${clock12(s.end)}`};
+function lessonDur(d,i){return slot(d,i).mins}
 const midBreak=dur=>dur>=60?5:3;
 const halfAt=dur=>Math.round(dur/2);
-const gapAfter=i=>i===DHUHR_AFTER?DHUHR:GAP;
+const prayerAfter=i=>PRAYERS.find(p=>p.after===i)||null;
+const gapAfter=i=>{const p=prayerAfter(i);return p?toMin(p.to)-toMin(p.from):GAP};
 const ACTIVE=['work','mid','over','review','test'];
 /* lesson timer lives on the lesson's record so every device sees the same clock; local copy only when nothing is saved yet */
 const BT={};
@@ -542,23 +609,15 @@ function phaseOf(d,i,now=Date.now()){
 }
 /* minutes of actual learning so far (the mid-lesson break doesn't count) */
 function learnMin(dur,el){const H=halfAt(dur),mb=midBreak(dur);return el<H?el:el<H+mb?H:el-mb}
-/* today's flow: which lesson is on, which is next, and estimated times from right now */
-function dayFlow(ti,now=Date.now()){
-  const day=WEEK.days[ti],ph=day.map((x,i)=>phaseOf(ti,i,now));
-  const cur=ph.findIndex(p=>ACTIVE.includes(p.p));
-  const fin=i=>ph[i].p==='after'||ph[i].p==='done'||(isDone(ti,i)&&ph[i].p==='idle');
-  const next=day.findIndex((x,i)=>i!==cur&&!fin(i));
-  let cursor=atMin(DAYSTART),finish=null;const est=[];
-  day.forEach((x,i)=>{const p=ph[i],rv=x.type==='test'?0:REVIEW;let s,e;
-    if(p.p==='after'){s=p.start;e=p.reviewed;cursor=Math.max(cursor,p.until)}
-    else if(p.p==='done'||fin(i)){est.push(null);return}
-    else if(ACTIVE.includes(p.p)){s=p.start;e=p.p==='review'?Math.max(p.until,now):p.p==='test'?Math.max(s+p.dur*MS,now):Math.max(s+p.dur*MS,now)+rv*MS;cursor=e+gapAfter(i)*MS}
-    else{s=Math.max(cursor,now);e=s+(p.dur+rv)*MS;cursor=e+gapAfter(i)*MS}
-    est.push({s,e,actual:p.p!=='idle'});finish=Math.max(finish||0,e)});
-  const last=ph.filter(p=>p.p==='after').sort((a,b)=>b.reviewed-a.reviewed)[0]||null;
-  return {ph,cur,next,est,finish,last};
+function ttNow(ti,m=minsNow()){
+  const day=WEEK.days[ti];
+  for(let i=0;i<day.length;i++){const s=slot(ti,i),rv=day[i].type==='test'?0:REVIEW;if(m>=s.start&&m<s.end+rv)return {k:'lesson',i,until:atMin(s.end+rv),inReview:m>=s.end}}
+  for(const p of PRAYERS){if(m>=toMin(p.from)&&m<toMin(p.to))return {k:'prayer',p,i:p.after+1<day.length?p.after+1:-1,until:atMin(toMin(p.to))}}
+  const nx=day.findIndex((x,i)=>slot(ti,i).start>m);
+  if(nx>=0)return {k:nx===0?'before':'break',i:nx,until:atMin(slot(ti,nx).start)};
+  return {k:m<DAYEND?'catchup':'done',i:-1,until:atMin(DAYEND)};
 }
-function flowKey(){const ti=todayIdx();if(ti<0)return 'x'+new Date().getDate();const F=dayFlow(ti),now=Date.now();return ti+'|'+F.ph.map(p=>p.p).join(',')+'|'+(F.last&&now<F.last.until?1:0)+'|'+(now<atMin(DAYSTART)?1:0)}
+function flowKey(){const ti=todayIdx();if(ti<0)return 'x'+new Date().getDate();const t=ttNow(ti);return ti+'|'+t.k+t.i+(t.inReview?'r':'')+'|'+WEEK.days[ti].map((x,i)=>phaseOf(ti,i).p).join(',')}
 function phaseAt(steps,min){let acc=0;for(let k=0;k<steps.length;k++){acc+=steps[k].min;if(min<acc)return k}return steps.length-1}
 const fmtSigned=sec=>sec>=0?fmt(sec):'+'+fmt(-sec);
 /* the big lesson clock: text, caption and a key that changes when the phase does */
@@ -568,7 +627,7 @@ function lessonClock(d,i,now=Date.now()){
   if(p.p==='mid')return {k:'mid',txt:fmt(sec(p.until-now)),cap:`${midBreak(p.dur)}-min break: stand up, drink water`,cls:'brk'};
   if(p.p==='over')return {k:'over',txt:'+'+fmt(sec(now-p.until)),cap:'over time: end the lesson',cls:'over'};
   if(p.p==='review')return {k:'review',txt:fmtSigned(Math.round((p.until-now)/1000)),cap:'5-minute review',cls:now>p.until?'over':''};
-  if(p.p==='after'){const took=Math.max(1,Math.round((p.ended-p.start)/MS));return now<p.until?{k:'after1',txt:fmt(sec(p.until-now)),cap:`${p.i===DHUHR_AFTER?'Dhuhr and lunch':'break'} · lesson took ${took} min`,cls:'brk'}:{k:'after2',txt:`${took} min`,cap:'lesson finished'}}
+  if(p.p==='after'){const took=Math.max(1,Math.round((p.ended-p.start)/MS));return now<p.until?{k:'after1',txt:fmt(sec(p.until-now)),cap:`${prayerAfter(p.i)?prayerAfter(p.i).name:'break'} · lesson took ${took} min`,cls:'brk'}:{k:'after2',txt:`${took} min`,cap:'lesson finished'}}
   return {k:'idle',txt:fmt(p.dur*60),cap:`${p.dur} min lesson`};
 }
 
@@ -594,48 +653,47 @@ function go(r){S.route=r;S.sel=null;try{history.replaceState(null,'','#'+r)}catc
 
 /* ---------- dashboard ---------- */
 function nowCard(){
-  const ti=todayIdx(),m=minsNow();
+  const ti=todayIdx();
   if(ti<0){
     const before=new Date()<new Date(WEEK.dates[0]+'T00:00');const wd=new Date().getDay();const weekend=wd===0||wd===6;
     const b=WEEK.days[0][0];
-    if(before)return `<section class="now" style="--sc:var(--c-${b.s})"><div><span class="muted">School starts Monday 26 October</span><h2>First lesson: <span class="subj">${sname(b.s)}</span> · ${esc(b.t)}</h2><p class="muted" style="margin:0">Starts at 7:30. Pencil charged, iPad ready.</p></div></section>`;
-    return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${weekend?'No school today':'Waiting for this week'}</span><h2>${weekend?'Enjoy the weekend':'This week\'s timetable isn\'t ready yet'}</h2><p class="muted" style="margin:0">${weekend?'The next timetable appears once Ishaaq approves it.':'Ask Ishaaq to send this week\'s scheme to Claude. Until then, redo any lessons you didn\'t finish and any points marked Needs sharpening.'}</p></div></section>`;
+    if(before)return `<section class="now" style="--sc:var(--c-${b.s})"><div><span class="muted">School starts ${WEEK.names[0]} ${WEEK.range.split('–')[0]}</span><h2>First lesson: <span class="subj">${sname(b.s)}</span> · ${esc(b.t)}</h2><p class="muted" style="margin:0">8:00 sharp. Pencil charged, iPad ready.</p></div></section>`;
+    return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${weekend?'No school today':'Waiting for this week'}</span><h2>${weekend?'Enjoy the weekend':'This week\'s timetable isn\'t ready yet'}</h2><p class="muted" style="margin:0">${weekend?'The next timetable appears once Ishaaq uploads it.':'Ask Ishaaq to send this week\'s scheme to Claude. Until then, redo any lessons you didn\'t finish and any points marked Needs sharpening.'}</p></div></section>`;
   }
-  const day=WEEK.days[ti],F=dayFlow(ti),now=Date.now(),n=day.length;
-  const doneN=day.filter((x,k)=>isDone(ti,k)).length;
-  if(F.cur<0&&F.next<0)return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${WEEK.names[ti]}</span><h2>School's done for today</h2><p class="muted" style="margin:0">${doneN} of ${n} lessons ticked off.${doneN<n?' Open This week to tick off the steps you finished.':' Well done.'}</p>${pips(ti,-1)}</div></section>`;
-  let i,label,until=null,since=null,sub='',btn;
-  if(F.cur>=0){i=F.cur;const p=F.ph[i];
+  const day=WEEK.days[ti],n=day.length,doneN=day.filter((x,k)=>isDone(ti,k)).length;
+  const act=day.findIndex((x,k)=>ACTIVE.includes(phaseOf(ti,k).p));
+  const T=ttNow(ti);let i,label,until=null,since=null,sub='';
+  if(act>=0){i=act;const p=phaseOf(ti,i);
     label={work:'Now',mid:'Mid-lesson break',over:'Over time',review:'5-minute review',test:'Test lesson'}[p.p]+` · started ${ampm(p.start)}`;
     if(p.p==='over'){since=p.until;sub='over: end the lesson'}else if(p.p!=='test'){until=p.p==='work'?p.start+p.dur*MS:p.until;sub={work:'left in this lesson',mid:'of break left',review:'to rate it and prove it'}[p.p]}
-  }else{i=F.next;const L=F.last;
-    if(L&&now<L.until){label=L.i===DHUHR_AFTER?'Dhuhr and lunch break · up next':'10-minute break · up next';until=L.until;sub='of break left'}
-    else if(now<atMin(DAYSTART)&&!F.last){label='School starts at 7:30';until=atMin(DAYSTART);sub='until 7:30'}
-    else label=F.last?'Break over · up next':'Up next';
+  }else if(T.k==='lesson'){i=T.i;label=`${T.inReview?'Review time':'Now'} · ${slotTxt(ti,i)}`;until=T.until;sub=T.inReview?'to rate it and prove it':'left in this lesson'}
+  else if(T.k==='prayer'){i=T.i;label=`${T.p.name} break until ${clock12(toMin(T.p.to))}${i>=0?' · next':''}`;until=T.until;sub=`of ${T.p.name} break left`}
+  else if(T.k==='before'||T.k==='break'){i=T.i;label=T.k==='before'?'School starts at 8:00':`Break · next lesson at ${clock12(slot(ti,i).start)}`;until=T.until;sub=T.k==='before'?'until 8:00':'until the next lesson'}
+  if(T.k==='prayer'&&(i==null||i<0)&&act<0)return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${WEEK.names[ti]} · ${T.p.note}</span><h2>${T.p.name} break until ${clock12(toMin(T.p.to))}</h2><p class="muted" style="margin:0">${doneN} of ${n} lessons ticked off. After ${T.p.name}, catch up on anything unfinished until 3:00.</p>${pips(ti,-1)}</div><div class="left" data-until="${T.until}">--<small>of ${T.p.name} break left</small></div></section>`;
+  if(i==null||i<0){
+    const left=n-doneN;
+    return `<section class="now" style="--sc:var(--accent)"><div><span class="muted">${WEEK.names[ti]}</span><h2>${T.k==='catchup'&&left?'Catch-up time until 3:00':'School\'s done for today'}</h2><p class="muted" style="margin:0">${doneN} of ${n} lessons ticked off.${left?' Open This week to finish the rest.':' Well done.'}</p>${pips(ti,-1)}</div></section>`;
   }
-  const b=blockInfo(ti,i),sc=b.s==='test'?'test':b.s,left=day.filter((x,k)=>F.est[k]&&!F.est[k].actual||k===F.cur).length;
-  const late=now>atMin(DAYEND);
-  const finTxt=F.finish?(late?`It's past 3:30 and ${left} lesson${left===1?' is':'s are'} left. Finish ${left===1?'it':'them'} now, or after Asr.`:`${left} lesson${left===1?'':'s'} left · finishing about ${ampm(F.finish)}${F.finish>atMin(DAYEND)?', after 3:30: keep breaks to time':''}`):'';
+  const b=blockInfo(ti,i),sc=b.s==='test'?'test':b.s;
   return `<section class="now" style="--sc:var(--c-${sc})"><div><span class="muted">${label}</span>
     <h2><span class="subj">${sname(b.s)}</span> · ${esc(b.t)}</h2>
-    <p class="muted" style="margin:0 0 4px">Lesson ${i+1} of ${n} · ${lessonDur(ti,i)} min${b.type==='test'?'':` with a ${midBreak(lessonDur(ti,i))}-min break in the middle, then a 5-min review`}</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn primary" data-open="${ti}_${i}">${b.type==='test'?'Go to tests':F.cur>=0?'Open lesson':'Open and start'}</button></div>
-    <p class="muted" style="margin:10px 0 0;font-size:.88rem">${finTxt}</p>
+    <p class="muted" style="margin:0 0 4px">Lesson ${i+1} of ${n} · ${slotTxt(ti,i)}${b.type==='test'?'':` · ${midBreak(lessonDur(ti,i))}-min break in the middle, then a 5-min review`}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn primary" data-open="${ti}_${i}">${b.type==='test'?'Go to tests':'Open lesson'}</button></div>
     ${pips(ti,i)}</div>
     ${until?`<div class="left" data-until="${until}">--<small>${sub}</small></div>`:since?`<div class="left over" data-since="${since}">--<small>${sub}</small></div>`:''}</section>`;
 }
 const ampm=ms=>hhmm(ms)+(new Date(ms).getHours()<12?' am':' pm');
 /* today's estimated start times, recalculated from what has actually happened */
-function startLabel(ti,i,F){const e=F&&F.est[i];if(isDone(ti,i)&&!(e&&e.actual))return '';if(!e)return '';return (e.actual?'':'~')+hhmm(e.s)}
-function curIdx(ti){if(ti<0)return -1;const F=dayFlow(ti);return F.cur>=0?F.cur:F.next}
-function pips(ti,nb){const F=dayFlow(ti);return `<div class="pips" aria-label="Today's lessons">${WEEK.days[ti].map((x,k)=>`<span class="${isDone(ti,k)||F.ph[k].p==='after'?'d':''} ${k===nb?'n':''}" title="Lesson ${k+1}: ${esc(sname(blockInfo(ti,k).s))}"></span>`).join('')}</div>`}
+function startLabel(ti,i){return clock12(slot(ti,i).start)}
+function curIdx(ti){if(ti<0)return -1;const day=WEEK.days[ti];const act=day.findIndex((x,k)=>ACTIVE.includes(phaseOf(ti,k).p));if(act>=0)return act;const T=ttNow(ti);return T.i}
+function pips(ti,nb){return `<div class="pips" aria-label="Today's lessons">${WEEK.days[ti].map((x,k)=>`<span class="${isDone(ti,k)||phaseOf(ti,k).p==='after'?'d':''} ${k===nb?'n':''}" title="Lesson ${k+1}: ${esc(sname(blockInfo(ti,k).s))}"></span>`).join('')}</div>`}
 function vDashboard(){
-  const ti=todayIdx(),nb=curIdx(ti),F=ti>=0?dayFlow(ti):null;
+  const ti=todayIdx(),nb=curIdx(ti),T=ti>=0?ttNow(ti):null;
   let done=0,total=0,fullDays=0;
   WEEK.days.forEach((day,d)=>{let all=true;day.forEach((b,i)=>{total++;if(isDone(d,i))done++;else all=false});if(all)fullDays++});
   const hs=SORDER.map(health).filter(h=>h!=null);const overall=hs.length?Math.round(hs.reduce((a,b)=>a+b,0)/hs.length):null;
   let today='';
-  if(ti>=0)today=WEEK.days[ti].map((x,i)=>{const b=blockInfo(ti,i);const dn=isDone(ti,i),now=i===nb;return `<button class="row linkbtn" data-open="${ti}_${i}" style="width:100%;${now?'color:var(--accent);font-weight:700':''}"><span class="mono muted" style="width:44px;font-size:.82rem">${startLabel(ti,i,F)}</span><span class="dot" style="background:var(--c-${b.s==='test'?'test':b.s})"></span><span style="flex:1;min-width:0">${esc(b.t)}</span>${dn?`<span class="pill p-good">${ico('check','width="12" height="12"')}Done</span>`:now?`<span class="pill p-acc">${F.cur===i?'Now':'Next'}</span>`:''}</button>`}).join('')+`<p class="muted" style="font-size:.84rem;margin:8px 0 0">Times with ~ are estimates. They move with you: each lesson starts when you press Start. Dhuhr and lunch come after lesson 4.</p>`;
+  if(ti>=0)today=WEEK.days[ti].map((x,i)=>{const b=blockInfo(ti,i);const dn=isDone(ti,i),now=i===nb;return `<button class="row linkbtn" data-open="${ti}_${i}" style="width:100%;${now?'color:var(--accent);font-weight:700':''}"><span class="mono muted" style="width:44px;font-size:.82rem">${startLabel(ti,i)}</span><span class="dot" style="background:var(--c-${b.s==='test'?'test':b.s})"></span><span style="flex:1;min-width:0">${esc(b.t)}</span>${dn?`<span class="pill p-good">${ico('check','width="12" height="12"')}Done</span>`:now?`<span class="pill p-acc">${T&&T.k==='lesson'&&T.i===i?'Now':'Next'}</span>`:''}</button>`}).join('')+`<p class="muted" style="font-size:.84rem;margin:8px 0 0">School runs 8:00 to 3:00. Dhuhr break 11:35–12:05, Asr break 2:05–2:35. After 2:35: catch up on anything unfinished.</p>`;
   else today=`<div class="empty">No lessons today. ${WEEK.label} runs ${WEEK.range}.</div>`;
   const rows=SORDER.map(s=>{const h=health(s),last=subjTests(s)[0];return `<button class="row linkbtn" data-go="${s}" style="width:100%"><span style="width:112px;flex:none;font-weight:700;display:flex;align-items:center;gap:8px"><span class="dot" style="background:var(--c-${s})"></span>${sname(s)}</span><span class="bar"><i style="width:${h??0}%;background:${hColor(h)}"></i></span><span class="mono" style="width:30px;text-align:right;font-weight:500">${h??'–'}</span><span class="mono muted" style="width:44px;text-align:right;font-size:.8rem" title="Last test score">${last?last.pct+'%':'–'}</span></button>`}).join('');
   const alerts=buildAlerts();
@@ -655,41 +713,41 @@ function vDashboard(){
 }
 function buildAlerts(){
   const a=[];
-  for(const t of Object.values(S.tests)){if(t.week===WEEK.id&&t.pct!=null&&t.pct<70)a.push({k:'bad',t:`Sharpening lesson needed: ${SUBJ[t.subject].name} scored ${Math.round(t.pct)}%. Do it after 3:30pm on a weekday (Friday afternoon or early next week), then retest next Friday.`})}
+  for(const t of Object.values(S.tests)){if(t.week===WEEK.id&&t.pct!=null&&t.pct<70)a.push({k:'bad',t:`Sharpening lesson needed: ${SUBJ[t.subject].name} scored ${Math.round(t.pct)}%. Do it after 3:00pm on a weekday (Friday afternoon or early next week), then retest next Friday.`})}
   for(const t of Object.values(S.tests)){if(t.oneToOne)a.push({k:'bad',t:`One-to-one session with Claude needed for ${SUBJ[t.subject].name}: the same point failed twice.`})}
   WEEK.days.forEach((day,d)=>day.forEach((b,i)=>{const st=blockState(d,i);if(b.prove&&(st.done||st.reviewed)&&!st.proved)a.push({k:'warn',t:`Prove it still to do: ${SUBJ[b.s].name}, ${esc(b.t)}.`})}));
-  if(todayIdx()===4)a.push({k:'info',t:'Friday is test day. Start with the tests from 7:30, in order.'});
+  if(todayIdx()===4)a.push({k:'info',t:'Friday is test day. Tests start at 8:00.'});
   return a.slice(0,8);
 }
 
 /* ---------- week ---------- */
 function vWeek(){
-  const ti=todayIdx(),nb=curIdx(ti),F=ti>=0?dayFlow(ti):null;
-  let h=`<div class="h"></div>${WEEK.days[0].map((t,i)=>(i===DHUHR_AFTER+1?'<div class="h"></div>':'')+`<div class="h">Lesson ${i+1}</div>`).join('')}`;
+  const ti=todayIdx(),nb=curIdx(ti),T=ti>=0?ttNow(ti):null;
+  let h=`<div class="h"></div>${WEEK.days[0].map((t,i)=>`<div class="h">${clock12(slot(0,i).start)}</div>`+(prayerAfter(i)?'<div class="h"></div>':'')).join('')}`;
   WEEK.days.forEach((day,d)=>{
-    h+=`<div class="d ${d===ti?'today':''}">${WEEK.short[d]}<small>${WEEK.dates[d].slice(8)} Oct</small></div>`;
-    day.forEach((b,i)=>{if(i===DHUHR_AFTER+1)h+=`<div class="gap">${d===0?'Dhuhr':''}</div>`;h+=cell(blockInfo(d,i),d,i,d===ti&&i===nb)});
+    h+=`<div class="d ${d===ti?'today':''}">${WEEK.short[d]}<small>${+WEEK.dates[d].slice(8)} ${MONTHS[+WEEK.dates[d].slice(5,7)-1]}</small></div>`;
+    day.forEach((b,i)=>{h+=cell(blockInfo(d,i),d,i,d===ti&&i===nb);const p=prayerAfter(i);if(p)h+=`<div class="gap">${d===0?p.name:''}</div>`});
   });
   if(S.day==null)S.day=ti>=0?ti:0;
   const pills=WEEK.short.map((n,d)=>`<button class="${d===S.day?'on':''}" data-day="${d}" aria-pressed="${d===S.day}">${n} ${WEEK.dates[d].slice(8)}</button>`).join('');
-  const dl=WEEK.days[S.day].map((x,i)=>{const b=blockInfo(S.day,i);return `<div><div class="when">Lesson ${i+1} · ${lessonDur(S.day,i)} min${S.day===ti&&startLabel(ti,i,F)?' · '+startLabel(ti,i,F):''}${i===DHUHR_AFTER+1?' · after Dhuhr and lunch':''}</div>${cell(b,S.day,i,S.day===ti&&i===nb)}</div>`}).join('');
-  return `<div class="view"><div class="head"><div><h1>This week</h1><p class="meta">${WEEK.label}, ${WEEK.range} · 7:30 to 3:30 · lessons go in order and start when you press Start · tap one to open it</p></div></div>
+  const dl=WEEK.days[S.day].map((x,i)=>{const b=blockInfo(S.day,i),p=prayerAfter(i);return `<div><div class="when">${slotTxt(S.day,i)} · Lesson ${i+1}</div>${cell(b,S.day,i,S.day===ti&&i===nb)}${p?`<div class="when" style="margin-top:10px">${clock12(toMin(p.from))}–${clock12(toMin(p.to))} · ${p.name} break</div>`:''}</div>`}).join('');
+  return `<div class="view"><div class="head"><div><h1>This week</h1><p class="meta">${WEEK.label}, ${WEEK.range} · 8:00 to 3:00 · tap a lesson to open it</p></div></div>
    <div class="tt-wrap"><div class="tt">${h}</div></div>
    <div class="daypills">${pills}</div><div class="daylist">${dl}</div>
    <div id="detail">${S.sel?detail(...S.sel):''}</div></div>`;
 }
 function cell(b,d,i,isnow){
   const sel=S.sel&&S.sel[0]===d&&S.sel[1]===i;
-  return `<button class="cell ${isDone(d,i)?'done':''} ${sel?'sel':''} ${isnow?'isnow':''}" style="--sc:var(--c-${b.s==='test'?'test':b.s})" data-cell="${d}_${i}" aria-label="${esc(WEEK.names[d]+' lesson '+(i+1)+', '+sname(b.s)+': '+b.t+(isDone(d,i)?', done':''))}"><span class="s">${sname(b.s)} · ${lessonDur(d,i)}m${isnow?' · now':''}</span><span class="t">${esc(b.t)}</span>${b.prove?'<span class="tag">Prove it</span>':b.topup?'<span class="tag">Top-up</span>':''}<span class="ok">${ico('check','width="12" height="12"')}</span></button>`;
+  return `<button class="cell ${isDone(d,i)?'done':''} ${sel?'sel':''} ${isnow?'isnow':''}" style="--sc:var(--c-${b.s==='test'?'test':b.s})" data-cell="${d}_${i}" aria-label="${esc(WEEK.names[d]+' '+clock12(slot(d,i).start)+', '+sname(b.s)+': '+b.t+(isDone(d,i)?', done':''))}"><span class="s">${sname(b.s)}${isnow?' · now':''}</span><span class="t">${esc(b.t)}</span>${b.prove?'<span class="tag">Prove it</span>':b.topup?'<span class="tag">Top-up</span>':''}<span class="ok">${ico('check','width="12" height="12"')}</span></button>`;
 }
 function detail(d,i){
   const b=blockInfo(d,i),st=blockState(d,i),sc=b.s==='test'?'test':b.s;
-  if(b.type==='test'||!SUBJ[b.s])return `<section class="panel detail" style="--sc:var(--c-${sc})"><div><h2>${esc(b.t)}</h2><p class="meta">${WEEK.names[d]} · Lesson ${i+1}</p></div><p style="margin:0">${esc(b.d)}</p><div><button class="btn primary" data-go="tests">Go to tests</button></div></section>`;
+  if(b.type==='test'||!SUBJ[b.s])return `<section class="panel detail" style="--sc:var(--c-${sc})"><div><h2>${esc(b.t)}</h2><p class="meta">${WEEK.names[d]} · ${slotTxt(d,i)}</p></div><p style="margin:0">${esc(b.d)}</p><div><button class="btn primary" data-go="tests">Go to tests</button></div></section>`;
   const sv=st.steps||[];const plan=stepsFor(b,d,i);const P=phaseOf(d,i),dur=P.dur,mb=midBreak(dur),H=halfAt(dur);
-  const running=['work','mid','over'].includes(P.p);const ph=P.p==='work'||P.p==='over'?phaseAt(plan,learnMin(dur,(Date.now()-P.start)/MS)):-1;
+  const running=['work','mid','over'].includes(P.p);
   const C=lessonClock(d,i);
   const lnk=l=>`<a href="${esc(l[1])}" target="_blank" rel="noopener">${ico('ext')}${esc(l[0])}</a>`;
-  const steps=plan.map((p,k)=>`<div class="step ${k===ph?'cur':''}" data-phase="${k}"><label><input type="checkbox" data-step="${k}" ${sv[k]?'checked':''}><span><b>${esc(p.t)}</b> <span class="muted">· ${p.min} min</span></span></label>${p.note?`<p class="stepnote">${esc(p.note)}</p>`:''}${p.links&&p.links.length?`<div class="links">${p.links.map(lnk).join('')}</div>`:''}</div>`).join('');
+  const steps=plan.map((p,k)=>`<div class="step"><label><input type="checkbox" data-step="${k}" ${sv[k]?'checked':''}><span><b>${esc(p.t)}</b></span></label>${p.note?`<p class="stepnote">${esc(p.note)}</p>`:''}${p.links&&p.links.length?`<div class="links">${p.links.map(lnk).join('')}</div>`:''}</div>`).join('');
   const conv=st.conv||[];
   const gptUrl='https://chatgpt.com/?q='+encodeURIComponent(proveBrief(b));
   const prove=`<div class="prove"><div><h3>Prove it in ChatGPT</h3><p style="margin:4px 0 0;font-size:.92rem">Tap the button. ChatGPT opens already set up as your teacher for this lesson. Explain what you learned like you're the teacher, or ask it anything you're stuck on. Tap the microphone to speak instead of typing. Then come back here and tap <b>I've proved it</b>.${b.prove?' This lesson\'s Prove it is one Mama checks.':''}</p></div>
@@ -700,9 +758,9 @@ function detail(d,i){
     :running?`<button class="btn primary" data-bend="${d}_${i}">End lesson</button>`
     :P.p==='review'?`<button class="btn primary" data-brev="${d}_${i}">Finish review</button><button class="btn ghost" data-bstop="${d}_${i}">Restart timer</button>`
     :`<button class="btn ghost" data-bstop="${d}_${i}">Restart timer</button>`;
-  const gapTxt=gapAfter(i)===DHUHR?'Dhuhr and lunch (45 min)':'your 10-minute break';
+  const gapTxt=prayerAfter(i)?`the ${prayerAfter(i).name} break`:(i===WEEK.days[d].length-1?'catch-up time':'your 10-minute break');
   return `<section class="panel detail" style="--sc:var(--c-${sc})">
-    <div class="top"><div style="min-width:0;flex:1"><h2><span style="color:var(--sc)">${SUBJ[b.s].name}</span> · ${esc(b.t)}</h2><p class="meta">${WEEK.names[d]} · Lesson ${i+1} · ${dur} min · spec ${b.spec.map(esc).join(', ')}</p><p style="margin:8px 0 0">${esc(b.d)}</p>
+    <div class="top"><div style="min-width:0;flex:1"><h2><span style="color:var(--sc)">${SUBJ[b.s].name}</span> · ${esc(b.t)}</h2><p class="meta">${WEEK.names[d]} · ${slotTxt(d,i)} · ${dur} min · spec ${b.spec.map(esc).join(', ')}</p><p style="margin:8px 0 0">${esc(b.d)}</p>
       <p class="muted" style="margin:8px 0 0;font-size:.88rem">${P.start?`Started ${ampm(P.start)}. `:''}The clock runs from when you press Start. At ${H} minutes it gives you a ${mb}-min break, then you carry on. After the lesson: a 5-minute review, then ${gapTxt}.</p></div>
       <div class="timer"><div style="text-align:right"><span class="clock mono ${C.cls||''}" data-bclock="${d}_${i}" data-k="${C.k}" role="timer">${C.txt}</span><div class="muted" data-bcap style="font-size:.8rem;margin-top:4px">${C.cap}</div></div>${btns}</div></div>
     ${P.p==='mid'?`<div class="midnote" role="status">${mb}-minute break. Stand up, stretch, drink some water. The clock tells you when to carry on.</div>`:''}
@@ -748,7 +806,7 @@ const msUnlocked=s=>{const u=unlocksAt(s);return u!=null&&Date.now()>=u};
 const hhmm=ms=>{const d=new Date(ms);return `${d.getHours()%12||12}:${pad(d.getMinutes())}`};
 const fmt=n=>`${pad(Math.floor(n/60))}:${pad(n%60)}`;
 function vTests(){
-  const order=WEEK.days[4].map((b,i)=>b.type==='test'?[`Lesson ${i+1}`,b.tests]:null).filter(Boolean);
+  const order=WEEK.days[4].map((b,i)=>b.type==='test'?[`${slotTxt(4,i)}`,b.tests.filter(s=>TESTS[s])]:null).filter(Boolean);
   return `<div class="view"><div class="head"><div><h1>Tests</h1><p class="meta">Friday 30 October · ${WEEK.label}</p></div></div>
    <section class="panel"><h2>How to do a test</h2><ol class="howto">${HOWTO.map(x=>`<li>${x}</li>`).join('')}</ol></section>
    ${order.map(([lab,ss])=>`<h2 class="blockhead">${lab}</h2>${ss.map(testCard).join('')}`).join('')}
@@ -903,7 +961,7 @@ function tick(){
   document.querySelectorAll('[data-until]').forEach(el=>{const ms=+el.dataset.until-Date.now();const min=Math.max(0,Math.ceil(ms/60000));el.firstChild.nodeValue=min>=60?`${Math.floor(min/60)}h ${min%60}m`:`${min} min`});
   document.querySelectorAll('[data-since]').forEach(el=>{const min=Math.max(0,Math.floor((Date.now()-el.dataset.since)/60000));el.firstChild.nodeValue=`+${min} min`});
   let flip=false;
-  document.querySelectorAll('[data-bclock]').forEach(el=>{const [d,i]=el.dataset.bclock.split('_').map(Number);const C=lessonClock(d,i);if(C.k!==el.dataset.k){flip=true;return}el.textContent=C.txt;el.className='clock mono '+(C.cls||'');const cap=el.parentNode.querySelector('[data-bcap]');if(cap)cap.textContent=C.cap;const P=phaseOf(d,i);if(P.p==='work'||P.p==='over'){const ph=phaseAt(stepsFor(blockInfo(d,i),d,i),learnMin(P.dur,(Date.now()-P.start)/MS));document.querySelectorAll('.step').forEach(l=>l.classList.toggle('cur',+l.dataset.phase===ph))}});
+  document.querySelectorAll('[data-bclock]').forEach(el=>{const [d,i]=el.dataset.bclock.split('_').map(Number);const C=lessonClock(d,i);if(C.k!==el.dataset.k){flip=true;return}el.textContent=C.txt;el.className='clock mono '+(C.cls||'');const cap=el.parentNode.querySelector('[data-bcap]');if(cap)cap.textContent=C.cap});
   document.querySelectorAll('[data-clock]').forEach(el=>{const s=el.dataset.clock,rem=remaining(s);if(rem==null)return;el.textContent=fmt(rem);if(rem===0&&!el.classList.contains('over'))flip=true});
   document.querySelectorAll('[data-lock]').forEach(el=>{if(msUnlocked(el.dataset.lock))flip=true});
   return flip;
