@@ -25,3 +25,15 @@ Don't reuse these.
 - Business, November 2023 Paper 1: Q3(b)
 - English, June 2018 Paper 1: Q4 (H is for Hawk)
 - Computer Science: none (school teacher's test)
+
+## Week 3 (9–13 Nov 2026)
+- Maths, PMT Bounds (H): Q2, Q3, Q4, Q9, Q15, Q17
+- Physics, PMT Change of State (separate only) Set-A2: Q1(a), Q1(b), Q2(a)(ii), Q2(b)(i), Q2(b)(ii), Q3(a), Q3(b)(iii), Q5(a), Q5(b)(ii)
+- Biology, PMT Coordination and Response 2 (Set-A2): Q2(a), Q2(b)
+- Biology, PMT Coordination and Response 1 (Set-A2): Q3(a)–(c), Q4(b), Q5(a), Q5(b)(ii)
+- Business, November 2023 Paper 2: Q1(c), Q4(b)
+- Business, November 2023 Paper 1: Q2(c)
+- Business, June 2024 Paper 2: Q3(a)
+- English, June 2019 Paper 1: Section B Q6 / Q7 (writing)
+- Chemistry: none (school Chapter 5 quiz this week)
+- Computer Science: none (school end-of-term exam Tue 17 Nov)
