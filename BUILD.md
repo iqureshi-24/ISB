@@ -1,6 +1,6 @@
 # How to build a new ISB week
 
-ISB (International School of Bo) is a one-page website (`index.html`, served by GitHub Pages at https://iqureshi-24.github.io/isb/) that runs the home-school week for Eesa (14, Year 10, out of school in the UK; his school is in the UAE). Ishaaq (growqureshi@gmail.com) runs it. Eesa's progress is saved in his iPad's browser, keyed by the week id, so **never change the saving code**; only replace the week.
+ISB (International School of Bo) is a one-page website (`index.html`, served by GitHub Pages at https://iqureshi-24.github.io/ISB/ (capital letters matter)) that runs the home-school week for Eesa (14, Year 10, out of school in the UK; his school is in the UAE). Ishaaq (growqureshi@gmail.com) runs it. Eesa's progress is saved in his iPad's browser, keyed by the week id, so **never change the saving code**; only replace the week.
 
 Each week the school sends a "Weekly Scheme" PDF. It gets saved into the Google Drive folder "ISB weekly schemes" (id `1nZBfhNF6RhLxzaXIxiR1mUzXFCOa19xL`). Your job is to turn it into next week's lessons and Friday tests.
 
