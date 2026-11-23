@@ -37,3 +37,13 @@ Don't reuse these.
 - English, June 2019 Paper 1: Section B Q6 / Q7 (writing)
 - Chemistry: none (school Chapter 5 quiz this week)
 - Computer Science: none (school end-of-term exam Tue 17 Nov)
+
+## Week 4 (23–27 Nov 2026; built from the 16–19 Nov scheme)
+- Maths, PMT Simultaneous Equations (H): Q15, Q16, Q27
+- Maths, PMT Bounds (H): Q8, Q13, Q16, Q18
+- Physics, PMT Density and Pressure 2 (Set-A1): Q1(a)(i), Q1(a)(ii), Q1(b), Q1(c)(i), Q1(c)(ii), Q2(b)(i), Q2(b)(ii)
+- Physics, PMT Density and Pressure (Set-A2): Q4(a), Q4(b)(i), Q4(b)(ii), Q4(c)(i)–(iii)
+- Chemistry, PMT ...Calculations 1 (Set-A1): Q1(c), Q4(a)(i), Q4(a)(ii), Q4(a)(iii)
+- Chemistry, PMT ...Calculations (Set-A2): Q5(b)
+- Note: the three PMT chemistry calculation PDFs are now nearly used up; future chemistry tests need other sources.
+- Biology, Business, English, Computer Science: none (school end-of-term exams that week)
